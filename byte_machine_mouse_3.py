@@ -1,24 +1,33 @@
 # coding: utf8
+'''
+ByteMachine
+Состояние мыши.
+'''
+from __future__ import annotations
 import unittest
-from file_dump_graphics import *
+import byte_machine_graphics_3 as bmg
 
-
-#----------------------------------------------------------------
-#  Состояние мыши
-#----------------------------------------------------------------
 
 class Mouse(object):
+    '''
+    Состояние мыши.
+    '''
 
     def __init__(self):
-        '''Конструктор без параметров.'''
-        self.pos = Point()
+        '''
+        Конструктор без параметров.
+        '''
+        self.pos = bmg.Point()
         self.isLeftBtnDown = False
         self.isMiddleBtnDown = False
         self.isRightBtnDown = False
 
-    def init(self, pos, isLeftBtnDown, isMiddleBtnDown, isRightBtnDown):
-        '''Функция инициализации.'''
-        assert isinstance(pos, Point)
+    def init(self, pos: bmg.Point, isLeftBtnDown: bool, isMiddleBtnDown: bool,
+             isRightBtnDown: bool) -> None:
+        '''
+        Функция инициализации.
+        '''
+        assert isinstance(pos, bmg.Point)
         assert isinstance(isLeftBtnDown, bool)
         assert isinstance(isMiddleBtnDown, bool)
         assert isinstance(isRightBtnDown, bool)
@@ -28,9 +37,12 @@ class Mouse(object):
         self.isRightBtnDown = isRightBtnDown
 
     @staticmethod
-    def create(pos, isLeftBtnDown, isMiddleBtnDown, isRightBtnDown):
-        '''Функция создания.'''
-        assert isinstance(pos, Point)
+    def create(pos: bmg.Point, isLeftBtnDown: bool, isMiddleBtnDown: bool,
+               isRightBtnDown: bool) -> Mouse:
+        '''
+        Функция создания.
+        '''
+        assert isinstance(pos, bmg.Point)
         assert isinstance(isLeftBtnDown, bool)
         assert isinstance(isMiddleBtnDown, bool)
         assert isinstance(isRightBtnDown, bool)
@@ -38,76 +50,89 @@ class Mouse(object):
         m.init(pos, isLeftBtnDown, isMiddleBtnDown, isRightBtnDown)
         return m
 
-    def check_byte_list(self, byte_list):
-        '''Проверка корректности списка байтов для инициализации.'''
-        if not check_byte_list(byte_list):
-            return False
-        if len(byte_list) != 11:
-            return False
-        return True
+    def check_byte_array(self, byte_array: bytearray) -> bool:
+        '''
+        Проверка корректности списка байтов для инициализации.
+        '''
+        # assert isinstance(byte_array, bytearray)
+        return len(byte_array) == self.get_byte_array_len()
 
-    def from_byte_list(self, byte_list):
-        '''Инициализация из список байтов.'''
-        assert self.check_byte_list(byte_list)
-        blp = byte_list[:8]
-        self.pos.from_byte_list(blp)
-        self.isLeftBtnDown = byte_list_to_bool([byte_list[8]])
-        self.isMiddleBtnDown = byte_list_to_bool([byte_list[9]])
-        self.isRightBtnDown = byte_list_to_bool([byte_list[10]])
+    def from_byte_array(self, byte_array: bytearray) -> None:
+        '''
+        Инициализация из массива байтов.
+        '''
+        assert self.check_byte_array(byte_array)
+        bap = byte_array[:8]
+        self.pos.from_byte_array(bap)
+        self.isLeftBtnDown = bmg.bmc.byte_array_to_bool([byte_array[8]])
+        self.isMiddleBtnDown = bmg.bmc.byte_array_to_bool([byte_array[9]])
+        self.isRightBtnDown = bmg.bmc.byte_array_to_bool([byte_array[10]])
 
-    def to_byte_list(self):
-        '''Получение в виде списка байтов.'''
-        bl = []
-        bl += self.pos.to_byte_list()
-        bl += bool_to_byte_list(self.isLeftBtnDown)
-        bl += bool_to_byte_list(self.isMiddleBtnDown)
-        bl += bool_to_byte_list(self.isRightBtnDown)
-        return bl
+    def to_byte_array(self) -> bytearray:
+        '''
+        Получение в виде массива байтов.
+        '''
+        ba = bytearray()
+        ba += self.pos.to_byte_array()
+        ba += bmg.bmc.bool_to_byte_array(self.isLeftBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(self.isMiddleBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(self.isRightBtnDown)
+        return ba
 
-    def get_byte_list_len(self):
-        '''Получение длины списка байтов.'''
+    def get_byte_array_len(self) -> int:
+        '''
+        Получение длины массива байтов.
+        '''
         return 11
 
-    def __eq__(self, other):
-        '''Оператор ==.'''
+    def __eq__(self, other: Mouse) -> bool:
+        '''
+        Оператор ==.
+        '''
         isPosEq = (self.pos == other.pos)
         isLeftBtnDownEq = (self.isLeftBtnDown == other.isLeftBtnDown)
         isMiddleBtnDownEq = (self.isMiddleBtnDown == other.isMiddleBtnDown)
         isRightBtnDownEq = (self.isRightBtnDown == other.isRightBtnDown)
-        return isPosEq and isLeftBtnDownEq and isMiddleBtnDownEq and isRightBtnDownEq
+        return isPosEq and isLeftBtnDownEq and isMiddleBtnDownEq \
+            and isRightBtnDownEq
 
-    def __ne__(self, other):
-        '''Оператор !=.'''
-        return not self == other
+    def __ne__(self, other: Mouse) -> bool:
+        '''
+        Оператор !=.
+        '''
+        return not (self == other)
 
-    def __str__(self):
-        '''Получение строкового представления.'''
-        return '{}, {}, {}, {}'.format(self.pos, self.isLeftBtnDown, self.isMiddleBtnDown, self.isRightBtnDown)
+    def __str__(self) -> str:
+        '''
+        Получение строкового представления.
+        '''
+        return '{}, {}, {}, {}'.format(self.pos, self.isLeftBtnDown,
+                                       self.isMiddleBtnDown,
+                                       self.isRightBtnDown)
 
-
-#----------------------------------------------------------------
-# Тестирование класса Mouse
-#----------------------------------------------------------------
 
 class TestMouse(unittest.TestCase):
+    '''
+    Тестирование класса Mouse.
+    '''
 
     def test_constructor(self):
         m = Mouse()
-        self.assertEqual(m.pos, Point())
+        self.assertEqual(m.pos, bmg.Point())
         self.assertEqual(m.isLeftBtnDown, False)
         self.assertEqual(m.isMiddleBtnDown, False)
         self.assertEqual(m.isRightBtnDown, False)
 
     def test_init(self):
         m = Mouse()
-        m.init(Point(), True, False, False)
-        self.assertEqual(m.pos, Point())
+        m.init(bmg.Point(), True, False, False)
+        self.assertEqual(m.pos, bmg.Point())
         self.assertEqual(m.isLeftBtnDown, True)
         self.assertEqual(m.isMiddleBtnDown, False)
         self.assertEqual(m.isRightBtnDown, False)
 
     def test_create(self):
-        pos = Point.create(110, 110)
+        pos = bmg.Point.create(110, 110)
         isLeftBtnDown = False
         isMiddleBtnDown = True
         isRightBtnDown = False
@@ -117,23 +142,23 @@ class TestMouse(unittest.TestCase):
         self.assertEqual(m.isMiddleBtnDown, isMiddleBtnDown)
         self.assertEqual(m.isRightBtnDown, isRightBtnDown)
 
-    def test_to_byte_list(self):
+    def test_to_byte_array(self):
         m = Mouse()
-        bl = m.to_byte_list()
-        self.assertEqual(m.get_byte_list_len(), len(bl))
+        ba = m.to_byte_array()
+        self.assertEqual(m.get_byte_array_len(), len(ba))
 
-    def test_from_byte_list(self):
-        pos = Point.create(110, 110)
+    def test_from_byte_array(self):
+        pos = bmg.Point.create(110, 110)
         isLeftBtnDown = False
         isMiddleBtnDown = True
         isRightBtnDown = False
-        bl = []
-        bl += pos.to_byte_list()
-        bl += bool_to_byte_list(isLeftBtnDown)
-        bl += bool_to_byte_list(isMiddleBtnDown)
-        bl += bool_to_byte_list(isRightBtnDown)
+        ba = bytearray()
+        ba += pos.to_byte_array()
+        ba += bmg.bmc.bool_to_byte_array(isLeftBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(isMiddleBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(isRightBtnDown)
         m = Mouse()
-        m.from_byte_list(bl)
+        m.from_byte_array(ba)
         self.assertEqual(m.pos, pos)
         self.assertEqual(m.isLeftBtnDown, isLeftBtnDown)
         self.assertEqual(m.isMiddleBtnDown, isMiddleBtnDown)
@@ -141,25 +166,22 @@ class TestMouse(unittest.TestCase):
 
     def test_get_byte_list_len(self):
         m = Mouse()
-        self.assertEqual(m.get_byte_list_len(), 11)
+        self.assertEqual(m.get_byte_array_len(), 11)
 
     def test_equal(self):
         m1 = Mouse()
         self.assertTrue(m1 == m1)
-        m2 = Mouse.create(Point(), False, True, False)
+        m2 = Mouse.create(bmg.Point(), False, True, False)
         self.assertFalse(m1 == m2)
 
     def test_not_equal(self):
-        pos = Point.create(100, 100)
+        pos = bmg.Point.create(100, 100)
         m1 = Mouse.create(pos, False, False, True)
         m2 = Mouse()
         self.assertTrue(m1 != m2)
         self.assertFalse(m1 != m1)
 
 
-#----------------------------------------------------------------
-# Вызывается при загрузке модуля главным
-#----------------------------------------------------------------
-
+# Вызывается при загрузке модуля главным.
 if __name__ == '__main__':
     unittest.main()

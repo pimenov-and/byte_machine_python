@@ -1,61 +1,89 @@
 # coding: utf8
+'''
+ByteMachine
+Состояние цифровой клавиатуры.
+'''
+from __future__ import annotations
 import unittest
 
-#----------------------------------------------------------------
-# Состояние клавиатуры (только цифровые клавиши)
-#----------------------------------------------------------------
 
 class DigitKeyboard(object):
+    '''
+    Состояние цифровой клавиатуры.
+    '''
 
     def __init__(self):
-        '''Конструктор без параметров.'''
-        self.keys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        '''
+        Конструктор без параметров.
+        '''
+        self.keys = bytearray([0] * 10)
 
-    def init(self, keys):
-        '''Функция инициализации.'''
+    def init(self, keys: bytearray()) -> None:
+        '''
+        Функция инициализации.
+        '''
         assert DigitKeyboard.check_keys(keys)
         self.keys = keys
 
     @staticmethod
-    def create(keys):
-        '''Функция создания.'''
+    def create(keys: bytearray) -> DigitKeyboard:
+        '''
+        Функция создания.
+        '''
         assert DigitKeyboard.check_keys(keys)
         dk = DigitKeyboard()
         dk.init(keys)
         return dk
 
-    def check_byte_list(self, byte_list):
-        '''Проверка корректности списка байтов для инициализации.'''
-        return DigitKeyboard.check_keys(byte_list)
+    def check_byte_array(self, byte_array: bytearray) -> bool:
+        '''
+        Проверка корректности списка байтов для инициализации.
+        '''
+        return DigitKeyboard.check_keys(byte_array)
 
-    def to_byte_list(self):
-        '''Получение в виде списка байтов.'''
+    def to_byte_array(self) -> bytearray:
+        '''
+        Получение в виде массива байтов.
+        '''
         return self.keys
 
-    def from_byte_list(self, byte_list):
-        assert self.check_byte_list(byte_list)
-        self.keys = byte_list
+    def from_byte_array(self, byte_array: bytearray) -> None:
+        '''
+        Инициализация из массива байтов.
+        '''
+        assert self.check_byte_array(byte_array)
+        self.keys = byte_array
 
-    def get_byte_list_len(self):
-        '''Получение длины списка байтов.'''
+    def get_byte_array_len(self) -> int:
+        '''
+        Получение длины списка байтов.
+        '''
         return 10
 
-    def __eq__(self, other):
-        '''Оператор ==.'''
+    def __eq__(self, other: DigitKeyboard) -> bool:
+        '''
+        Оператор ==.
+        '''
         return self.keys == other.keys
 
-    def __ne__(self, other):
-        '''Оператор !=.'''
+    def __ne__(self, other: DigitKeyboard) -> bool:
+        '''
+        Оператор !=.
+        '''
         return not (self.keys == other.keys)
 
-    def __str__(self):
-        '''Получение строкового представления.'''
+    def __str__(self) -> str:
+        '''
+        Получение строкового представления.
+        '''
         return '{}'.format(self.keys)
 
     @staticmethod
-    def check_keys(keys):
-        '''Проверка кодов клавиш.'''
-        if not isinstance(keys, list):
+    def check_keys(keys: bytearray) -> bool:
+        '''
+        Проверка кодов клавиш.
+        '''
+        if not isinstance(keys, bytearray):
             return False
         if not all(b in [0, 1] for b in keys):
             return False
@@ -64,43 +92,42 @@ class DigitKeyboard(object):
         return True
 
 
-#----------------------------------------------------------------
-# Тестирование класса DigitKeyboard
-#----------------------------------------------------------------
-
-class TestDigitKeyboard(unittest.TestCase):
+class Test(unittest.TestCase):
+    '''
+    Класс для тестирования.
+    '''
 
     def test_constructor(self):
         dk = DigitKeyboard()
         self.assertEqual(len(dk.keys), 10)
-        self.assertEqual(dk.keys, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(dk.keys, bytearray([0] * 10))
 
     def test_init(self):
-        bl = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
         dk = DigitKeyboard()
-        dk.init(bl)
-        self.assertEqual(dk.keys, bl)
+        dk.init(ba)
+        self.assertEqual(dk.keys, ba)
 
     def test_create(self):
-        bl = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-        dk = DigitKeyboard.create(bl)
-        self.assertEqual(dk.keys, bl)
+        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        dk = DigitKeyboard.create(ba)
+        self.assertEqual(dk.keys, ba)
 
     def test_get_byte_list_len(self):
         dk = DigitKeyboard()
-        self.assertEqual(dk.get_byte_list_len(), 10)
+        self.assertEqual(dk.get_byte_array_len(), 10)
 
     def test_to_byte_list(self):
         dk = DigitKeyboard()
-        bl = dk.to_byte_list()
-        self.assertEqual(len(bl), 10)
-        self.assertEqual(bl, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        ba = dk.to_byte_array()
+        self.assertEqual(len(ba), 10)
+        self.assertEqual(ba, bytearray([0] * 10))
 
     def test_from_byte_list(self):
         dk = DigitKeyboard()
-        bl = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        dk.from_byte_list(bl)
-        self.assertEqual(dk.keys, bl)
+        ba = bytearray([0] * 10)
+        dk.from_byte_array(ba)
+        self.assertEqual(dk.keys, ba)
 
     def test_equal(self):
         dk1 = DigitKeyboard()
@@ -108,14 +135,11 @@ class TestDigitKeyboard(unittest.TestCase):
 
     def test_not_equal(self):
         dk1 = DigitKeyboard()
-        bl = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-        dk2 = DigitKeyboard.create(bl)
+        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        dk2 = DigitKeyboard.create(ba)
         self.assertTrue(dk1 != dk2)
 
 
-#----------------------------------------------------------------
-# Вызывается при загрузке модуля главным
-#----------------------------------------------------------------
-
+# Вызывается при загрузке модуля главным.
 if __name__ == '__main__':
     unittest.main()
