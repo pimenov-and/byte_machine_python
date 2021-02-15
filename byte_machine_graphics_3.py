@@ -1,8 +1,8 @@
 # coding: utf8
-'''
+"""
 ByteMachine
 Классы для графического вывода.
-'''
+"""
 from __future__ import annotations
 # from enum import Enum
 import math
@@ -12,23 +12,17 @@ import byte_machine_convert_3 as bmc
 
 
 class Color(object):
-    '''
-    Цвет.
-    '''
+    """Цвет."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.red = 0
         self.green = 0
         self.blue = 0
         self.alpha = 255
 
     def init(self, red: int, green: int, blue: int, alpha: int = 255) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(red, int)
         assert 0 <= red <= 255
         assert isinstance(green, int)
@@ -44,9 +38,7 @@ class Color(object):
 
     @staticmethod
     def create(red: int, green: int, blue: int, alpha: int = 255) -> Color:
-        '''
-        Функция создания с параметрами.
-        '''
+        """Функция создания с параметрами."""
         assert isinstance(red, int)
         assert 0 <= red <= 255
         assert isinstance(green, int)
@@ -62,341 +54,245 @@ class Color(object):
     # Основные цвета.
     @staticmethod
     def get_black() -> Color:
-        '''
-        Получение черного цвета.
-        '''
+        """Получение черного цвета."""
         return Color.create(0, 0, 0)
 
     @staticmethod
     def get_white() -> Color:
-        '''
-        Получение белого цвета.
-        '''
+        """Получение белого цвета."""
         return Color.create(255, 255, 255)
 
     @staticmethod
     def get_red() -> Color:
-        '''
-        Получение красного цвета.
-        '''
+        """Получение красного цвета."""
         return Color.create(255, 0, 0)
 
     @staticmethod
     def get_green() -> Color:
-        '''
-        Получение зеленого цвета.
-        '''
+        """Получение зеленого цвета."""
         return Color.create(0, 128, 0)
 
     @staticmethod
     def get_blue() -> Color:
-        '''
-        Получение синего цвета.
-        '''
+        """Получение синего цвета."""
         return Color.create(0, 0, 255)
 
     @staticmethod
     def get_gray() -> Color:
-        '''
-        Получение серого цвета.
-        '''
+        """Получение серого цвета."""
         return Color.create(128, 128, 128)
 
     @staticmethod
     def get_yellow() -> Color:
-        '''
-        Получение желтого цвета.
-        '''
+        """Получение желтого цвета."""
         return Color.create(255, 255, 0)
 
     @staticmethod
     def get_transparent() -> Color:
-        '''
-        Получение прозрачного цвета.
-        '''
+        """Получение прозрачного цвета."""
         return Color.create(0, 0, 0, 0)
 
     # Красные тона.
     @staticmethod
     def get_indian_red() -> Color:
-        '''
-        Получение цвета indian_red.
-        '''
+        """Получение цвета indian_red."""
         return Color.create(205, 92, 92)
 
     @staticmethod
     def get_light_coral() -> Color:
-        '''
-        Получение цвета light_coral.
-        '''
+        """Получение цвета light_coral."""
         return Color.create(240, 128, 128)
 
     @staticmethod
     def get_dark_salmon() -> Color:
-        '''
-        Получение цвета dark_salmon.
-        '''
+        """Получение цвета dark_salmon."""
         return Color.create(233, 150, 122)
 
     @staticmethod
     def get_light_salmon() -> Color:
-        '''
-        Получение цвета light_salmon.
-        '''
+        """Получение цвета light_salmon."""
         return Color.create(255, 160, 122)
 
     @staticmethod
     def get_crimson() -> Color:
-        '''
-        Получение малинового цвета.
-        '''
+        """Получение малинового цвета."""
         return Color.create(220, 20, 60)
 
     @staticmethod
     def get_fire_brick() -> Color:
-        '''
-        Получение кирпичного цвета.
-        '''
+        """Получение кирпичного цвета."""
         return Color.create(178, 34, 34)
 
     @staticmethod
     def get_dark_red() -> Color:
-        '''
-        Получение тёмно-красного цвета.
-        '''
+        """Получение тёмно-красного цвета."""
         return Color.create(139, 0, 0)
 
     # Розовые тона.
     @staticmethod
     def get_pink() -> Color:
-        '''
-        Получение розового цвета.
-        '''
+        """Получение розового цвета."""
         return Color.create(255, 192, 203)
 
     @staticmethod
     def get_light_pink() -> Color:
-        '''
-        Получение светло-розового цвета.
-        '''
+        """Получение светло-розового цвета."""
         return Color.create(255, 182, 193)
 
     @staticmethod
     def get_hot_pink() -> Color:
-        '''
-        Получение цвета HotPink.
-        '''
+        """Получение цвета HotPink."""
         return Color.create(255, 105, 180)
 
     @staticmethod
     def get_deep_pink() -> Color:
-        '''
-        Получение цвета DeepPink.
-        '''
+        """Получение цвета DeepPink."""
         return Color.create(255, 20, 147)
 
     @staticmethod
     def get_medium_violet_red() -> Color:
-        '''
-        Получение цвета MediumVioletRed.
-        '''
+        """Получение цвета MediumVioletRed."""
         return Color.create(199, 21, 133)
 
     @staticmethod
     def get_pale_violet_red() -> Color:
-        '''
-        Получение цвета PaleVioletRed.
-        '''
+        """Получение цвета PaleVioletRed."""
         return Color.create(219, 112, 147)
 
     # Оранжевые тона.
     @staticmethod
     def get_coral() -> Color:
-        '''
-        Получение кораллового цвета.
-        '''
+        """Получение кораллового цвета."""
         return Color.create(255, 127, 80)
 
     @staticmethod
     def get_tomato() -> Color:
-        '''
-        Получение томатного цвета.
-        '''
+        """Получение томатного цвета."""
         return Color.create(255, 99, 71)
 
     @staticmethod
     def get_orange_red() -> Color:
-        '''
-        Получение красно-оранжевого цвета.
-        '''
+        """Получение красно-оранжевого цвета."""
         return Color.create(255, 69, 0)
 
     @staticmethod
     def get_dark_orange() -> Color:
-        '''
-        Получение темно-оранжевого цвета.
-        '''
+        """Получение темно-оранжевого цвета."""
         return Color.create(255, 140, 0)
 
     @staticmethod
     def get_orange() -> Color:
-        '''
-        Получение оранжевого цвета.
-        '''
+        """Получение оранжевого цвета."""
         return Color.create(255, 165, 0)
 
     # Желтые тона
     @staticmethod
     def get_gold() -> Color:
-        '''
-        Получение золотого цвета.
-        '''
+        """Получение золотого цвета."""
         return Color.create(255, 215, 0)
 
     @staticmethod
     def get_light_yellow() -> Color:
-        '''
-        Получение светло-желтого цвета.
-        '''
+        """Получение светло-желтого цвета."""
         return Color.create(255, 255, 224)
 
     @staticmethod
     def get_lemon_chiffon() -> Color:
-        '''
-        Получение цвета LemonChiffon.
-        '''
+        """Получение цвета LemonChiffon."""
         return Color.create(255, 250, 205)
 
     @staticmethod
     def get_light_goldenrod_yellow() -> Color:
-        '''
-        Получение цвета LightGoldenrodYellow.
-        '''
+        """Получение цвета LightGoldenrodYellow."""
         return Color.create(250, 250, 210)
 
     @staticmethod
     def get_papaya_whip() -> Color:
-        '''
-        Получение цвета PapayaWhip.
-        '''
+        """Получение цвета PapayaWhip."""
         return Color.create(255, 239, 213)
 
     @staticmethod
     def get_moccasin() -> Color:
-        '''
-        Получение цвета Moccasin.
-        '''
+        """Получение цвета Moccasin."""
         return Color.create(255, 228, 181)
 
     @staticmethod
     def get_peach_puff() -> Color:
-        '''
-        Получение цвета PeachPuff.
-        '''
+        """Получение цвета PeachPuff."""
         return Color.create(255, 218, 185)
 
     @staticmethod
     def get_pale_goldenrod() -> Color:
-        '''
-        Получение цвета PaleGoldenrod.
-        '''
+        """Получение цвета PaleGoldenrod."""
         return Color.create(238, 232, 170)
 
     @staticmethod
     def get_khaki() -> Color:
-        '''
-        Получение цвета хаки.
-        '''
+        """Получение цвета хаки."""
         return Color.create(240, 230, 140)
 
     @staticmethod
     def get_dark_khaki() -> Color:
-        '''
-        Получение цвета темный хаки.
-        '''
+        """Получение цвета темный хаки."""
         return Color.create(189, 183, 107)
 
     @staticmethod
     def get_navy() -> Color:
-        '''
-        Получение цвета Navy.
-        '''
+        """Получение цвета Navy."""
         return Color.create(0, 0, 128)
 
     @staticmethod
     def get_lime() -> Color:
-        '''
-        Получение цвета Lime.
-        '''
+        """Получение цвета Lime."""
         return Color.create(0, 255, 0)
 
     @staticmethod
     def get_teal() -> Color:
-        '''
-        Получение цвета Teal.
-        '''
+        """Получение цвета Teal."""
         return Color.create(0, 128, 128)
 
     @staticmethod
     def get_aqua() -> Color:
-        '''
-        Получение цвета Aqua.
-        '''
+        """Получение цвета Aqua."""
         return Color.create(0, 255, 255)
 
     @staticmethod
     def get_olive() -> Color:
-        '''
-        Получение цвета Olive.
-        '''
+        """Получение цвета Olive."""
         return Color.create(128, 128, 0)
 
     @staticmethod
     def get_maroon() -> Color:
-        '''
-        Получение цвета Maroon.
-        '''
+        """Получение цвета Maroon."""
         return Color.create(128, 0, 0)
 
     @staticmethod
     def get_purple() -> Color:
-        '''
-        Получение пурпурного цвета.
-        '''
+        """Получение пурпурного цвета."""
         return Color.create(128, 0, 128)
 
     @staticmethod
     def get_magenta() -> Color:
-        '''
-        Получение цвета Маджента.
-        '''
+        """Получение цвета Маджента."""
         return Color.create(255, 0, 255)
 
     @staticmethod
     def get_silver() -> Color:
-        '''
-        Получение цвета Silver.
-        '''
+        """Получение цвета Silver."""
         return Color.create(192, 192, 192)
 
     @staticmethod
     def get_light_gray() -> Color:
-        '''
-        Получение цвета LightGray.
-        '''
+        """Получение цвета LightGray."""
         return Color.create(211, 211, 211)
 
     @staticmethod
     def get_dark_gray() -> Color:
-        '''
-        Получение цвета DarkGray.
-        '''
+        """Получение цвета DarkGray."""
         return Color.create(169, 169, 169)
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
@@ -413,15 +309,11 @@ class Color(object):
         self.init(byte_array[0], byte_array[1], byte_array[2], byte_array[3])
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 4
 
     def __eq__(self, other: Color) -> bool:
-        '''
-        Проверка на равенство.
-        '''
+        """Проверка на равенство."""
         assert isinstance(other, Color)
         isEqRed = (self.red == other.red)
         isEqGreen = (self.green == other.green)
@@ -430,58 +322,42 @@ class Color(object):
         return isEqRed and isEqGreen and isEqBlue and isEqAlpha
 
     def __ne__(self, other: Color) -> bool:
-        '''
-        Функция проверки на неравенство.
-        '''
+        """Функция проверки на неравенство."""
         assert isinstance(other, Color)
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}, {}, {}'.format(self.red, self.green,
                                        self.blue, self.alpha)
 
 
 class String(object):
-    '''
-    Строка.
-    '''
+    """Строка."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.s = ''
 
     def init(self, s: str) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(s, str)
         self.s = s
 
     @staticmethod
     def create(s: str) -> String:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(s, str)
         st = String()
         st.init(s)
         return st
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) >= 4
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         sbl = bmc.str_to_byte_array(self.s)
         ba += bmc.int32_to_byte_array(len(sbl))
@@ -489,9 +365,7 @@ class String(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         basz = byte_array[:4]
         sz = bmc.byte_array_to_int32(basz)
@@ -499,15 +373,11 @@ class String(object):
         self.s = bmc.byte_array_to_str(byte_array[4:])
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: String) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, String)
         return self.s == other.s
 
@@ -519,56 +389,40 @@ class String(object):
         return not self == other
 
     def __lt__(self, other: String) -> bool:
-        '''
-        Оператор <.
-        '''
+        """Оператор <."""
         assert isinstance(other, String)
         return self.s < other.s
 
     def __le__(self, other: String) -> bool:
-        '''
-        Оператор <=.
-        '''
+        """Оператор <=."""
         assert isinstance(other, String)
         return self.s <= other.s
 
     def __gt__(self, other: String) -> bool:
-        '''
-        Оператор >.
-        '''
+        """Оператор >."""
         assert isinstance(other, String)
         return self.s > other.s
 
     def __ge__(self, other: String) -> bool:
-        '''
-        Оператор >=.
-        '''
+        """Оператор >=."""
         assert isinstance(other, String)
         return self.s >= other.s
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return self.s
 
 
 class Point(object):
-    '''
-    Точка с целочисленными координатами.
-    '''
+    """Точка с целочисленными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.x = 0
         self.y = 0
 
     def init(self, x: int, y: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(x, int)
         assert isinstance(y, int)
         self.x = x
@@ -576,9 +430,7 @@ class Point(object):
 
     @staticmethod
     def create(x: int, y: int) -> Point:
-        '''
-        Функция создания с параметрами.
-        '''
+        """Функция создания с параметрами."""
         assert isinstance(x, int)
         assert isinstance(y, int)
         pt = Point()
@@ -586,43 +438,31 @@ class Point(object):
         return pt
 
     def is_null(self) -> bool:
-        '''
-        Проверка координат на равенство 0.
-        '''
+        """Проверка координат на равенство 0."""
         return self.x == 0 and self.y == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         xbl = bmc.int32_to_byte_array(self.x)
         ybl = bmc.int32_to_byte_array(self.y)
         return bytearray(xbl + ybl)
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         vl = bmc.byte_array_to_int32_list(byte_array)
         self.init(vl[0], vl[1])
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 8
 
     def manhattan_len(self) -> int:
-        '''
-        Манхэттенское расстояние.
-        '''
+        """Манхэттенское расстояние."""
         return (int)(math.sqrt(self.x * self.x + self.y * self.y))
 
     def __add__(self, other: Point) -> Point:
@@ -633,73 +473,53 @@ class Point(object):
         return Point.create(self.x + other.x, self.y + other.y)
 
     def __iadd__(self, other: Point) -> Point:
-        '''
-        Оператор +=.
-        '''
+        """Оператор +=."""
         assert isinstance(other, Point)
         self.x += other.x
         self.y += other.y
         return self
 
     def __sub__(self, other: Point) -> Point:
-        '''
-        Бинарный оператор -.
-        '''
+        """Бинарный оператор -."""
         assert isinstance(other, Point)
         return Point.create(self.x - other.x, self.y - other.y)
 
     def __isub__(self, other: Point) -> Point:
-        '''
-        Оператор -=.
-        '''
+        """Оператор -=."""
         assert isinstance(other, Point)
         self.x -= other.x
         self.y -= other.y
         return self
 
     def __neg__(self) -> Point:
-        '''
-        Унарный оператор -.
-        '''
+        """Унарный оператор -."""
         return Point.create(-self.x, -self.y)
 
     def __eq__(self, other: Point) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, Point)
         return self.x == other.x and self.y == other.y
 
     def __ne__(self, other: Point) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, Point)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления цвета.
-        '''
+        """Получение строкового представления цвета."""
         return '{}, {}'.format(self.x, self.y)
 
 
 class PointF(object):
-    '''
-    Точка с дробными координатами.
-    '''
+    """Точка с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.x = 0.0
         self.y = 0.0
 
     def init(self, x: float, y: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         self.x = x
@@ -707,9 +527,7 @@ class PointF(object):
 
     @staticmethod
     def create(x: float, y: float) -> PointF:
-        '''
-        Функция создания с параметрами.
-        '''
+        """Функция создания с параметрами."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         pt = PointF()
@@ -717,120 +535,88 @@ class PointF(object):
         return pt
 
     def is_null(self) -> bool:
-        '''
-        Проверка координат на равенство 0.
-        '''
+        """Проверка координат на равенство 0."""
         return bmh.is_float_null(self.x) and bmh.is_float_null(self.y)
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         xba = bmc.double_to_byte_array(self.x)
         yba = bmc.double_to_byte_array(self.y)
         return xba + yba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         vl = bmc.byte_array_to_double_list(byte_array)
         self.init(vl[0], vl[1])
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 16
 
     def manhattan_len(self) -> float:
-        '''
-        Получение манхэттенского расстояния.
-        '''
+        """Получение манхэттенского расстояния."""
         return math.sqrt(self.x * self.x + self.y * self.y)
 
     def __add__(self, other: PointF) -> PointF:
-        '''Бинарный оператор +.'''
+        """Бинарный оператор +."""
         assert isinstance(other, PointF)
         return PointF.create(self.x + other.x, self.y + other.y)
 
     def __iadd__(self, other: PointF) -> PointF:
-        '''
-        Оператор +=.
-        '''
+        """Оператор +=."""
         assert isinstance(other, PointF)
         self.x += other.x
         self.y += other.y
         return self
 
     def __sub__(self, other: PointF) -> PointF:
-        '''
-        Бинарный оператор -.
-        '''
+        """Бинарный оператор -."""
         assert isinstance(other, PointF)
         return PointF.create(self.x - other.x, self.y - other.y)
 
     def __isub__(self, other):
-        '''
-        Оператор -=.
-        '''
+        """Оператор -=."""
         assert isinstance(other, PointF)
         self.x -= other.x
         self.y -= other.y
         return self
 
     def __neg__(self) -> PointF:
-        '''
-        Унарный оператор -.
-        '''
+        """Унарный оператор -."""
         return Point.create(-self.x, -self.y)
 
     def __eq__(self, other: PointF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, PointF)
         isEqX = bmh.float_equal(self.x, other.x)
         isEqY = bmh.float_equal(self.y, other.y)
         return isEqX and isEqY
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, PointF)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}'.format(self.x, self.y)
 
 
 class Size(object):
-    '''
-    Размер с целочисленными координатами.
-    '''
+    """Размер с целочисленными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.width = 0
         self.height = 0
 
     def init(self, width: int, height: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(width, int)
         assert isinstance(height, int)
         self.width = width
@@ -838,9 +624,7 @@ class Size(object):
 
     @staticmethod
     def create(width: int, height: int) -> Size:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(width, int)
         assert isinstance(height, int)
         size = Size()
@@ -848,66 +632,48 @@ class Size(object):
         return size
 
     def is_null(self):
-        '''
-        Проверка ширины и высоты на 0.
-        '''
+        """Проверка ширины и высоты на 0."""
         return self.width == 0 and self.height == 0
 
     def is_valid(self):
-        '''
-        Является ли размер валидным.
-        '''
+        """Является ли размер валидным."""
         return self.width >= 0 and self.height >= 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bl = bmc.byte_array_to_int32_list(byte_array)
         self.width = bl[0]
         self.height = bl[1]
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         wbl = bmc.int32_to_byte_array(self.width)
         hbl = bmc.int32_to_byte_array(self.height)
         return wbl + hbl
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 8
 
     def __eq__(self, other: Size) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, Size)
         isEqWidth = (self.width == other.width)
         isEqHeight = (self.height == other.height)
         return isEqWidth and isEqHeight
 
     def __ne__(self, other: Size) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, Size)
         return not (self == other)
 
     def __mul__(self, other: Size) -> Size:
-        '''
-        Оператор *.
-        '''
+        """Оператор *."""
         assert isinstance(other, float)
         width = (int)(self.width * other)
         height = (int)(self.height * other)
@@ -915,37 +681,27 @@ class Size(object):
         return self
 
     def __imul__(self, other: Size) -> Size:
-        '''
-        Оператор *=.
-        '''
+        """Оператор *=."""
         assert isinstance(other, float)
         self.width = (int)(self.width * other)
         self.height = (int)(self.height * other)
         return self
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}'.format(self.width, self.height)
 
 
 class SizeF(object):
-    '''
-    Размер с дробными координатами.
-    '''
+    """Размер с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.width = 0.0
         self.height = 0.0
 
     def init(self, width: float, height: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(width, float)
         assert isinstance(height, float)
         self.width = width
@@ -953,9 +709,7 @@ class SizeF(object):
 
     @staticmethod
     def create(width: float, height: float) -> SizeF:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(width, float)
         assert isinstance(height, float)
         size = SizeF()
@@ -963,109 +717,79 @@ class SizeF(object):
         return size
 
     def is_null(self) -> bool:
-        '''
-        Проверка ширины и высоты на 0.
-        '''
+        """Проверка ширины и высоты на 0."""
         return bmh.is_float_null(self.width) and bmh.is_float_null(self.height)
 
     def is_valid(self) -> bool:
-        '''
-        Является ли размер валидным.
-        '''
+        """Является ли размер валидным."""
         return self.width >= 0 and self.height >= 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности массива байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def from_byte_list(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         self.width = bmc.byte_array_to_double(byte_array[:8])
         self.height = bmc.byte_array_to_double(byte_array[8:])
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         baw = bmc.double_to_byte_array(self.width)
         bah = bmc.double_to_byte_array(self.height)
         return baw + bah
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 16
 
     def __eq__(self, other) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SizeF)
         isEqWidth = bmh.float_equal(self.width, other.width)
         isEqHeight = bmh.float_equal(self.height, other.height)
         return isEqWidth and isEqHeight
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SizeF)
         return not (self == other)
 
     def __mul__(self, other: float) -> SizeF:
-        '''
-        Оператор *.
-        '''
+        """Оператор *."""
         assert isinstance(other, float)
         return SizeF.create(self.width * other, self.height * other)
 
     def __imul__(self, other: float) -> SizeF:
-        '''
-        Оператор *=.
-        '''
+        """Оператор *=."""
         assert isinstance(other, float)
         self.width *= other
         self.height *= other
         return self
 
     def __str__(self):
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}'.format(self.width, self.height)
 
 
 class Line(object):
-    '''
-    Линия с целочисленными координатами.
-    '''
+    """Линия с целочисленными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.pt1 = Point()
         self.pt2 = Point()
 
     def init(self, pt1, pt2):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(pt1, Point)
         assert isinstance(pt2, Point)
         self.pt1 = pt1
         self.pt2 = pt2
 
-    def init_2(self, x1, y1, x2, y2):
-        '''
-        Функция инициализации.
-        '''
+    def init2(self, x1, y1, x2, y2):
+        """Функция инициализации."""
         assert isinstance(x1, int)
         assert isinstance(y1, int)
         assert isinstance(x2, int)
@@ -1077,9 +801,7 @@ class Line(object):
 
     @staticmethod
     def create(pt1, pt2):
-        '''
-        Функция инициализации 2.
-        '''
+        """Функция инициализации 2."""
         assert isinstance(pt1, Point)
         assert isinstance(pt2, Point)
         line = Line()
@@ -1088,10 +810,8 @@ class Line(object):
         return line
 
     @staticmethod
-    def create_2(x1, y1, x2, y2):
-        '''
-        Функция инициализации 2.
-        '''
+    def create2(x1, y1, x2, y2):
+        """Функция инициализации 2."""
         assert isinstance(x1, int)
         assert isinstance(y1, int)
         assert isinstance(x2, int)
@@ -1102,30 +822,22 @@ class Line(object):
         return line
 
     def is_empty(self):
-        '''
-        Проверка на линию нулевой длины.
-        '''
+        """Проверка на линию нулевой длины."""
         return self.pt1 == self.pt2
 
     def check_byte_array(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_list) == self.get_byte_array_len()
 
     def to_byte_array(self):
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += self.pt1.to_byte_array()
         ba += self.pt2.to_byte_array()
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         ba_pt1 = byte_array[:8]
         self.pt1.from_byte_array(ba_pt1)
@@ -1133,59 +845,43 @@ class Line(object):
         self.pt2.from_byte_array(ba_pt2)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 16
 
     def __eq__(self, other: Line) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, Line)
         isEqPt1 = (self.pt1 == other.pt1)
         isEqPt2 = (self.pt2 == other.pt2)
         return isEqPt1 and isEqPt2
 
     def __ne__(self, other: Line) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, Line)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}, {}'.format(self.pt1, self.pt2)
 
 
 class LineF(object):
-    '''
-    Линия с дробными координатами.
-    '''
+    """Линия с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.pt1 = PointF()
         self.pt2 = PointF()
 
     def init(self, pt1: PointF, pt2: PointF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(pt1, PointF)
         assert isinstance(pt2, PointF)
         self.pt1 = pt1
         self.pt2 = pt2
 
-    def init_2(self, x1: float, y1: float, x2: float, y2: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init2(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """Функция инициализации."""
         assert isinstance(x1, float)
         assert isinstance(y1, float)
         assert isinstance(x2, float)
@@ -1195,9 +891,7 @@ class LineF(object):
 
     @staticmethod
     def create(pt1: PointF, pt2: PointF) -> LineF:
-        '''
-        Функция инициализации 2.
-        '''
+        """Функция инициализации 2."""
         assert isinstance(pt1, PointF)
         assert isinstance(pt2, PointF)
         line = LineF()
@@ -1206,10 +900,8 @@ class LineF(object):
         return line
 
     @staticmethod
-    def create_2(x1: float, y1: float, x2: float, y2: float) -> LineF:
-        '''
-        Функция инициализации 2.
-        '''
+    def create2(x1: float, y1: float, x2: float, y2: float) -> LineF:
+        """Функция инициализации 2."""
         assert isinstance(x1, float)
         assert isinstance(y1, float)
         assert isinstance(x2, float)
@@ -1220,30 +912,22 @@ class LineF(object):
         return line
 
     def is_empty(self) -> bool:
-        '''
-        Проверка на линию нулевой длины.
-        '''
+        """Проверка на линию нулевой длины."""
         return self.pt1 == self.pt2
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         bl = bytearray()
         bl += self.pt1.to_byte_array()
         bl += self.pt2.to_byte_array()
         return bl
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bl_pt1 = byte_array[:16]
         self.pt1.from_byte_array(bl_pt1)
@@ -1251,91 +935,65 @@ class LineF(object):
         self.pt2.from_byte_array(bl_pt2)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 32
 
     def __eq__(self, other: PointF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, LineF)
         isEqPt1 = (self.pt1 == other.pt1)
         isEqPt2 = (self.pt2 == other.pt2)
         return isEqPt1 and isEqPt2
 
     def __ne__(self, other: PointF) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, LineF)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}, {}'.format(self.pt1, self.pt2)
 
 
 class Polyline(object):
-    '''
-    Ломаная линия с целыми координатами.
-    '''
+    """Ломаная линия с целыми координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.points = []
 
     def init(self, points: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert Polyline._check_points(points)
         self.points = points
 
     @staticmethod
     def create(points: list) -> Polyline:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert Polyline._check_points(points)
         p = Polyline()
         p.init(points)
         return p
 
     def add_point(self, point: Point) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, Point)
         self.points.append(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def is_empty(self) -> bool:
-        '''
-        Проверка на отсутствие точек.
-        '''
+        """Проверка на отсутствие точек."""
         return len(self.points) == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов.
-        '''
+        """Проверка корректности списка байтов."""
         return len(byte_array) >= 4
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmc.int32_to_byte_array(self.get_point_count())
         for pt in self.points:
@@ -1343,9 +1001,7 @@ class Polyline(object):
         return ba
 
     def from_byte_array(self, byte_array):
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bac = byte_array[:4]
         count = bmc.byte_array_to_int32(bac)
@@ -1359,36 +1015,26 @@ class Polyline(object):
             self.add_point(p)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: Polyline) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, Polyline)
         return self.points == other.points
 
     def __ne__(self, other: Polyline) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, Polyline)
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}'.format(self.points)
 
     @staticmethod
     def _check_points(points: list) -> bool:
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(points, list):
             return False
         if not all(isinstance(pt, Point) for pt in points):
@@ -1397,62 +1043,44 @@ class Polyline(object):
 
 
 class PolylineF(object):
-    '''
-    Ломаная линия с дробными координатами.
-    '''
+    """Ломаная линия с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.points = []
 
     def init(self, points: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert PolylineF._check_points(points)
         self.points = points
 
     @staticmethod
     def create(points: list) -> PolylineF:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert PolylineF._check_points(points)
         p = PolylineF()
         p.init(points)
         return p
 
     def add_point(self, point: list) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, PointF)
         self.points.append(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def is_empty(self):
-        '''
-        Проверка на отсутствие точек.
-        '''
+        """Проверка на отсутствие точек."""
         return self.get_point_count() == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов.
-        '''
+        """Проверка корректности списка байтов."""
         return len(byte_array) >= 4
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         count = self.get_point_count()
         ba += bmc.int32_to_byte_array(count)
@@ -1461,9 +1089,7 @@ class PolylineF(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_list(byte_array)
         basz = byte_array[:4]
         sz = bmc.byte_list_to_int32(basz)
@@ -1477,36 +1103,26 @@ class PolylineF(object):
             self.add_point(pt)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: PolylineF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, PolylineF)
         return self.points == other.points
 
     def __ne__(self, other: PolylineF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, PolylineF)
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}'.format(self.points)
 
     @staticmethod
     def _check_points(points: list) -> bool:
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(points, list):
             return False
         if not all(isinstance(pt, PointF) for pt in points):
@@ -1515,30 +1131,22 @@ class PolylineF(object):
 
 
 class Rect(object):
-    '''
-    Прямоугольник с целочисленными координатами.
-    '''
+    """Прямоугольник с целочисленными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.leftTop = Point()
         self.size = Size()
 
     def init(self, leftTop: Point, size: Size) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(leftTop, Point)
         assert isinstance(size, Size)
         self.leftTop = leftTop
         self.size = size
 
-    def init_2(self, left: int, top: int, width: int, height: int) -> None:
-        '''
-        Функция инициализации 2.
-        '''
+    def init2(self, left: int, top: int, width: int, height: int) -> None:
+        """Функция инициализации 2."""
         assert isinstance(left, int)
         assert isinstance(top, int)
         assert isinstance(width, int)
@@ -1548,9 +1156,7 @@ class Rect(object):
 
     @staticmethod
     def create(leftTop: Point, size: Size) -> Rect:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(leftTop, Point)
         assert isinstance(size, Size)
         rect = Rect()
@@ -1558,99 +1164,75 @@ class Rect(object):
         return rect
 
     @staticmethod
-    def create_2(left: int, top: int, width: int, height: int) -> Rect:
-        '''
-        Функция создания 2.
-        '''
+    def create2(left: int, top: int, width: int, height: int) -> Rect:
+        """Функция создания 2."""
         assert isinstance(left, int)
         assert isinstance(top, int)
         assert isinstance(width, int)
         assert isinstance(height, int)
         rect = Rect()
-        rect.init_2(left, top, width, height)
+        rect.init2(left, top, width, height)
         return rect
 
     def get_left(self) -> int:
-        '''
-        Получение смещения слева.
-        '''
+        """Получение смещения слева."""
         return self.leftTop.x
 
     def set_left(self, left: int) -> None:
-        '''
-        Задание смещения слева.
-        '''
+        """Задание смещения слева."""
         assert isinstance(left, int)
         self.leftTop.x = left
 
     def get_top(self) -> int:
-        '''
-        Получение смещения слева.
-        '''
+        """Получение смещения слева."""
         return self.leftTop.y
 
     def set_top(self, top: int) -> None:
-        '''
-        Задание смещения сверху.
-        '''
+        """Задание смещения сверху."""
         assert isinstance(top, int)
         self.leftTop.y = top
 
     def get_width(self) -> int:
-        '''Получение ширины.'''
+        """Получение ширины."""
         return self.size.width
 
     def set_width(self, width: int) -> None:
-        '''Задание ширины.'''
+        """Задание ширины."""
         assert isinstance(width, int)
         self.size.width = width
 
     def get_height(self) -> int:
-        '''Получение высоты.'''
+        """Получение высоты."""
         return self.size.height
 
     def set_height(self, height: int) -> None:
-        '''
-        Задание высоты.
-        '''
+        """Задание высоты."""
         self.size.height = height
 
     def get_right(self) -> int:
-        '''
-        Получение координаты правой стороны.
-        '''
+        """Получение координаты правой стороны."""
         return self.get_left() + self.get_width()
 
     def get_bottom(self) -> int:
-        '''
-        Получение координаты низа.
-        '''
+        """Получение координаты низа."""
         return self.get_top() + self.get_height()
 
     def get_center(self) -> Point:
-        '''
-        Получение центра.
-        '''
+        """Получение центра."""
         x = self.get_left() + self.get_width() // 2
         y = self.get_top() + self.get_height() // 2
         return Point.create(x, y)
 
     def is_valid(self) -> bool:
-        '''
-        Является ли размер валидным.
-        '''
+        """Является ли размер валидным."""
         return self.size.width >= 0 and self.size.height >= 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_list_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         left = self.get_left()
         top = self.get_top()
         width = self.get_width()
@@ -1659,57 +1241,41 @@ class Rect(object):
         return bmc.int32_list_to_byte_array(vl)
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         vl = bmc.byte_array_to_int32_list(byte_array)
-        self.init_2(vl[0], vl[1], vl[2], vl[3])
+        self.init2(vl[0], vl[1], vl[2], vl[3])
 
     def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 16
 
     def __eq__(self, other: Rect) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqLeftTop = (self.leftTop == other.leftTop)
         isEqSize = (self.size == other.size)
         return isEqLeftTop and isEqSize
 
     def __ne__(self, other: Rect) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, Rect)
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}'.format(self.leftTop, self.size)
 
 
 class RectF(object):
-    '''
-    Прямоугольник с дробными координатами.
-    '''
+    """Прямоугольник с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.leftTop = PointF()
         self.size = SizeF()
 
     def init(self, leftTop: PointF, size: SizeF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(leftTop, PointF)
         assert isinstance(size, SizeF)
         self.leftTop = leftTop
@@ -1717,9 +1283,7 @@ class RectF(object):
 
     def init2(self, left: float, top: float, width: float,
               height: float) -> None:
-        '''
-        Функция инициализации 2.
-        '''
+        """Функция инициализации 2."""
         assert isinstance(left, float)
         assert isinstance(top, float)
         assert isinstance(width, float)
@@ -1729,9 +1293,7 @@ class RectF(object):
 
     @staticmethod
     def create(leftTop: PointF, size: SizeF) -> RectF:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(leftTop, PointF)
         assert isinstance(size, SizeF)
         rect = RectF()
@@ -1741,9 +1303,7 @@ class RectF(object):
     @staticmethod
     def create2(left: float, top: float, width: float,
                 height: float) -> RectF:
-        '''
-        Функция создания 2.
-        '''
+        """Функция создания 2."""
         assert isinstance(left, float)
         assert isinstance(top, float)
         assert isinstance(width, float)
@@ -1753,79 +1313,55 @@ class RectF(object):
         return rect
 
     def get_left(self) -> float:
-        '''
-        Получение смещения слева.
-        '''
+        """Получение смещения слева."""
         return self.leftTop.x
 
     def set_left(self, left: float) -> None:
-        '''
-        Задание смещения слева.
-        '''
+        """Задание смещения слева."""
         assert isinstance(left, float)
         self.topLeft.x = left
 
     def get_top(self) -> float:
-        '''
-        Получение смещения сверху.
-        '''
+        """Получение смещения сверху."""
         return self.leftTop.y
 
     def set_top(self, top: float) -> None:
-        '''
-        Задание смещения сверху.
-        '''
+        """Задание смещения сверху."""
         assert isinstance(top, float)
         self.topLeft.y = top
 
     def get_width(self) -> float:
-        '''
-        Получение ширины.
-        '''
+        """Получение ширины."""
         return self.size.width
 
     def get_height(self) -> float:
-        '''
-        Получение высоты.
-        '''
+        """Получение высоты."""
         return self.size.height
 
     def get_right(self):
-        '''
-        Получение координаты правой стороны.
-        '''
+        """Получение координаты правой стороны."""
         return self.get_left() + self.get_width()
 
     def get_bottom(self) -> float:
-        '''
-        Получение координаты низа.
-        '''
+        """Получение координаты низа."""
         return self.get_top() + self.get_height()
 
     def get_center(self) -> PointF:
-        '''
-        Получение центра.
-        '''
+        """Получение центра."""
         x = self.get_left() + self.get_width() / 2
         y = self.get_top() + self.get_height() / 2
         return PointF.create(x, y)
 
     def is_valid(self) -> bool:
-        '''
-        Является ли размер валидным.
-        '''
+        """Является ли размер валидным."""
         return self.size.width >= 0.0 and self.size.height >= 0.0
 
     def check_byte_array(self, byte_array) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         left = self.get_left()
         top = self.get_top()
         width = self.get_width()
@@ -1834,57 +1370,41 @@ class RectF(object):
         return bmc.double_list_to_byte_array(vl)
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         vl = bmc.byte_array_to_double_list(byte_array)
         self.init2(vl[0], vl[1], vl[2], vl[3])
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 32
 
     def __eq__(self, other: RectF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqLeftTop = (self.leftTop == other.leftTop)
         isEqSize = (self.size == other.size)
         return isEqLeftTop and isEqSize
 
     def __ne__(self, other: RectF) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}, {}'.format(self.leftTop, self.size)
 
 
 class RoundRect(object):
-    '''
-    Прямоугольник со сглажененными углами с целыми координатами.
-    '''
+    """Прямоугольник со сглажененными углами с целыми координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.rect = Rect()
         self.radiusX = 0
         self.radiusY = 0
 
     def init(self, rect: Rect, radiusX: int, radiusY: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, Rect)
         assert isinstance(radiusX, int)
         assert isinstance(radiusY, int)
@@ -1894,9 +1414,7 @@ class RoundRect(object):
 
     @staticmethod
     def create(rect: Rect, radiusX: int, radiusY: int) -> RoundRect:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, Rect)
         assert isinstance(radiusX, int)
         assert isinstance(radiusY, int)
@@ -1905,30 +1423,22 @@ class RoundRect(object):
         return r
 
     def get_center(self) -> Point:
-        '''
-        Получение центра.
-        '''
+        """Получение центра."""
         return self.rect.get_center()
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов.
-        '''
+        """Проверка корректности списка байтов."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         bar = self.rect.to_byte_array()
         barx = bmc.int32_to_byte_list(self.radiusX)
         bary = bmc.int32_to_byte_list(self.radiusY)
         return bar + barx + bary
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bar = byte_array[:16]
         self.rect.from_byte_array(bar)
@@ -1938,37 +1448,27 @@ class RoundRect(object):
         self.radiusY = bmc.byte_array_to_int32(bary)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 32
 
     def __eq__(self, other: RoundRect) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqRect = (self.rect == other.rect)
         isEqRadiusX = (self.radiusX == other.radiusX)
         isEqRadiusY = (self.radiusY == other.radiusY)
         return isEqRect and isEqRadiusX and isEqRadiusY
 
     def __ne__(self, other: RoundRect) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}, {}, {}'.format(self.rect, self.radiusX, self.radiusY)
 
     @staticmethod
     def _correctRadius(radius: int) -> int:
-        '''
-        Корректировка радиуса.
-        '''
+        """Корректировка радиуса."""
         if radius < 0:
             return 0
         elif radius > 100:
@@ -1978,20 +1478,18 @@ class RoundRect(object):
 
 
 class RoundRectF(object):
-    '''
-    Прямоугольник со сглажененными углами с дробными координатами.
-    '''
+    """Прямоугольник со сглажененными углами с дробными координатами."""
 
     def __init__(self):
-        '''
+        """
         Конструктор без параметров.
-        '''
+        """
         self.rect = RectF()
         self.radiusX = 0
         self.radiusY = 0
 
     def init(self, rect: RectF, radiusX: int, radiusY: int) -> None:
-        '''Функция инициализации.'''
+        """Функция инициализации."""
         assert isinstance(rect, RectF)
         assert isinstance(radiusX, int)
         assert isinstance(radiusY, int)
@@ -2001,7 +1499,7 @@ class RoundRectF(object):
 
     @staticmethod
     def create(rect: RectF, radiusX: int, radiusY: int) -> RoundRectF:
-        '''Функция создания.'''
+        """Функция создания."""
         assert isinstance(rect, RectF)
         assert isinstance(radiusX, float)
         assert isinstance(radiusY, float)
@@ -2010,19 +1508,15 @@ class RoundRectF(object):
         return r
 
     def get_center(self) -> PointF:
-        '''Получение центра.'''
+        """Получение центра."""
         return self.rect.get_center()
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов.
-        '''
+        """Проверка корректности списка байтов."""
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         bar = self.rect.to_byte_array()
         barx = bmc.int_to_byte_list(self.radiusX)
         bary = bmc.int_to_byte_list(self.radiusY)
@@ -2041,37 +1535,27 @@ class RoundRectF(object):
         self.radiusY = bmc.byte_array_to_int(bary)
 
     def get_byte_array_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 40
 
     def __eq__(self, other: RoundRectF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqRect = (self.rect == other.rect)
         isEqRadiusX = self.radiusX == other.radiusX
         isEqRadiusY = self.radiusY == other.radiusY
         return isEqRect and isEqRadiusX and isEqRadiusY
 
     def __ne__(self, other: RoundRectF) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
+        """Получение строкового представления объекта."""
         return '{}, {}, {}'.format(self.rect, self.radiusX, self.radiusY)
 
     @staticmethod
     def _correctRadius(radius: int) -> int:
-        '''
-        Корректировка радиуса.
-        '''
+        """Корректировка радиуса."""
         if radius < 0:
             return 0
         elif radius > 100:
@@ -2081,62 +1565,44 @@ class RoundRectF(object):
 
 
 class Polygon(object):
-    '''
-    Полигон с точками с целочисленными координатами.
-    '''
+    """Полигон с точками с целочисленными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.points = []
 
     def init(self, points: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert Polygon._check_points(points)
         self.points = points
 
     @staticmethod
     def create(points: list) -> Polygon:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert Polygon._check_points(points)
         p = Polygon()
         p.init(points)
         return p
 
     def add_point(self, point: Point) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, Point)
         self.points.append(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def is_empty(self):
-        '''
-        Получение признака отсутствия точек.
-        '''
+        """Получение признака отсутствия точек."""
         return len(self.points) == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка списка байтов.
-        '''
+        """Проверка списка байтов."""
         return len(byte_array) >= 4
 
     def to_byte_list(self):
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmc.int32_to_byte_array(self.get_point_count())
         for pt in self.points:
@@ -2144,39 +1610,29 @@ class Polygon(object):
         return ba
 
     def from_byte_list(self, byte_list):
-        '''Инициализация из списка байтов.'''
+        """Инициализация из списка байтов."""
         assert self.check_byte_list(byte_list)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: Polygon) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.points == other.points
 
     def __ne__(self, other: Polygon) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}'.format(self.points)
 
     @staticmethod
     def _check_points(points):
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(points, list):
             return False
         if not all(isinstance(pt, Point) for pt in points):
@@ -2185,62 +1641,44 @@ class Polygon(object):
 
 
 class PolygonF(object):
-    '''
-    Полигон с точками с дробными координатами.
-    '''
+    """Полигон с точками с дробными координатами."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.points = []
 
     def init(self, points):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(points, list)
         self.points = points
 
     @staticmethod
     def create(points):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(points, list)
         p = PolygonF()
         p.init(points)
         return p
 
     def add_point(self, point: Point) -> None:
-        '''
-        Функция добавления точки.
-        '''
+        """Функция добавления точки."""
         assert isinstance(point, PointF)
         self.points.append(point)
 
     def get_point_count(self):
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия точек.
-        '''
+        """Получение признака отсутствия точек."""
         return self.get_point_count() == 0
 
     def check_byte_list(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов.
-        '''
+        """Проверка корректности списка байтов."""
         return len(byte_array) >= self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         count = self.get_point_count()
         ba += bmc.int32_to_byte_array(count)
@@ -2249,16 +1687,12 @@ class PolygonF(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_list(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: PolygonF) -> bool:
@@ -2268,16 +1702,12 @@ class PolygonF(object):
         return self.points == other.points
 
     def __ne__(self, other: list) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     @staticmethod
     def _check_points(points: list) -> bool:
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(points, list):
             return False
         if not all(isinstance(pt, PointF) for pt in points):
@@ -2286,15 +1716,11 @@ class PolygonF(object):
 
 
 class PenStyle(object):
-    '''
-    Стиль пера.
-    '''
+    """Стиль пера."""
 
     @staticmethod
     def style_to_str(style: int) -> str:
-        '''
-        Перевод стиля в строку.
-        '''
+        """Перевод стиля в строку."""
         assert isinstance(style, int)
         if style == PenStyle.NO_PEN:
             return 'NO_PEN'
@@ -2318,15 +1744,11 @@ class PenStyle(object):
 
 
 class PenJoinStyle(object):
-    '''
-    Стиль соединения линий для пера.
-    '''
+    """Стиль соединения линий для пера."""
 
     @staticmethod
     def style_to_str(style: int) -> str:
-        '''
-        Перевод стиля в строку.
-        '''
+        """Перевод стиля в строку."""
         assert isinstance(style, int)
         if style == PenJoinStyle.MITER_JOIN:
             return 'MITER_JOIN'
@@ -2343,15 +1765,11 @@ class PenJoinStyle(object):
 
 
 class PenCapStyle(object):
-    '''
-    Стиль окончания пера.
-    '''
+    """Стиль окончания пера."""
 
     @staticmethod
     def style_to_str(style: int) -> str:
-        '''
-        Перевод стиля в строку.
-        '''
+        """Перевод стиля в строку."""
         assert isinstance(style, int)
         if style == PenCapStyle.SQUARE_CAP:
             return 'SQUARE_CAP'
@@ -2366,14 +1784,10 @@ class PenCapStyle(object):
 
 
 class Pen(object):
-    '''
-    Перо.
-    '''
+    """Перо."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.color = Color()
         self.width = 1
         self.style = PenStyle.SOLID_LINE
@@ -2384,9 +1798,7 @@ class Pen(object):
              style: int = PenStyle.SOLID_LINE,
              join_style: int = PenJoinStyle.MITER_JOIN,
              cap_style: int = PenCapStyle.FLAT_CAP) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(color, Color)
         assert isinstance(width, int)
         assert width >= 0 and width <= 100
@@ -2404,9 +1816,7 @@ class Pen(object):
                style: int = PenStyle.SOLID_LINE,
                join_style: int = PenJoinStyle.MITER_JOIN,
                cap_style: int = PenCapStyle.FLAT_CAP) -> Pen:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(color, Color)
         assert isinstance(width, int)
         assert width >= 0 and width <= 100
@@ -2418,16 +1828,12 @@ class Pen(object):
         return pen
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         assert isinstance(byte_array, bytearray)
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += self.color.to_byte_array()
         ba += bmc.int32_to_byte_array(self.width)
@@ -2437,9 +1843,7 @@ class Pen(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         bac = byte_array[:4]
         self.color.from_byte_array(bac)
@@ -2453,15 +1857,11 @@ class Pen(object):
         self.cap_style = bmc.byte_array_to_int8(cpbl)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 11
 
     def __eq__(self, other: Pen) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqColor = (self.color == other.color)
         isEqWidth = (self.width == other.width)
         isEqStyle = (self.style == other.style)
@@ -2471,31 +1871,23 @@ class Pen(object):
             and isEqJoinStyle and isEqCapStyle
 
     def __ne__(self, other: Pen) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, Pen)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}, {}, {}, {}'.format(self.color, self.width,
                                            self.style, self.join_style,
                                            self.cap_style)
 
 
 class BrushStyle(object):
-    '''
-    Стиль кисти.
-    '''
+    """Стиль кисти."""
 
     @staticmethod
     def style_to_str(style: int) -> str:
-        '''
-        Перевод стиля в строку.
-        '''
+        """Перевод стиля в строку."""
         if style == BrushStyle.NO_BRUSH:
             return 'NO_BRUSH'
         elif style == BrushStyle.DENSE1_PATTERN:
@@ -2542,21 +1934,15 @@ class BrushStyle(object):
 
 
 class Brush(object):
-    '''
-    Кисть.
-    '''
+    """Кисть."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров
-        '''
+        """Конструктор без параметров."""
         self.color = Color()
         self.style = BrushStyle.SOLID_PATTERN
 
     def init(self, color: Color, style: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(color, Color)
         assert isinstance(style, int)
         self.color = color
@@ -2564,9 +1950,7 @@ class Brush(object):
 
     @staticmethod
     def create(color: Color(), style: int) -> Brush:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(color, Color)
         assert isinstance(style, int)
         brush = Brush()
@@ -2574,9 +1958,7 @@ class Brush(object):
         return brush
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) == 5
 
     def to_byte_array(self) -> bytearray:
@@ -2589,9 +1971,7 @@ class Brush(object):
         return ba
 
     def from_byte_array(self, byte_array) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         bac = byte_array[:4]
         self.color.from_byte_array(bac)
@@ -2599,47 +1979,33 @@ class Brush(object):
         self.style = bmc.byte_array_to_int8(bas)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 5
 
     def __eq__(self, other: Brush) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.color == other.color
 
     def __ne__(self, other: Brush) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}'.format(self.color)
 
 
 class Font(object):
-    '''
-    Шрифт.
-    '''
+    """Шрифт."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.family = String.create('Arial')
         self.size = 12
         self.is_bold = False
 
     def init(self, family: String, size: int, is_bold: bool = False):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(family, String)
         assert isinstance(size, int)
         assert isinstance(is_bold, bool)
@@ -2649,9 +2015,7 @@ class Font(object):
 
     @staticmethod
     def create(family: String, size: int, is_bold: bool = False) -> Font:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(family, String)
         assert isinstance(size, int)
         assert isinstance(is_bold, bool)
@@ -2666,9 +2030,7 @@ class Font(object):
         return len(byte_array) >= 10
 
     def from_byte_list(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         sz = len(byte_array)
         fbl = byte_array[:sz-5]
@@ -2679,9 +2041,7 @@ class Font(object):
         self.is_bold = bmc.byte_array_to_bool(bab)
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += self.family.to_byte_array()
         ba += bmc.int32_to_byte_array(self.size)
@@ -2689,39 +2049,30 @@ class Font(object):
         return ba
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: Font) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         isEqFamily = (self.family == other.family)
         isEqSize = (self.size == other.size)
         isEqBold = (self.is_bold == other.is_bold)
         return isEqFamily and isEqSize and isEqBold
 
     def __ne__(self, other: Font) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}, {}, {}'.format(self.family, self.size, self.is_bold)
 
 
 class TestColor(unittest.TestCase):
-    '''
-    Тестирование класса Color.
-    '''
+    """Тестирование класса Color."""
 
     def test_contructor(self):
+        """Тест конструктора класса Color."""
         c = Color()
         self.assertEqual(c.red, 0)
         self.assertEqual(c.green, 0)
@@ -2729,6 +2080,7 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 255)
 
     def test_init(self):
+        """Тест функции init класса Color."""
         c = Color()
         c.init(200, 200, 200)
         self.assertEqual(c.red, 200)
@@ -2743,6 +2095,7 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 100)
 
     def test_create(self):
+        """Тест функции create класса Color."""
         c = Color.create(50, 50, 50)
         self.assertTrue(isinstance(c, Color))
         self.assertEqual(c.red, 50)
@@ -2757,31 +2110,37 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 40)
 
     def test_get_red(self):
+        """Тест функции get_red класса Color."""
         c = Color.get_red()
         c_red = Color.create(255, 0, 0)
         self.assertEqual(c, c_red)
 
     def test_get_green(self):
+        """Тест функции get_green класса Color."""
         c = Color.get_green()
         c_green = Color.create(0, 128, 0)
         self.assertEqual(c, c_green)
 
     def test_get_blue(self):
+        """Тест функции get_blue класса Color."""
         c = Color.get_blue()
         c_blue = Color.create(0, 0, 255)
         self.assertEqual(c, c_blue)
 
     def test_get_white(self):
+        """Тест функции get_blue класса Color."""
         c = Color.get_white()
         c_white = Color.create(255, 255, 255)
         self.assertEqual(c, c_white)
 
     def test_get_black(self):
+        """Тест функции get_black класса Color."""
         c = Color.get_black()
         c_black = Color.create(0, 0, 0)
         self.assertEqual(c, c_black)
 
     def test_get_transparent(self):
+        """Тест функции get_transparent класса Color."""
         c = Color.get_transparent()
         self.assertEqual(c.red, 0)
         self.assertEqual(c.green, 0)
@@ -2789,73 +2148,84 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 0)
 
     def test_from_byte_array(self):
+        """Тест функции to_byte_array класса Color."""
         ba = bytearray([0, 0, 0, 255])
         c = Color()
         c.from_byte_array(ba)
         self.assertEqual(c, Color.get_black())
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Color."""
         c = Color()
         ba = c.to_byte_array()
         self.assertTrue(c.check_byte_array(ba))
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Color."""
         c = Color()
         ba = c.to_byte_array()
         self.assertEqual(c.get_byte_array_len(), len(ba))
 
     def test_equal(self):
+        """Тест оператора == класса Color."""
         c1 = Color()
         self.assertTrue(c1 == c1)
         c2 = Color.create(200, 200, 200)
         self.assertFalse(c1 == c2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Color."""
         c1 = Color()
         self.assertFalse(c1 != c1)
 
 
 class TestString(unittest.TestCase):
-    '''
-    Тестирование класса String.
-    '''
+    """Тестирование класса String."""
 
     def test_constructor(self):
+        """Тест конструктора класса String."""
         s = String()
         s.s = '123'
 
     def test_init(self):
+        """Тест функции init класса String."""
         s = String()
         s.init('123')
         self.assertEqual(s.s, '123')
 
     def test_create(self):
+        """Тест функции create класса String."""
         s = String.create('123')
         self.assertEqual(s.s, '123')
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса String."""
         s = String.create('123')
         ba = s.to_byte_array()
         self.assertTrue(s.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса String."""
         s = String.create('123')
         ba = s.to_byte_array()
         s.from_byte_array(ba)
         self.assertEqual(s.s, '123')
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса String."""
         s = String()
         ba = s.to_byte_array()
         self.assertEqual(s.get_byte_array_len(), len(ba))
 
     def test_equal(self):
+        """Тест оператора == класса String."""
         s1 = String()
         self.assertTrue(s1 == s1)
         s2 = String.create('123')
         self.assertFalse(s1 == s2)
 
     def test_not_equal(self):
+        """Тест оператора != класса String."""
         s1 = String()
         self.assertFalse(s1 != s1)
         s2 = String.create('123')
@@ -2863,71 +2233,81 @@ class TestString(unittest.TestCase):
 
 
 class TestPoint(unittest.TestCase):
-    '''
-    Тестирование класса Point.
-    '''
+    """Тестирование класса Point."""
 
     def test_constructor(self):
+        """Тест конструктора класса Point."""
         pt = Point()
         self.assertEqual(pt.x, 0)
         self.assertEqual(pt.y, 0)
 
     def test_init(self):
+        """Тест функции init класса Point."""
         pt = Point()
         pt.init(100, 100)
         self.assertEqual(pt.x, 100)
         self.assertEqual(pt.y, 100)
 
     def test_create(self):
+        """Тест функции create класса Point."""
         pt = Point.create(50, 50)
         self.assertEqual(pt.x, 50)
         self.assertEqual(pt.y, 50)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Point."""
         pt = Point()
         ba = pt.to_byte_array()
         self.assertTrue(pt.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса Point."""
         ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0])
         pt = Point()
         pt.from_byte_array(ba)
         self.assertTrue(pt == Point())
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Point."""
         pt = Point()
         ba = pt.to_byte_array()
         self.assertEqual(pt.get_byte_array_len(), len(ba))
 
     def test_add(self):
+        """Тест оператора + класса Point."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         self.assertEqual(pt1 + pt2, Point.create(300, 300))
 
     def test_iadd(self):
+        """Тест оператора += класса Point."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         pt1 += pt2
         self.assertEqual(pt1, Point.create(300, 300))
 
     def test_sub(self):
+        """Тест оператора - класса Point."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         self.assertEqual(pt1 - pt2, Point.create(100, 100))
 
     def test_isub(self):
+        """Тест оператора -= класса Point."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         pt1 -= pt2
         self.assertEqual(pt1, Point.create(100, 100))
 
     def test_equal(self):
+        """Тест оператора == класса Point."""
         pt1 = Point()
         self.assertTrue(pt1 == pt1)
         pt2 = Point.create(100, 100)
         self.assertFalse(pt1 == pt2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Point."""
         pt1 = Point()
         self.assertFalse(pt1 != pt1)
         pt2 = Point.create(100, 100)
@@ -2935,9 +2315,7 @@ class TestPoint(unittest.TestCase):
 
 
 class TestPointF(unittest.TestCase):
-    '''
-    Тестирование класса PointF.
-    '''
+    """Тестирование класса PointF."""
 
     def test_constructor(self):
         pt = PointF()
@@ -3007,9 +2385,7 @@ class TestPointF(unittest.TestCase):
 
 
 class TestSize(unittest.TestCase):
-    '''
-    Тестирование класса Size.
-    '''
+    """Тестирование класса Size."""
 
     def test_contructor(self):
         sz = Size()
@@ -3057,9 +2433,7 @@ class TestSize(unittest.TestCase):
 
 
 class TestSizeF(unittest.TestCase):
-    '''
-    Тестирование класса SizeF.
-    '''
+    """Тестирование класса SizeF."""
 
     def test_contructor(self):
         sz = SizeF()
@@ -3111,9 +2485,7 @@ class TestSizeF(unittest.TestCase):
 
 
 class TestLine(unittest.TestCase):
-    '''
-    Тестирование класса Line.
-    '''
+    """Тестирование класса Line."""
 
     def test_contructor(self):
         line = Line()
@@ -3128,9 +2500,9 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt1, pt1)
         self.assertEqual(line.pt2, pt2)
 
-    def test_init_2(self):
+    def test_init2(self):
         line = Line()
-        line.init_2(10, 10, 100, 100)
+        line.init2(10, 10, 100, 100)
         self.assertEqual(line.pt1.x, 10)
         self.assertEqual(line.pt1.y, 10)
         self.assertEqual(line.pt2.x, 100)
@@ -3143,15 +2515,15 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt1, pt1)
         self.assertEqual(line.pt2, pt2)
 
-    def test_create_2(self):
-        line = Line.create_2(10, 10, 100, 100)
+    def test_create2(self):
+        line = Line.create2(10, 10, 100, 100)
         self.assertEqual(line.pt1.x, 10)
         self.assertEqual(line.pt1.y, 10)
         self.assertEqual(line.pt2.x, 100)
         self.assertEqual(line.pt2.y, 100)
 
     def test_to_byte_array(self):
-        line = Line.create_2(10, 10, 100, 100)
+        line = Line.create2(10, 10, 100, 100)
         ba = line.to_byte_array()
         self.assertTrue(line.check_byte_array(ba))
 
@@ -3169,20 +2541,18 @@ class TestLine(unittest.TestCase):
     def test_equal(self):
         line1 = Line()
         self.assertTrue(line1 == line1)
-        line2 = Line.create_2(0, 0, 100, 100)
+        line2 = Line.create2(0, 0, 100, 100)
         self.assertFalse(line1 == line2)
 
     def test_not_equal(self):
         line1 = Line()
         self.assertFalse(line1 != line1)
-        line2 = Line.create_2(0, 0, 100, 100)
+        line2 = Line.create2(0, 0, 100, 100)
         self.assertTrue(line1 != line2)
 
 
 class TestLineF(unittest.TestCase):
-    '''
-    Тестирование класса LineF.
-    '''
+    """Тестирование класса LineF."""
 
     def test_contructor(self):
         line = LineF()
@@ -3197,13 +2567,13 @@ class TestLineF(unittest.TestCase):
         self.assertEqual(line.pt1, pt1)
         self.assertEqual(line.pt2, pt2)
 
-    def test_init_2(self):
+    def test_init2(self):
         line = LineF()
         x1 = 100.0
         y1 = 100.0
         x2 = 200.0
         y2 = 200.0
-        line.init_2(x1, y1, x2, y2)
+        line.init2(x1, y1, x2, y2)
         self.assertAlmostEqual(line.pt1.x, x1)
         self.assertAlmostEqual(line.pt1.y, y1)
         self.assertAlmostEqual(line.pt2.x, x2)
@@ -3216,19 +2586,19 @@ class TestLineF(unittest.TestCase):
         self.assertEqual(line.pt1, pt1)
         self.assertEqual(line.pt2, pt2)
 
-    def test_create_2(self):
+    def test_create2(self):
         x1 = 100.0
         y1 = 100.0
         x2 = 200.0
         y2 = 200.0
-        line = LineF.create_2(x1, y1, x2, y2)
+        line = LineF.create2(x1, y1, x2, y2)
         self.assertAlmostEqual(line.pt1.x, 100.0)
         self.assertAlmostEqual(line.pt1.y, 100.0)
         self.assertAlmostEqual(line.pt2.x, 200.0)
         self.assertAlmostEqual(line.pt2.y, 200.0)
 
     def test_from_byte_array(self):
-        line = LineF.create_2(100.0, 100.0, 200.0, 200.0)
+        line = LineF.create2(100.0, 100.0, 200.0, 200.0)
         ba = line.to_byte_array()
         line.from_byte_array(ba)
         self.assertAlmostEqual(line.pt1.x, 100.0)
@@ -3243,27 +2613,27 @@ class TestLineF(unittest.TestCase):
     def test_equal(self):
         line1 = LineF()
         self.assertTrue(line1 == line1)
-        line2 = LineF.create_2(0.0, 0.0, 100.0, 100.0)
+        line2 = LineF.create2(0.0, 0.0, 100.0, 100.0)
         self.assertFalse(line1 == line2)
 
     def test_not_equal(self):
         line1 = LineF()
         self.assertFalse(line1 != line1)
-        line2 = LineF.create_2(0.0, 0.0, 100.0, 100.0)
+        line2 = LineF.create2(0.0, 0.0, 100.0, 100.0)
         self.assertTrue(line1 != line2)
 
 
 class TestPolyline(unittest.TestCase):
-    '''
-    Тестирование класса Polyline.
-    '''
+    """Тестирование класса Polyline."""
 
     def test_contructor(self):
+        """Тест конструктора класса Polyline."""
         p = Polyline()
         self.assertTrue(p.is_empty())
         self.assertEqual(p.get_point_count(), 0)
 
     def test_init(self):
+        """Тест функции init класса Polyline."""
         p = Polyline()
         points = [Point().create(100, 100)]
         p.init(points)
@@ -3271,6 +2641,7 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_create(self):
+        """Тест функции create класса Polyline."""
         points = [Point().create(100, 100)]
         p = Polyline.create(points)
         self.assertFalse(p.is_empty())
@@ -3278,6 +2649,7 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_add_point(self):
+        """Тест функции add_point класса Polyline."""
         pt = Point().create(100, 100)
         p = Polyline()
         p.add_point(pt)
@@ -3285,18 +2657,24 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Polyline."""
         p = Polyline()
         ba = p.to_byte_array()
         self.assertTrue(p.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        pass
+        """Тест функции from_byte_array класса Polyline."""
+        p = Polyline()
+        ba = p.to_byte_array()
+        p.from_byte_array(ba)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Polyline."""
         p = Polyline()
         self.assertEqual(p.get_byte_array_len(), len(p.to_byte_array()))
 
     def test_equal(self):
+        """Тест оператора == класса Polyline."""
         p1 = Polyline()
         self.assertTrue(p1 == p1)
         points = [Point().create(100, 100)]
@@ -3304,6 +2682,7 @@ class TestPolyline(unittest.TestCase):
         self.assertFalse(p1 == p2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Polyline."""
         p1 = Polyline()
         self.assertFalse(p1 != p1)
         points = [Point().create(100, 100)]
@@ -3312,9 +2691,7 @@ class TestPolyline(unittest.TestCase):
 
 
 class TestPolylineF(unittest.TestCase):
-    '''
-    Тестирование класса PolylineF.
-    '''
+    """Тестирование класса PolylineF."""
 
     def test_contructor(self):
         p = PolylineF()
@@ -3368,11 +2745,10 @@ class TestPolylineF(unittest.TestCase):
 
 
 class TestRect(unittest.TestCase):
-    '''
-    Тестирование класса Rect.
-    '''
+    """Тестирование класса Rect."""
 
     def test_contructor(self):
+        """Тест конструктора класса Rect."""
         rect = Rect()
         self.assertEqual(rect.get_left(), 0)
         self.assertEqual(rect.get_top(), 0)
@@ -3380,6 +2756,7 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 0)
 
     def test_init(self):
+        """Тест функции init класса Rect."""
         rect = Rect()
         lt = Point()
         s = Size.create(100, 100)
@@ -3389,34 +2766,39 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_width(), 100)
         self.assertEqual(rect.get_height(), 100)
 
-    def test_init_2(self):
+    def test_init2(self):
+        """Тест функции init2 класса Rect."""
         rect = Rect()
-        rect.init_2(100, 100, 200, 200)
+        rect.init2(100, 100, 200, 200)
         self.assertEqual(rect.get_left(), 100)
         self.assertEqual(rect.get_top(), 100)
         self.assertEqual(rect.get_width(), 200)
         self.assertEqual(rect.get_height(), 200)
 
     def test_create(self):
+        """Тест функции create класса Rect."""
         leftTop = Point.create(10, 10)
         size = Size.create(100, 100)
         rect = Rect.create(leftTop, size)
         self.assertEqual(rect.leftTop, leftTop)
         self.assertEqual(rect.size, size)
 
-    def test_create_2(self):
-        rect = Rect.create_2(50, 50, 300, 300)
+    def test_create2(self):
+        """Тест функции create2 класса Rect."""
+        rect = Rect.create2(50, 50, 300, 300)
         self.assertEqual(rect.get_left(), 50)
         self.assertEqual(rect.get_top(), 50)
         self.assertEqual(rect.get_width(), 300)
         self.assertEqual(rect.get_height(), 300)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Rect."""
         rect = Rect()
         bl = rect.to_byte_array()
         self.assertTrue(rect.check_byte_array(bl))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса Rect."""
         coords = [100, 100, 200, 200]
         ba = bmc.int32_list_to_byte_array(coords)
         rect = Rect()
@@ -3427,33 +2809,36 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 200)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Rect."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
+        """Тест оператора == класса Rect."""
         rect1 = Rect()
         self.assertTrue(rect1 == rect1)
-        rect_2 = Rect.create_2(0, 0, 200, 200)
+        rect_2 = Rect.create2(0, 0, 200, 200)
         self.assertFalse(rect1 == rect_2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Rect."""
         rect1 = Rect()
         self.assertFalse(rect1 != rect1)
-        rect2 = Rect.create_2(100, 100, 200, 200)
+        rect2 = Rect.create2(100, 100, 200, 200)
         self.assertTrue(rect1 != rect2)
 
 
 class TestRectF(unittest.TestCase):
-    '''
-    Тестирование класса RectF.
-    '''
+    """Тестирование класса RectF."""
 
     def test_constructor(self):
+        """Тест конструктора класса RectF."""
         rect = RectF()
         self.assertEqual(rect.leftTop, PointF())
         self.assertEqual(rect.size, SizeF())
 
     def test_init(self):
+        """Тест функции init класса RectF."""
         leftTop = PointF.create(100.0, 100.0)
         size = SizeF.create(200.0, 200.0)
         rect = RectF()
@@ -3461,7 +2846,8 @@ class TestRectF(unittest.TestCase):
         self.assertEqual(rect.leftTop, leftTop)
         self.assertEqual(rect.size, size)
 
-    def test_init_2(self):
+    def test_init2(self):
+        """Тест функции init2 класса RectF."""
         rect = RectF()
         rect.init2(100.0, 100.0, 200.0, 200.0)
         self.assertAlmostEqual(rect.get_left(), 100.0)
@@ -3470,13 +2856,15 @@ class TestRectF(unittest.TestCase):
         self.assertAlmostEqual(rect.get_height(), 200.0)
 
     def test_create(self):
+        """Тест функции create класса RectF."""
         leftTop = PointF.create(100.0, 100.0)
         size = SizeF.create(200.0, 200.0)
         rect = RectF.create(leftTop, size)
         self.assertEqual(rect.leftTop, leftTop)
         self.assertEqual(rect.size, size)
 
-    def test_create_2(self):
+    def test_create2(self):
+        """Тест функции create2 класса RectF."""
         rect = RectF.create2(100.0, 100.0, 200.0, 200.0)
         self.assertAlmostEqual(rect.get_left(), 100.0)
         self.assertAlmostEqual(rect.get_top(), 100.0)
@@ -3484,11 +2872,13 @@ class TestRectF(unittest.TestCase):
         self.assertAlmostEqual(rect.get_height(), 200.0)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса RectF."""
         rect = RectF()
         ba = rect.to_byte_array()
         self.assertTrue(rect.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса RectF."""
         coords = [100.0, 100.0, 200.0, 200.0]
         bl = bmc.double_list_to_byte_array(coords)
         rect = RectF()
@@ -3499,24 +2889,29 @@ class TestRectF(unittest.TestCase):
         self.assertAlmostEqual(rect.get_height(), 200.0)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса RectF."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
+        """Тест operator == класса RectF."""
         rect1 = RectF()
         self.assertTrue(rect1 == rect1)
         rect2 = RectF.create2(100.0, 100.0, 200.0, 200.0)
         self.assertFalse(rect1 == rect2)
 
     def test_not_equal(self):
+        """Тест operator != класса RectF."""
         rect1 = RectF()
         self.assertTrue(rect1 == rect1)
         rect2 = RectF.create2(10.0, 10.0, 100.0, 100.0)
         self.assertFalse(rect1 == rect2)
 
 
-# Тестирование класса RoundRect
-# class TestRoundRect(unittest.TestCase):
+class TestRoundRect(unittest.TestCase):
+    """Тестирование класса RoundRect."""
+
+    pass
 
 #     def test_constructor(self):
 #         rrect = RoundRect()
@@ -3570,8 +2965,11 @@ class TestRectF(unittest.TestCase):
 #         self.assertTrue(rect1 != rect2)
 
 
-# Тестирование класса RoundRectF
-# class TestRoundRectF(unittest.TestCase):
+class TestRoundRectF(unittest.TestCase):
+    """Тестирование класса RoundRectF."""
+
+    pass
+
 
 #     def test_constructor(self):
 #         rrect = RoundRectF()
@@ -3628,52 +3026,49 @@ class TestRectF(unittest.TestCase):
 
 
 class TestPenStyle(unittest.TestCase):
-    '''
-    Тестирование класса PenStyle.
-    '''
+    """Тестирование класса PenStyle."""
 
     pass
 
 
 class TestPenJoinStyle(unittest.TestCase):
-    '''
-    Тестирование класса PenJoinStyle.
-    '''
+    """Тестирование класса PenJoinStyle."""
 
     pass
 
 
 class TestPenCapStyle(unittest.TestCase):
-    '''
-    Тестирование класса PenCapStyle.
-    '''
+    """Тестирование класса PenCapStyle."""
 
     pass
 
 
-# Тестирование класса Pen
-# class TestPen(unittest.TestCase):
+class TestPen(unittest.TestCase):
+    """Тест класса Pen."""
 
-#     def test_constructor(self):
-#         pen = Pen()
-#         self.assertEqual(pen.color, Color())
-#         self.assertTrue(pen.width == 1)
+    def test_constructor(self):
+        """Тест конструктора класса Pen."""
+        pen = Pen()
+        self.assertEqual(pen.color, Color())
+        self.assertTrue(pen.width == 1)
 
-#     def test_init(self):
-#         pen = Pen()
-#         pen.init(Color.get_red(), 2)
-#         self.assertEqual(pen.color, Color.get_red())
-#         self.assertTrue(pen.width == 2)
+    def test_init(self):
+        """Тест init класса Pen."""
+        pen = Pen()
+        pen.init(Color.get_red(), 2)
+        self.assertEqual(pen.color, Color.get_red())
+        self.assertTrue(pen.width == 2)
 
-#     def test_create(self):
-#         pen = Pen.create(Color.get_red(), 2)
-#         self.assertEqual(pen.color, Color.get_red())
-#         self.assertTrue(pen.width == 2)
+    def test_create(self):
+        """Тест create класса Pen."""
+        pen = Pen.create(Color.get_red(), 2)
+        self.assertEqual(pen.color, Color.get_red())
+        self.assertTrue(pen.width == 2)
 
-#     def test_to_byte_list(self):
-#         pen = Pen()
-#         bl = pen.to_byte_list()
-#         self.assertTrue(pen.check_byte_list(bl))
+    def test_to_byte_list(self):
+        pen = Pen()
+        ba = pen.to_byte_array()
+        self.assertTrue(pen.check_byte_array(ba))
 
 #     def test_from_byte_list(self):
 #         pen = Pen()
@@ -3688,58 +3083,62 @@ class TestPenCapStyle(unittest.TestCase):
 #         self.assertEqual(pen.color, c)
 #         self.assertEqual(pen.width, w)
 
-#     def test_get_byte_list_len(self):
-#         line = Line()
-#         self.assertEqual(line.get_byte_list_len(), len(line.to_byte_list()))
+    def test_get_byte_list_len(self):
+        """Тест функции get_byte_list_len."""
+        pen = Pen()
+        self.assertEqual(pen.get_byte_array_len(), len(pen.to_byte_array()))
 
-#     def test_equal(self):
-#         pen1 = Pen()
-#         self.assertTrue(pen1 == pen1)
-#         pen2 = Pen.create(Color.get_red(), 2)
-#         self.assertFalse(pen1 == pen2)
+    def test_equal(self):
+        """Тест оператора == класса Pen."""
+        pen1 = Pen()
+        self.assertTrue(pen1 == pen1)
+        pen2 = Pen.create(Color.get_red(), 2)
+        self.assertFalse(pen1 == pen2)
 
-#     def test_not_equal(self):
-#         pen1 = Pen()
-#         self.assertFalse(pen1 != pen1)
-#         pen2 = Pen.create(Color.get_red(), 2)
-#         self.assertTrue(pen1 != pen2)
+    def test_not_equal(self):
+        """Тест оператора != класса Pen."""
+        pen1 = Pen()
+        self.assertFalse(pen1 != pen1)
+        pen2 = Pen.create(Color.get_red(), 2)
+        self.assertTrue(pen1 != pen2)
 
 
 class TestBrushStyle(unittest.TestCase):
-    '''
-    Тестирование класса BrushStyle.
-    '''
+    """Тестирование класса BrushStyle."""
 
     pass
 
 
 class TestBrush(unittest.TestCase):
-    '''
-    Тестирование класса Brush.
-    '''
+    """Тестирование класса Brush."""
 
     def test_constructor(self):
+        """Тест конструктора класса Brush."""
         brush = Brush()
         self.assertEqual(brush.color, Color())
         self.assertEqual(brush.style, BrushStyle.SOLID_PATTERN)
 
     def test_init(self):
+        """"Тест функции init класса Brush."""
         brush = Brush()
         brush.init(Color.get_green(), BrushStyle.BDIAG_PATTERN)
         self.assertEqual(brush.color, Color.get_green())
         self.assertEqual(brush.style, BrushStyle.BDIAG_PATTERN)
 
     def test_create(self):
+        """Тест функции create класса Brush."""
         brush = Brush.create(Color.get_red(), BrushStyle.DENSE1_PATTERN)
         self.assertEqual(brush.color, Color.get_red())
         self.assertEqual(brush.style, BrushStyle.DENSE1_PATTERN)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Brush."""
         brush = Brush()
         ba = brush.to_byte_array()
         self.assertTrue(brush.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса Brush."""
         c = Color.get_gold()
         s = BrushStyle.FDIAG_PATTERN
         ba = bytearray()
@@ -3751,17 +3150,20 @@ class TestBrush(unittest.TestCase):
         self.assertEqual(brush.style, s)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Brush."""
         brush = Brush()
         self.assertEqual(brush.get_byte_array_len(),
                          len(brush.to_byte_array()))
 
     def test_equal(self):
+        """Тест оператора == класса Brush."""
         brush1 = Brush()
         self.assertTrue(brush1 == brush1)
         brush2 = Brush.create(Color.get_blue(), BrushStyle.SOLID_PATTERN)
         self.assertFalse(brush1 == brush2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Brush."""
         brush1 = Brush()
         self.assertFalse(brush1 != brush1)
         brush2 = Brush.create(Color.get_blue(), BrushStyle.SOLID_PATTERN)
@@ -3769,17 +3171,17 @@ class TestBrush(unittest.TestCase):
 
 
 class TestFont(unittest.TestCase):
-    '''
-    Тестирование класса Font.
-    '''
+    """Тестирование класса Font."""
 
     def test_constructor(self):
+        """Тест конструктора класса Font."""
         font = Font()
         self.assertEqual(font.family, String.create('Arial'))
         self.assertEqual(font.size, 12)
         self.assertEqual(font.is_bold, False)
 
     def test_init(self):
+        """Тест функции инициализации класса Font."""
         family = String.create('Courier New')
         size = 14
         is_bold = True
@@ -3790,6 +3192,7 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_create(self):
+        """Тест функции create класса Font."""
         family = String.create('Courier New')
         size = 16
         is_bold = True
@@ -3799,11 +3202,13 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array класса Font."""
         font = Font()
         ba = font.to_byte_array()
         self.assertTrue(font.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array класса Font."""
         font = Font()
         family = String.create('Courier New')
         size = 16
@@ -3818,10 +3223,12 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len класса Font."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
+        """Тест оператора == класса Font."""
         font1 = Font()
         self.assertTrue(font1 == font1)
         family = String.create('Courier New')
@@ -3831,6 +3238,7 @@ class TestFont(unittest.TestCase):
         self.assertFalse(font1 == font2)
 
     def test_not_equal(self):
+        """Тест оператора != класса Font."""
         font1 = Font()
         self.assertFalse(font1 != font1)
         family = String.create('Courier New')
