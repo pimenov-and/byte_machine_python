@@ -93,7 +93,7 @@ class TestMouse(unittest.TestCase):
     """Тестирование класса Mouse."""
 
     def test_constructor(self):
-        """Тест конструктора класса Mouse."""
+        """Тест конструктора."""
         m = Mouse()
         self.assertEqual(m.pos, bmg.Point())
         self.assertEqual(m.isLeftBtnDown, False)
@@ -101,7 +101,7 @@ class TestMouse(unittest.TestCase):
         self.assertEqual(m.isRightBtnDown, False)
 
     def test_init(self):
-        """Тест функции init класса Mouse."""
+        """Тест функции init."""
         m = Mouse()
         m.init(bmg.Point(), True, False, False)
         self.assertEqual(m.pos, bmg.Point())
@@ -110,7 +110,7 @@ class TestMouse(unittest.TestCase):
         self.assertEqual(m.isRightBtnDown, False)
 
     def test_create(self):
-        """Тест фукнции create класса Mouse."""
+        """Тест фукнции create."""
         pos = bmg.Point.create(110, 110)
         isLeftBtnDown = False
         isMiddleBtnDown = True
@@ -122,13 +122,13 @@ class TestMouse(unittest.TestCase):
         self.assertEqual(m.isRightBtnDown, isRightBtnDown)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Mouse."""
+        """Тест функции to_byte_array."""
         m = Mouse()
         ba = m.to_byte_array()
         self.assertEqual(m.get_byte_array_len(), len(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Mouse."""
+        """Тест функции from_byte_array."""
         pos = bmg.Point.create(110, 110)
         isLeftBtnDown = False
         isMiddleBtnDown = True
@@ -146,19 +146,19 @@ class TestMouse(unittest.TestCase):
         self.assertEqual(m.isRightBtnDown, isRightBtnDown)
 
     def test_get_byte_list_len(self):
-        """Тест функции get_byte_list_len класса Mouse."""
+        """Тест функции get_byte_list_len."""
         m = Mouse()
         self.assertEqual(m.get_byte_array_len(), 11)
 
     def test_equal(self):
-        """Тест функции == класса Mouse."""
+        """Тест оператора ==."""
         m1 = Mouse()
         self.assertTrue(m1 == m1)
         m2 = Mouse.create(bmg.Point(), False, True, False)
         self.assertFalse(m1 == m2)
 
     def test_not_equal(self):
-        """Тест функции != класса Mouse."""
+        """Тест оператора !=."""
         pos = bmg.Point.create(100, 100)
         m1 = Mouse.create(pos, False, False, True)
         m2 = Mouse()

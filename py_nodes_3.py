@@ -147,7 +147,7 @@ def py_change(bl):
 
 
 def py_merge(l1, l2):
-    '''Функция для узла PyMerge.'''
+    """"Функция для узла PyMerge."""
     return l1 + l2
 
 

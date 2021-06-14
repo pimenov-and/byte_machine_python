@@ -296,15 +296,11 @@ class Color(object):
         return len(byte_array) == self.get_byte_array_len()
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         return bytearray([self.red, self.green, self.blue, self.alpha])
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         self.init(byte_array[0], byte_array[1], byte_array[2], byte_array[3])
 
@@ -382,9 +378,7 @@ class String(object):
         return self.s == other.s
 
     def __ne__(self, other: String) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, String)
         return not self == other
 
@@ -466,9 +460,7 @@ class Point(object):
         return (int)(math.sqrt(self.x * self.x + self.y * self.y))
 
     def __add__(self, other: Point) -> Point:
-        '''
-        Бинарный оператор +.
-        '''
+        """Бинарный оператор +."""
         assert isinstance(other, Point)
         return Point.create(self.x + other.x, self.y + other.y)
 
@@ -1481,9 +1473,7 @@ class RoundRectF(object):
     """Прямоугольник со сглажененными углами с дробными координатами."""
 
     def __init__(self):
-        """
-        Конструктор без параметров.
-        """
+        """Конструктор без параметров."""
         self.rect = RectF()
         self.radiusX = 0
         self.radiusY = 0
@@ -1523,9 +1513,7 @@ class RoundRectF(object):
         return bar + barx + bary
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bar = byte_array[:32]
         self.rect.from_byte_array(bar)
@@ -1696,9 +1684,7 @@ class PolygonF(object):
         return len(self.to_byte_list())
 
     def __eq__(self, other: PolygonF) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.points == other.points
 
     def __ne__(self, other: list) -> bool:
@@ -1962,9 +1948,7 @@ class Brush(object):
         return len(byte_array) == 5
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += self.color.to_byte_array()
         ba += bmc.int8_to_byte_array(self.style)
@@ -2024,9 +2008,7 @@ class Font(object):
         return font
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         return len(byte_array) >= 10
 
     def from_byte_list(self, byte_array: bytearray) -> None:
@@ -2072,7 +2054,7 @@ class TestColor(unittest.TestCase):
     """Тестирование класса Color."""
 
     def test_contructor(self):
-        """Тест конструктора класса Color."""
+        """Тест конструктора."""
         c = Color()
         self.assertEqual(c.red, 0)
         self.assertEqual(c.green, 0)
@@ -2080,7 +2062,7 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 255)
 
     def test_init(self):
-        """Тест функции init класса Color."""
+        """Тест функции init."""
         c = Color()
         c.init(200, 200, 200)
         self.assertEqual(c.red, 200)
@@ -2095,7 +2077,7 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 100)
 
     def test_create(self):
-        """Тест функции create класса Color."""
+        """Тест функции create."""
         c = Color.create(50, 50, 50)
         self.assertTrue(isinstance(c, Color))
         self.assertEqual(c.red, 50)
@@ -2110,37 +2092,37 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 40)
 
     def test_get_red(self):
-        """Тест функции get_red класса Color."""
+        """Тест функции get_red."""
         c = Color.get_red()
         c_red = Color.create(255, 0, 0)
         self.assertEqual(c, c_red)
 
     def test_get_green(self):
-        """Тест функции get_green класса Color."""
+        """Тест функции get_green."""
         c = Color.get_green()
         c_green = Color.create(0, 128, 0)
         self.assertEqual(c, c_green)
 
     def test_get_blue(self):
-        """Тест функции get_blue класса Color."""
+        """Тест функции get_blue."""
         c = Color.get_blue()
         c_blue = Color.create(0, 0, 255)
         self.assertEqual(c, c_blue)
 
     def test_get_white(self):
-        """Тест функции get_blue класса Color."""
+        """Тест функции get_blue."""
         c = Color.get_white()
         c_white = Color.create(255, 255, 255)
         self.assertEqual(c, c_white)
 
     def test_get_black(self):
-        """Тест функции get_black класса Color."""
+        """Тест функции get_black."""
         c = Color.get_black()
         c_black = Color.create(0, 0, 0)
         self.assertEqual(c, c_black)
 
     def test_get_transparent(self):
-        """Тест функции get_transparent класса Color."""
+        """Тест функции get_transparent."""
         c = Color.get_transparent()
         self.assertEqual(c.red, 0)
         self.assertEqual(c.green, 0)
@@ -2148,33 +2130,33 @@ class TestColor(unittest.TestCase):
         self.assertEqual(c.alpha, 0)
 
     def test_from_byte_array(self):
-        """Тест функции to_byte_array класса Color."""
+        """Тест функции to_byte_array."""
         ba = bytearray([0, 0, 0, 255])
         c = Color()
         c.from_byte_array(ba)
         self.assertEqual(c, Color.get_black())
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Color."""
+        """Тест функции to_byte_array."""
         c = Color()
         ba = c.to_byte_array()
         self.assertTrue(c.check_byte_array(ba))
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Color."""
+        """Тест функции get_byte_array_len."""
         c = Color()
         ba = c.to_byte_array()
         self.assertEqual(c.get_byte_array_len(), len(ba))
 
     def test_equal(self):
-        """Тест оператора == класса Color."""
+        """Тест оператора ==."""
         c1 = Color()
         self.assertTrue(c1 == c1)
         c2 = Color.create(200, 200, 200)
         self.assertFalse(c1 == c2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Color."""
+        """Тест оператора !=."""
         c1 = Color()
         self.assertFalse(c1 != c1)
 
@@ -2183,49 +2165,49 @@ class TestString(unittest.TestCase):
     """Тестирование класса String."""
 
     def test_constructor(self):
-        """Тест конструктора класса String."""
+        """Тест конструктора."""
         s = String()
         s.s = '123'
 
     def test_init(self):
-        """Тест функции init класса String."""
+        """Тест функции init."""
         s = String()
         s.init('123')
         self.assertEqual(s.s, '123')
 
     def test_create(self):
-        """Тест функции create класса String."""
+        """Тест функции create."""
         s = String.create('123')
         self.assertEqual(s.s, '123')
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса String."""
+        """Тест функции to_byte_array."""
         s = String.create('123')
         ba = s.to_byte_array()
         self.assertTrue(s.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса String."""
+        """Тест функции from_byte_array."""
         s = String.create('123')
         ba = s.to_byte_array()
         s.from_byte_array(ba)
         self.assertEqual(s.s, '123')
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса String."""
+        """Тест функции get_byte_array_len."""
         s = String()
         ba = s.to_byte_array()
         self.assertEqual(s.get_byte_array_len(), len(ba))
 
     def test_equal(self):
-        """Тест оператора == класса String."""
+        """Тест оператора ==."""
         s1 = String()
         self.assertTrue(s1 == s1)
         s2 = String.create('123')
         self.assertFalse(s1 == s2)
 
     def test_not_equal(self):
-        """Тест оператора != класса String."""
+        """Тест оператора !=."""
         s1 = String()
         self.assertFalse(s1 != s1)
         s2 = String.create('123')
@@ -2236,78 +2218,78 @@ class TestPoint(unittest.TestCase):
     """Тестирование класса Point."""
 
     def test_constructor(self):
-        """Тест конструктора класса Point."""
+        """Тест конструктора."""
         pt = Point()
         self.assertEqual(pt.x, 0)
         self.assertEqual(pt.y, 0)
 
     def test_init(self):
-        """Тест функции init класса Point."""
+        """Тест функции init."""
         pt = Point()
         pt.init(100, 100)
         self.assertEqual(pt.x, 100)
         self.assertEqual(pt.y, 100)
 
     def test_create(self):
-        """Тест функции create класса Point."""
+        """Тест функции create."""
         pt = Point.create(50, 50)
         self.assertEqual(pt.x, 50)
         self.assertEqual(pt.y, 50)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Point."""
+        """Тест функции to_byte_array."""
         pt = Point()
         ba = pt.to_byte_array()
         self.assertTrue(pt.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Point."""
+        """Тест функции from_byte_array."""
         ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0])
         pt = Point()
         pt.from_byte_array(ba)
         self.assertTrue(pt == Point())
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Point."""
+        """Тест функции get_byte_array_len."""
         pt = Point()
         ba = pt.to_byte_array()
         self.assertEqual(pt.get_byte_array_len(), len(ba))
 
     def test_add(self):
-        """Тест оператора + класса Point."""
+        """Тест оператора +."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         self.assertEqual(pt1 + pt2, Point.create(300, 300))
 
     def test_iadd(self):
-        """Тест оператора += класса Point."""
+        """Тест оператора +=."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         pt1 += pt2
         self.assertEqual(pt1, Point.create(300, 300))
 
     def test_sub(self):
-        """Тест оператора - класса Point."""
+        """Тест оператора -."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         self.assertEqual(pt1 - pt2, Point.create(100, 100))
 
     def test_isub(self):
-        """Тест оператора -= класса Point."""
+        """Тест оператора -=."""
         pt1 = Point.create(200, 200)
         pt2 = Point.create(100, 100)
         pt1 -= pt2
         self.assertEqual(pt1, Point.create(100, 100))
 
     def test_equal(self):
-        """Тест оператора == класса Point."""
+        """Тест оператора ==."""
         pt1 = Point()
         self.assertTrue(pt1 == pt1)
         pt2 = Point.create(100, 100)
         self.assertFalse(pt1 == pt2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Point."""
+        """Тест оператора !=."""
         pt1 = Point()
         self.assertFalse(pt1 != pt1)
         pt2 = Point.create(100, 100)
@@ -2318,66 +2300,78 @@ class TestPointF(unittest.TestCase):
     """Тестирование класса PointF."""
 
     def test_constructor(self):
+        """."""
         pt = PointF()
         self.assertAlmostEqual(pt.x, 0.0)
         self.assertAlmostEqual(pt.y, 0.0)
 
     def test_init(self):
+        """."""
         pt = PointF()
         pt.init(100.0, 100.0)
         self.assertAlmostEqual(pt.x, 100.0)
         self.assertAlmostEqual(pt.y, 100.0)
 
     def test_create(self):
+        """."""
         pt = PointF.create(100.0, 100.0)
         self.assertAlmostEqual(pt.x, 100.0)
         self.assertAlmostEqual(pt.y, 100.0)
 
     def test_to_byte_array(self):
+        """."""
         pt = PointF()
         ba = pt.to_byte_array()
         self.assertTrue(pt.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """."""
         pt = PointF()
         ba = bmc.double_list_to_byte_array([0.0, 0.0])
         pt.from_byte_array(ba)
         self.assertEqual(pt, PointF())
 
     def test_get_byte_array_len(self):
+        """."""
         pt = PointF()
         bl = pt.to_byte_array()
         self.assertEqual(pt.get_byte_array_len(), len(bl))
 
     def test_add(self):
+        """."""
         pt1 = PointF.create(200.0, 200.0)
         pt2 = PointF.create(100.0, 100.0)
         self.assertEqual(pt1 + pt2, PointF.create(300.0, 300.0))
 
     def test_iadd(self):
+        """."""
         pt1 = PointF.create(200.0, 200.0)
         pt2 = PointF.create(100.0, 100.0)
         pt1 += pt2
         self.assertEqual(pt1, PointF.create(300.0, 300.0))
 
     def test_sub(self):
+        """."""
         pt1 = PointF.create(200.0, 200.0)
         pt2 = PointF.create(100.0, 100.0)
         self.assertEqual(pt1 - pt2, PointF.create(100.0, 100.0))
 
     def test_isub(self):
+        """."""
         pt1 = PointF.create(200.0, 200.0)
         pt2 = PointF.create(100.0, 100.0)
         pt1 -= pt2
         self.assertEqual(pt1, PointF.create(100.0, 100.0))
 
     def test_equal(self):
+        """."""
         pt1 = PointF()
         self.assertTrue(pt1 == pt1)
         pt2 = PointF.create(100.0, 100.0)
         self.assertFalse(pt1 == pt2)
 
     def test_not_equal(self):
+        """."""
         pt1 = PointF()
         self.assertFalse(pt1 != pt1)
         pt2 = PointF.create(100.0, 100.0)
@@ -2388,31 +2382,37 @@ class TestSize(unittest.TestCase):
     """Тестирование класса Size."""
 
     def test_contructor(self):
+        """."""
         sz = Size()
         self.assertEqual(sz.width, 0)
         self.assertEqual(sz.height, 0)
 
     def test_init(self):
+        """."""
         sz = Size()
         sz.init(100, 100)
         self.assertEqual(sz.width, 100)
         self.assertEqual(sz.height, 100)
 
     def test_create(self):
+        """."""
         sz = Size.create(100, 100)
         self.assertEqual(sz.width, 100)
         self.assertEqual(sz.height, 100)
 
     def test_is_null(self):
+        """."""
         sz = Size()
         self.assertTrue(sz.is_null())
 
     def test_to_byte_array(self):
+        """."""
         sz = Size.create(100, 100)
         ba = sz.to_byte_array()
         self.assertTrue(sz.check_byte_array(ba))
 
     def from_byte_array(self):
+        """."""
         sz = Size.create(100, 100)
         ba = bmc.int32_list_to_byte_array([100, 100])
         sz.from_byte_list(ba)
@@ -2420,12 +2420,14 @@ class TestSize(unittest.TestCase):
         self.assertEqual(sz.height, 100)
 
     def test_equal(self):
+        """."""
         sz1 = Size()
         self.assertTrue(sz1 == sz1)
         sz2 = Size.create(100, 100)
         self.assertFalse(sz1 == sz2)
 
     def test_not_equal(self):
+        """."""
         sz1 = Size()
         self.assertFalse(sz1 != sz1)
         sz2 = Size.create(100, 100)
@@ -2436,31 +2438,37 @@ class TestSizeF(unittest.TestCase):
     """Тестирование класса SizeF."""
 
     def test_contructor(self):
+        """."""
         sz = SizeF()
         self.assertAlmostEqual(sz.width, 0.0)
         self.assertAlmostEqual(sz.height, 0.0)
 
     def test_init(self):
+        """."""
         sz = SizeF()
         sz.init(100.0, 100.0)
         self.assertAlmostEqual(sz.width, 100.0)
         self.assertAlmostEqual(sz.height, 100.0)
 
     def test_create(self):
+        """."""
         sz = SizeF.create(100.0, 100.0)
         self.assertAlmostEqual(sz.width, 100.0)
         self.assertAlmostEqual(sz.height, 100.0)
 
     def test_is_null(self):
+        """."""
         sz = Size()
         self.assertTrue(sz.is_null())
 
     def test_to_byte_array(self):
+        """."""
         sz = SizeF.create(100.0, 100.0)
         ba = sz.to_byte_array()
         self.assertTrue(sz.check_byte_array(ba))
 
     def from_byte_list(self):
+        """."""
         sz = SizeF.create(100.0, 100.0)
         ba = bmc.double_list_to_byte_array([100.0, 100.0])
         sz.from_byte_array(ba)
@@ -2468,16 +2476,19 @@ class TestSizeF(unittest.TestCase):
         self.assertAlmostEqual(sz.height, 100.0)
 
     def test_get_byte_array_len(self):
+        """."""
         sz = SizeF()
         self.assertEqual(sz.get_byte_array_len(), len(sz.to_byte_array()))
 
     def test_equal(self):
+        """."""
         sz1 = SizeF()
         self.assertTrue(sz1 == sz1)
         sz2 = SizeF.create(100.0, 100.0)
         self.assertFalse(sz1 == sz2)
 
     def test_not_equal(self):
+        """."""
         sz1 = SizeF()
         self.assertFalse(sz1 != sz1)
         sz2 = SizeF.create(100.0, 100.0)
@@ -2488,11 +2499,13 @@ class TestLine(unittest.TestCase):
     """Тестирование класса Line."""
 
     def test_contructor(self):
+        """."""
         line = Line()
         self.assertEqual(line.pt1, Point())
         self.assertEqual(line.pt2, Point())
 
     def test_init(self):
+        """."""
         line = Line()
         pt1 = Point()
         pt2 = Point.create(100, 100)
@@ -2501,6 +2514,7 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt2, pt2)
 
     def test_init2(self):
+        """."""
         line = Line()
         line.init2(10, 10, 100, 100)
         self.assertEqual(line.pt1.x, 10)
@@ -2509,6 +2523,7 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt2.y, 100)
 
     def test_create(self):
+        """."""
         pt1 = Point()
         pt2 = Point.create(100, 100)
         line = Line.create(pt1, pt2)
@@ -2516,6 +2531,7 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt2, pt2)
 
     def test_create2(self):
+        """."""
         line = Line.create2(10, 10, 100, 100)
         self.assertEqual(line.pt1.x, 10)
         self.assertEqual(line.pt1.y, 10)
@@ -2523,11 +2539,13 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt2.y, 100)
 
     def test_to_byte_array(self):
+        """."""
         line = Line.create2(10, 10, 100, 100)
         ba = line.to_byte_array()
         self.assertTrue(line.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """."""
         bl = bmc.int32_list_to_byte_array([0, 0, 0, 0])
         line = Line()
         line.from_byte_array(bl)
@@ -2535,16 +2553,19 @@ class TestLine(unittest.TestCase):
         self.assertEqual(line.pt2, Point())
 
     def test_get_byte_array_len(self):
+        """."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
+        """."""
         line1 = Line()
         self.assertTrue(line1 == line1)
         line2 = Line.create2(0, 0, 100, 100)
         self.assertFalse(line1 == line2)
 
     def test_not_equal(self):
+        """."""
         line1 = Line()
         self.assertFalse(line1 != line1)
         line2 = Line.create2(0, 0, 100, 100)
@@ -2552,14 +2573,16 @@ class TestLine(unittest.TestCase):
 
 
 class TestLineF(unittest.TestCase):
-    """Тестирование класса LineF."""
+    """Тест класса LineF."""
 
     def test_contructor(self):
+        """."""
         line = LineF()
         self.assertEqual(line.pt1, PointF())
         self.assertEqual(line.pt2, PointF())
 
     def test_init(self):
+        """."""
         line = LineF()
         pt1 = PointF()
         pt2 = PointF.create(100.0, 100.0)
@@ -2568,6 +2591,7 @@ class TestLineF(unittest.TestCase):
         self.assertEqual(line.pt2, pt2)
 
     def test_init2(self):
+        """."""
         line = LineF()
         x1 = 100.0
         y1 = 100.0
@@ -2580,6 +2604,7 @@ class TestLineF(unittest.TestCase):
         self.assertAlmostEqual(line.pt2.y, y2)
 
     def test_create(self):
+        """."""
         pt1 = PointF()
         pt2 = PointF.create(100.0, 100.0)
         line = LineF.create(pt1, pt2)
@@ -2587,6 +2612,7 @@ class TestLineF(unittest.TestCase):
         self.assertEqual(line.pt2, pt2)
 
     def test_create2(self):
+        """."""
         x1 = 100.0
         y1 = 100.0
         x2 = 200.0
@@ -2598,6 +2624,7 @@ class TestLineF(unittest.TestCase):
         self.assertAlmostEqual(line.pt2.y, 200.0)
 
     def test_from_byte_array(self):
+        """."""
         line = LineF.create2(100.0, 100.0, 200.0, 200.0)
         ba = line.to_byte_array()
         line.from_byte_array(ba)
@@ -2607,16 +2634,19 @@ class TestLineF(unittest.TestCase):
         self.assertAlmostEqual(line.pt2.y, 200.0)
 
     def test_get_byte_array_len(self):
+        """."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
+        """."""
         line1 = LineF()
         self.assertTrue(line1 == line1)
         line2 = LineF.create2(0.0, 0.0, 100.0, 100.0)
         self.assertFalse(line1 == line2)
 
     def test_not_equal(self):
+        """."""
         line1 = LineF()
         self.assertFalse(line1 != line1)
         line2 = LineF.create2(0.0, 0.0, 100.0, 100.0)
@@ -2627,13 +2657,13 @@ class TestPolyline(unittest.TestCase):
     """Тестирование класса Polyline."""
 
     def test_contructor(self):
-        """Тест конструктора класса Polyline."""
+        """Тест конструктора."""
         p = Polyline()
         self.assertTrue(p.is_empty())
         self.assertEqual(p.get_point_count(), 0)
 
     def test_init(self):
-        """Тест функции init класса Polyline."""
+        """Тест функции init."""
         p = Polyline()
         points = [Point().create(100, 100)]
         p.init(points)
@@ -2641,7 +2671,7 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_create(self):
-        """Тест функции create класса Polyline."""
+        """Тест функции create."""
         points = [Point().create(100, 100)]
         p = Polyline.create(points)
         self.assertFalse(p.is_empty())
@@ -2649,7 +2679,7 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_add_point(self):
-        """Тест функции add_point класса Polyline."""
+        """Тест функции add_point."""
         pt = Point().create(100, 100)
         p = Polyline()
         p.add_point(pt)
@@ -2657,24 +2687,24 @@ class TestPolyline(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Polyline."""
+        """Тест функции to_byte_array."""
         p = Polyline()
         ba = p.to_byte_array()
         self.assertTrue(p.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Polyline."""
+        """Тест функции from_byte_array."""
         p = Polyline()
         ba = p.to_byte_array()
         p.from_byte_array(ba)
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Polyline."""
+        """Тест функции get_byte_array_len."""
         p = Polyline()
         self.assertEqual(p.get_byte_array_len(), len(p.to_byte_array()))
 
     def test_equal(self):
-        """Тест оператора == класса Polyline."""
+        """Тест оператора ==."""
         p1 = Polyline()
         self.assertTrue(p1 == p1)
         points = [Point().create(100, 100)]
@@ -2682,7 +2712,7 @@ class TestPolyline(unittest.TestCase):
         self.assertFalse(p1 == p2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Polyline."""
+        """Тест оператора !=."""
         p1 = Polyline()
         self.assertFalse(p1 != p1)
         points = [Point().create(100, 100)]
@@ -2691,14 +2721,16 @@ class TestPolyline(unittest.TestCase):
 
 
 class TestPolylineF(unittest.TestCase):
-    """Тестирование класса PolylineF."""
+    """Тест класса PolylineF."""
 
     def test_contructor(self):
+        """."""
         p = PolylineF()
         self.assertTrue(p.is_empty())
         self.assertEqual(p.get_point_count(), 0)
 
     def test_init(self):
+        """."""
         p = PolylineF()
         points = [PointF().create(200.0, 200.0)]
         p.init(points)
@@ -2706,11 +2738,13 @@ class TestPolylineF(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_create(self):
+        """."""
         points = [PointF(), PointF().create(200.0, 200.0)]
         p = PolylineF().create(points)
         self.assertFalse(p.is_empty())
 
     def test_add_point(self):
+        """."""
         pt = PointF().create(100.0, 100.0)
         p = PolylineF()
         p.add_point(pt)
@@ -2718,18 +2752,22 @@ class TestPolylineF(unittest.TestCase):
         self.assertEqual(p.get_point_count(), 1)
 
     def test_to_byte_array(self):
+        """."""
         p = PolylineF()
         ba = p.to_byte_array()
         self.assertTrue(p.check_byte_array(ba))
 
     def test_from_byte_array(self):
+        """."""
         pass
 
     def test_get_byte_array_len(self):
+        """."""
         p = PolylineF()
         self.assertEqual(p.get_byte_array_len(), len(p.to_byte_array()))
 
     def test_equal(self):
+        """."""
         p1 = PolylineF()
         self.assertTrue(p1 == p1)
         points = [PointF().create(100.0, 100.0)]
@@ -2737,6 +2775,7 @@ class TestPolylineF(unittest.TestCase):
         self.assertFalse(p1 == p2)
 
     def test_not_equal(self):
+        """."""
         p1 = PolylineF()
         self.assertFalse(p1 != p1)
         points = [PointF().create(100.0, 100.0)]
@@ -2748,7 +2787,7 @@ class TestRect(unittest.TestCase):
     """Тестирование класса Rect."""
 
     def test_contructor(self):
-        """Тест конструктора класса Rect."""
+        """Тест конструктора."""
         rect = Rect()
         self.assertEqual(rect.get_left(), 0)
         self.assertEqual(rect.get_top(), 0)
@@ -2756,7 +2795,7 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 0)
 
     def test_init(self):
-        """Тест функции init класса Rect."""
+        """Тест функции init."""
         rect = Rect()
         lt = Point()
         s = Size.create(100, 100)
@@ -2767,7 +2806,7 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 100)
 
     def test_init2(self):
-        """Тест функции init2 класса Rect."""
+        """Тест функции init2."""
         rect = Rect()
         rect.init2(100, 100, 200, 200)
         self.assertEqual(rect.get_left(), 100)
@@ -2776,7 +2815,7 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 200)
 
     def test_create(self):
-        """Тест функции create класса Rect."""
+        """Тест функции create."""
         leftTop = Point.create(10, 10)
         size = Size.create(100, 100)
         rect = Rect.create(leftTop, size)
@@ -2784,7 +2823,7 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.size, size)
 
     def test_create2(self):
-        """Тест функции create2 класса Rect."""
+        """Тест функции create2."""
         rect = Rect.create2(50, 50, 300, 300)
         self.assertEqual(rect.get_left(), 50)
         self.assertEqual(rect.get_top(), 50)
@@ -2792,13 +2831,13 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 300)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Rect."""
+        """Тест функции to_byte_array."""
         rect = Rect()
         bl = rect.to_byte_array()
         self.assertTrue(rect.check_byte_array(bl))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Rect."""
+        """Тест функции from_byte_array."""
         coords = [100, 100, 200, 200]
         ba = bmc.int32_list_to_byte_array(coords)
         rect = Rect()
@@ -2809,19 +2848,19 @@ class TestRect(unittest.TestCase):
         self.assertEqual(rect.get_height(), 200)
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Rect."""
+        """Тест функции get_byte_array_len."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
-        """Тест оператора == класса Rect."""
+        """Тест оператора ==."""
         rect1 = Rect()
         self.assertTrue(rect1 == rect1)
         rect_2 = Rect.create2(0, 0, 200, 200)
         self.assertFalse(rect1 == rect_2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Rect."""
+        """Тест оператора !=."""
         rect1 = Rect()
         self.assertFalse(rect1 != rect1)
         rect2 = Rect.create2(100, 100, 200, 200)
@@ -2829,16 +2868,16 @@ class TestRect(unittest.TestCase):
 
 
 class TestRectF(unittest.TestCase):
-    """Тестирование класса RectF."""
+    """Тест класса RectF."""
 
     def test_constructor(self):
-        """Тест конструктора класса RectF."""
+        """Тест конструктора."""
         rect = RectF()
         self.assertEqual(rect.leftTop, PointF())
         self.assertEqual(rect.size, SizeF())
 
     def test_init(self):
-        """Тест функции init класса RectF."""
+        """Тест функции init."""
         leftTop = PointF.create(100.0, 100.0)
         size = SizeF.create(200.0, 200.0)
         rect = RectF()
@@ -2847,7 +2886,7 @@ class TestRectF(unittest.TestCase):
         self.assertEqual(rect.size, size)
 
     def test_init2(self):
-        """Тест функции init2 класса RectF."""
+        """Тест функции init2."""
         rect = RectF()
         rect.init2(100.0, 100.0, 200.0, 200.0)
         self.assertAlmostEqual(rect.get_left(), 100.0)
@@ -2901,7 +2940,7 @@ class TestRectF(unittest.TestCase):
         self.assertFalse(rect1 == rect2)
 
     def test_not_equal(self):
-        """Тест operator != класса RectF."""
+        """Тест operator !=."""
         rect1 = RectF()
         self.assertTrue(rect1 == rect1)
         rect2 = RectF.create2(10.0, 10.0, 100.0, 100.0)
@@ -2909,7 +2948,7 @@ class TestRectF(unittest.TestCase):
 
 
 class TestRoundRect(unittest.TestCase):
-    """Тестирование класса RoundRect."""
+    """Тест класса RoundRect."""
 
     pass
 
@@ -2950,7 +2989,8 @@ class TestRoundRect(unittest.TestCase):
 
 #     def test_get_byte_list_len(self):
 #         rrect = RoundRect()
-#         self.assertEqual(rrect.get_byte_list_len(), len(rrect.to_byte_list()))
+#         self.assertEqual(rrect.get_byte_list_len(),
+#             len(rrect.to_byte_list()))
 
 #     def test_equal(self):
 #         rrect1 = RoundRect()
@@ -2966,7 +3006,7 @@ class TestRoundRect(unittest.TestCase):
 
 
 class TestRoundRectF(unittest.TestCase):
-    """Тестирование класса RoundRectF."""
+    """Тест класса RoundRectF."""
 
     pass
 
@@ -3005,7 +3045,8 @@ class TestRoundRectF(unittest.TestCase):
 #         rect = RectF.create2(100.0, 100.0, 200.0, 200.0)
 #         radiusX = 1.0
 #         radiusY = 1.0
-#         bl = rect.to_byte_list() + double_to_byte_list(radiusX) + double_to_byte_list(radiusY)
+#         bl = rect.to_byte_list() + double_to_byte_list(radiusX) +
+#             double_to_byte_list(radiusY)
 #         rrect = RoundRectF()
 #         rrect.from_byte_list(bl)
 
@@ -3015,30 +3056,32 @@ class TestRoundRectF(unittest.TestCase):
 #     def test_equal(self):
 #         rect1 = RoundRectF()
 #         self.assertTrue(rect1 == rect1)
-#         rect2 = RoundRectF.create(RectF.create2(0.0, 0.0, 100.0, 100.0), 10.0, 10.0)
+#         rect2 = RoundRectF.create(RectF.create2(0.0, 0.0, 100.0, 100.0),
+#             10.0, 10.0)
 #         self.assertFalse(rect1 == rect2)
 
 #     def test_not_equal(self):
 #         rect1 = RoundRectF()
 #         self.assertFalse(rect1 != rect1)
-#         rect2 = RoundRectF.create(RectF.create2(0.0, 0.0, 100.0, 100.0), 10.0, 10.0)
+#         rect2 = RoundRectF.create(RectF.create2(0.0, 0.0, 100.0, 100.0),
+#             10.0, 10.0)
 #         self.assertTrue(rect1 != rect2)
 
 
 class TestPenStyle(unittest.TestCase):
-    """Тестирование класса PenStyle."""
+    """Тест класса PenStyle."""
 
     pass
 
 
 class TestPenJoinStyle(unittest.TestCase):
-    """Тестирование класса PenJoinStyle."""
+    """Тест класса PenJoinStyle."""
 
     pass
 
 
 class TestPenCapStyle(unittest.TestCase):
-    """Тестирование класса PenCapStyle."""
+    """Тест класса PenCapStyle."""
 
     pass
 
@@ -3047,25 +3090,26 @@ class TestPen(unittest.TestCase):
     """Тест класса Pen."""
 
     def test_constructor(self):
-        """Тест конструктора класса Pen."""
+        """Тест конструктора."""
         pen = Pen()
         self.assertEqual(pen.color, Color())
         self.assertTrue(pen.width == 1)
 
     def test_init(self):
-        """Тест init класса Pen."""
+        """Тест функции init."""
         pen = Pen()
         pen.init(Color.get_red(), 2)
         self.assertEqual(pen.color, Color.get_red())
         self.assertTrue(pen.width == 2)
 
     def test_create(self):
-        """Тест create класса Pen."""
+        """Тест функции create."""
         pen = Pen.create(Color.get_red(), 2)
         self.assertEqual(pen.color, Color.get_red())
         self.assertTrue(pen.width == 2)
 
     def test_to_byte_list(self):
+        """Тест функции to_bte_list."""
         pen = Pen()
         ba = pen.to_byte_array()
         self.assertTrue(pen.check_byte_array(ba))
@@ -3089,14 +3133,14 @@ class TestPen(unittest.TestCase):
         self.assertEqual(pen.get_byte_array_len(), len(pen.to_byte_array()))
 
     def test_equal(self):
-        """Тест оператора == класса Pen."""
+        """Тест оператора ==."""
         pen1 = Pen()
         self.assertTrue(pen1 == pen1)
         pen2 = Pen.create(Color.get_red(), 2)
         self.assertFalse(pen1 == pen2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Pen."""
+        """Тест оператора !=."""
         pen1 = Pen()
         self.assertFalse(pen1 != pen1)
         pen2 = Pen.create(Color.get_red(), 2)
@@ -3104,41 +3148,41 @@ class TestPen(unittest.TestCase):
 
 
 class TestBrushStyle(unittest.TestCase):
-    """Тестирование класса BrushStyle."""
+    """Тест класса BrushStyle."""
 
     pass
 
 
 class TestBrush(unittest.TestCase):
-    """Тестирование класса Brush."""
+    """Тест класса Brush."""
 
     def test_constructor(self):
-        """Тест конструктора класса Brush."""
+        """Тест конструктора."""
         brush = Brush()
         self.assertEqual(brush.color, Color())
         self.assertEqual(brush.style, BrushStyle.SOLID_PATTERN)
 
     def test_init(self):
-        """"Тест функции init класса Brush."""
+        """Тест функции init."""
         brush = Brush()
         brush.init(Color.get_green(), BrushStyle.BDIAG_PATTERN)
         self.assertEqual(brush.color, Color.get_green())
         self.assertEqual(brush.style, BrushStyle.BDIAG_PATTERN)
 
     def test_create(self):
-        """Тест функции create класса Brush."""
+        """Тест функции create."""
         brush = Brush.create(Color.get_red(), BrushStyle.DENSE1_PATTERN)
         self.assertEqual(brush.color, Color.get_red())
         self.assertEqual(brush.style, BrushStyle.DENSE1_PATTERN)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Brush."""
+        """Тест функции to_byte_array."""
         brush = Brush()
         ba = brush.to_byte_array()
         self.assertTrue(brush.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Brush."""
+        """Тест функции from_byte_array."""
         c = Color.get_gold()
         s = BrushStyle.FDIAG_PATTERN
         ba = bytearray()
@@ -3150,20 +3194,20 @@ class TestBrush(unittest.TestCase):
         self.assertEqual(brush.style, s)
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Brush."""
+        """Тест функции get_byte_array_len."""
         brush = Brush()
         self.assertEqual(brush.get_byte_array_len(),
                          len(brush.to_byte_array()))
 
     def test_equal(self):
-        """Тест оператора == класса Brush."""
+        """Тест оператора ==."""
         brush1 = Brush()
         self.assertTrue(brush1 == brush1)
         brush2 = Brush.create(Color.get_blue(), BrushStyle.SOLID_PATTERN)
         self.assertFalse(brush1 == brush2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Brush."""
+        """Тест оператора !=."""
         brush1 = Brush()
         self.assertFalse(brush1 != brush1)
         brush2 = Brush.create(Color.get_blue(), BrushStyle.SOLID_PATTERN)
@@ -3171,17 +3215,17 @@ class TestBrush(unittest.TestCase):
 
 
 class TestFont(unittest.TestCase):
-    """Тестирование класса Font."""
+    """Тест класса Font."""
 
     def test_constructor(self):
-        """Тест конструктора класса Font."""
+        """Тест конструктора."""
         font = Font()
         self.assertEqual(font.family, String.create('Arial'))
         self.assertEqual(font.size, 12)
         self.assertEqual(font.is_bold, False)
 
     def test_init(self):
-        """Тест функции инициализации класса Font."""
+        """Тест функции init."""
         family = String.create('Courier New')
         size = 14
         is_bold = True
@@ -3192,7 +3236,7 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_create(self):
-        """Тест функции create класса Font."""
+        """Тест функции create."""
         family = String.create('Courier New')
         size = 16
         is_bold = True
@@ -3202,13 +3246,13 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_to_byte_array(self):
-        """Тест функции to_byte_array класса Font."""
+        """Тест функции to_byte_array."""
         font = Font()
         ba = font.to_byte_array()
         self.assertTrue(font.check_byte_array(ba))
 
     def test_from_byte_array(self):
-        """Тест функции from_byte_array класса Font."""
+        """Тест функции from_byte_array."""
         font = Font()
         family = String.create('Courier New')
         size = 16
@@ -3223,12 +3267,12 @@ class TestFont(unittest.TestCase):
         self.assertEqual(font.is_bold, is_bold)
 
     def test_get_byte_array_len(self):
-        """Тест функции get_byte_array_len класса Font."""
+        """Тест функции get_byte_array_len."""
         line = Line()
         self.assertEqual(line.get_byte_array_len(), len(line.to_byte_array()))
 
     def test_equal(self):
-        """Тест оператора == класса Font."""
+        """Тест оператора ==."""
         font1 = Font()
         self.assertTrue(font1 == font1)
         family = String.create('Courier New')
@@ -3238,7 +3282,7 @@ class TestFont(unittest.TestCase):
         self.assertFalse(font1 == font2)
 
     def test_not_equal(self):
-        """Тест оператора != класса Font."""
+        """Тест оператора !=."""
         font1 = Font()
         self.assertFalse(font1 != font1)
         family = String.create('Courier New')
