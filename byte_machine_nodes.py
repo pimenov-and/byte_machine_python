@@ -1,17 +1,15 @@
-# coding: utf8
-'''
-ByteMachine
-Функции с функциональностью нодов программы ByteMachine.
-'''
+"""
+ByteMachine.
+
+Функции с функциональностью некоторых узлов-нодов.
+"""
 import random
 import unittest
 
 
-# Функции повторяют функциональность нодов
+# Функции повторяют функциональность некоторых узлов-нодов.
 def generate(count: int, filled_byte: int = 0) -> bytearray:
-    '''
-    Генерация списка размера count и заполненного значением filled_byte.
-    '''
+    """Генерация списка размера count и заполненного определенным значением."""
     # assert isinstance(count, int)
     assert count >= 0
     assert isinstance(filled_byte, int)
@@ -20,10 +18,7 @@ def generate(count: int, filled_byte: int = 0) -> bytearray:
 
 
 def rand_generate(count: int) -> bytearray:
-    '''
-    Генерация списка размера count и заполненного случайными
-    значениями в диапазоне 0-255.
-    '''
+    """Генерация байтового массива со случайными значениями."""
     # assert isinstance(count, int)
     assert count >= 0
     return bytearray([random.randint(0, 255) for i in range(count)])
@@ -31,11 +26,7 @@ def rand_generate(count: int) -> bytearray:
 
 def take(byte_array: bytearray, count: int,
          is_begin: bool = True) -> bytearray:
-    '''
-    Получение определенного количества значений списка.
-    Если is_begin равен True, то значения берутся из начала списка,
-    иначе с конца.
-    '''
+    """Получение определенного количества значений списка."""
     assert len(byte_array) >= count
     if is_begin:
         return byte_array[:count]
@@ -45,11 +36,7 @@ def take(byte_array: bytearray, count: int,
 
 def skip(byte_array: bytearray, count: int,
          is_begin: bool = True) -> bytearray:
-    '''
-    Пропуск определенного количества значений списка.
-    Если is_begin равен True, то значения пропускаются из начала списка,
-    иначе с конца.
-    '''
+    """Пропуск определенного количества значений списка."""
     assert len(byte_array) >= count
     if is_begin:
         return byte_array[count:]
@@ -58,33 +45,24 @@ def skip(byte_array: bytearray, count: int,
 
 
 def reverse(byte_array: bytearray) -> bytearray:
-    '''
-    Реверс списка.
-    '''
+    """Реверс списка."""
     return byte_array[::-1]
 
 
 def size(byte_array: bytearray) -> int:
-    '''
-    Получение размера списка.
-    '''
+    """Получение размера списка."""
     return len(byte_array)
 
 
 def merge(byte_array1: bytearray, byte_array2: bytearray) -> bytearray:
-    '''
-    Объединение списков.
-    '''
+    """Объединение списков."""
     return byte_array1 + byte_array2
 
 
 def dump(values: bytearray, byte_width: int = 16) -> None:
-    '''
-    Вывод дампа значений.
-    byte_width определяет ширину вывода и может быть равным 8 или 16.
-    '''
+    """Вывод дампа значений."""
     assert isinstance(byte_width, int)
-    assert byte_width == 8 or byte_width == 16
+    assert byte_width in (8, 16)
     address = 0
     line_count = len(values) // byte_width
     tail_size = len(values) % byte_width
@@ -104,10 +82,7 @@ def dump(values: bytearray, byte_width: int = 16) -> None:
 
 
 def byte_to_hex_str(value: int) -> str:
-    '''
-    Конвертация числа в строку с шестнадцатиричным представлением
-    без префикса 0x и шириной 2 символа.
-    '''
+    """Конвертация числа в строку с шестнадцатиричным представлением."""
     # assert isinstance(value, int)
     assert 0 <= value <= 255
     hex_str = hex(value)
@@ -115,10 +90,7 @@ def byte_to_hex_str(value: int) -> str:
 
 
 def _address32_to_hex_str(address: int) -> str:
-    '''
-    Конвертация 32-разрядного адреса в строку с шестнадцатиричным
-    представлением без префикса 0x и шириной 8 символа.
-    '''
+    """Конвертация 32-разрядного адреса в строку с шестнадцатиричным представлением."""
     # assert isinstance(address, int)
     assert 0 <= address <= 2147483647
     hex_str = hex(address)
@@ -126,26 +98,23 @@ def _address32_to_hex_str(address: int) -> str:
 
 
 def _bytes_to_hex_str(byte_array: bytearray) -> str:
-    '''
-    Перевод байтов в строку с шестнадцатиричным представлением
-    с разделителем ' '.
-    '''
+    """Перевод байтов в строку с шестнадцатиричным представлением с разделителем ' '."""
     parts = [byte_to_hex_str(b) for b in byte_array]
     return ' '.join(parts)
 
 
 class TestNodes(unittest.TestCase):
-    '''
-    Класс для тестирования.
-    '''
+    """Класс для тестирования."""
 
     def test_generate(self):
+        """Тест функции genarate."""
         ba = generate(3)
         self.assertEqual(ba, bytearray([0, 0, 0]))
         ba = generate(3, 1)
         self.assertEqual(ba, bytearray([1, 1, 1]))
 
     def test_rand_generate(self):
+        """Тест функции rand_generate."""
         ba = rand_generate(100)
         self.assertEqual(len(ba), 100)
 
@@ -157,6 +126,7 @@ class TestNodes(unittest.TestCase):
         self.assertEqual(r, bytearray([7, 8, 9]))
 
     def test_skip(self):
+        """Тест функции skip."""
         ba = bytearray(range(10))
         r = skip(ba, 7)
         self.assertEqual(r, bytearray([7, 8, 9]))
@@ -164,32 +134,37 @@ class TestNodes(unittest.TestCase):
         self.assertEqual(r, bytearray([0, 1, 2]))
 
     def test_reverse(self):
+        """Тесть функции reverse."""
         ba = bytearray([1, 2, 3])
         r = bytearray([3, 2, 1])
         self.assertEqual(reverse(ba), r)
 
     def test_size(self):
+        """Тест функции size."""
         ba = bytearray([0, 0, 0])
         self.assertEqual(size(ba), 3)
         ba = bytearray()
         self.assertEqual(size(ba), 0)
 
     def test_merge(self):
+        """Тест функции merge."""
         ba1 = bytearray([0, 1])
         ba2 = bytearray([2, 3])
         r = ba1 + ba2
         self.assertEqual(merge(ba1, ba2), r)
 
     def test_dump(self):
-        pass  # не тестируется ввиду вывода на консоль
+        """Тест функции dump."""
+        pass  # не тестируется ввиду вывода на консоль.
 
     def test_byte_to_hex_str(self):
+        """Тест функции byte_to_hex_str."""
         hs = byte_to_hex_str(1)
         self.assertEqual(hs, '01')
         hs = byte_to_hex_str(255)
         self.assertEqual(hs, 'FF')
 
 
-# Вызывается при загрузке модуля главным
-if __name__ == '__main__':
+# Вызывается при загрузке модуля главным.
+if __name__ == "__main__":
     unittest.main()

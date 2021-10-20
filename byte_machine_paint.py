@@ -1,26 +1,176 @@
-# coding: utf8
-'''
-ByteMachine
+"""
+ByteMachine.
+
 Операции рисования.
-'''
+"""
 from __future__ import annotations
 import unittest
-import byte_machine_helper_3 as bmh
-import byte_machine_graphics_3 as bmg
+import byte_machine_helper as bmh
+import byte_machine_graphics as bmg
 
 
-class DrawOpCodes(object):
-    '''
-    Коды операций рисования.
-    '''
+class DrawOpCodes:
+    """Коды операций рисования."""
+
+    @staticmethod
+    def code_to_str(code: int) -> str:
+        """Конвертация кода в строку."""
+        if code == DrawOpCodes.SAVE_STATE:
+            return "SAVE_STATE"
+        elif code == DrawOpCodes.RESTORE_STATE:
+            return "RESTORE_STATE"
+        elif code == DrawOpCodes.SET_CLIP_RECT:
+            return "SET_CLIP_RECT"
+        elif code == DrawOpCodes.TRANSFORM_TRANSLATE:
+            return "TRANSFORM_TRANSLATE"
+        elif code == DrawOpCodes.TRANSFORM_ROTATE:
+            return "TRANSFORM_ROTATE"
+        elif code == DrawOpCodes.TRANSFORM_SCALE:
+            return "TRANSFORM_SCALE"
+        elif code == DrawOpCodes.SET_PEN:
+            return "SET_PEN"
+        elif code == DrawOpCodes.SET_BRUSH:
+            return "SET_BRUSH"
+        elif code == DrawOpCodes.SET_FONT:
+            return "SET_FONT"
+        elif code == DrawOpCodes.SET_ANTIALIASING:
+            return "SET_ANTIALIASING"
+        elif code == DrawOpCodes.DRAW_POINT:
+            return "DRAW_POINT"
+        elif code == DrawOpCodes.DRAW_POINTS:
+            return "DRAW_POINTS"
+        elif code == DrawOpCodes.DRAW_POINTF:
+            return "DRAW_POINTF"
+        elif code == DrawOpCodes.DRAW_POINTSF:
+            return "DRAW_POINTSF"
+        elif code == DrawOpCodes.DRAW_LINE:
+            return "DRAW_LINE"
+        elif code == DrawOpCodes.DRAW_LINES:
+            return "DRAW_LINES"
+        elif code == DrawOpCodes.DRAW_LINESF:
+            return "DRAW_LINESF"
+        elif code == DrawOpCodes.DRAW_LINESF:
+            return "DRAW_LINESF"
+        elif code == DrawOpCodes.DRAW_POLYLINE:
+            return "DRAW_POLYLINE"
+        elif code == DrawOpCodes.DRAW_POLYLINEF:
+            return "DRAW_POLYLINEF"
+        elif code == DrawOpCodes.DRAW_ROUND_RECT:
+            return "DRAW_ROUND_RECT"
+        elif code == DrawOpCodes.DRAW_ROUND_RECTS:
+            return "DRAW_ROUND_RECTS"
+        elif code == DrawOpCodes.DRAW_ROUND_RECTF:
+            return "DRAW_ROUND_RECTF"
+        elif code == DrawOpCodes.DRAW_ROUND_RECTSF:
+            return "DRAW_ROUND_RECTSF"
+        elif code == DrawOpCodes.DRAW_ELLIPSE:
+            return "DRAW_ELLIPSE"
+        elif code == DrawOpCodes.DRAW_ELLIPSES:
+            return "DRAW_ELLIPSES"
+        elif code == DrawOpCodes.DRAW_ELLIPSEF:
+            return "DRAW_ELLIPSEF"
+        elif code == DrawOpCodes.DRAW_ELLIPSESF:
+            return "DRAW_ELLIPSESF"
+        elif code == DrawOpCodes.DRAW_POLYGON:
+            return "DRAW_POLYGON"
+        elif code == DrawOpCodes.DRAW_POLYGONF:
+            return "DRAW_POLYGONF"
+        elif code == DrawOpCodes.DRAW_IMAGE:
+            return "DRAW_IMAGE"
+        elif code == DrawOpCodes.DRAW_TEXT:
+            return "DRAW_TEXT"
+        else:
+            return "UNKNOWN"
+
+    @staticmethod
+    def str_to_code(s: str) -> int:
+        """Конвертация строки в код."""
+        if s == "SAVE_STATE":
+            return DrawOpCodes.SAVE_STATE
+        elif s == "RESTORE_STATE":
+            return DrawOpCodes.RESTORE_STATE
+        elif s == "SET_CLIP_RECT":
+            return DrawOpCodes.SET_CLIP_RECT
+        elif s == "TRANSFORM_TRANSLATE":
+            return DrawOpCodes.TRANSFORM_TRANSLATE
+        elif s == "TRANSFORM_ROTATE":
+            return DrawOpCodes.TRANSFORM_ROTATE
+        elif s == "TRANSFORM_SCALE":
+            return DrawOpCodes.TRANSFORM_SCALE
+        elif s == "SET_PEN":
+            return DrawOpCodes.SET_PEN
+        elif s == "SET_BRUSH":
+            return DrawOpCodes.SET_BRUSH
+        elif s == "SET_FONT":
+            return DrawOpCodes.SET_FONT
+        elif s == "SET_ANTIALIASING":
+            return DrawOpCodes.SET_ANTIALIASING
+        elif s == "DRAW_POINT":
+            return DrawOpCodes.DRAW_POINT
+        elif s == "DRAW_POINTS":
+            return DrawOpCodes.DRAW_POINTS
+        elif s == "DRAW_POINTF":
+            return DrawOpCodes.DRAW_POINTF
+        elif s == "DRAW_POINTSF":
+            return DrawOpCodes.DRAW_POINTSF
+        elif s == "DRAW_LINE":
+            return DrawOpCodes.DRAW_LINE
+        elif s == "DRAW_LINES":
+            return DrawOpCodes.DRAW_LINES
+        elif s == "DRAW_LINEF":
+            return DrawOpCodes.DRAW_LINEF
+        elif s == "DRAW_LINESF":
+            return DrawOpCodes.DRAW_LINESF
+        elif s == "DRAW_POLYLINE":
+            return DrawOpCodes.DRAW_POLYLINE
+        elif s == "DRAW_POLYLINEF":
+            return DrawOpCodes.DRAW_POLYLINEF
+        elif s == "DRAW_ARC":
+            return DrawOpCodes.DRAW_ARC
+        elif s == "DRAW_ARCF":
+            return DrawOpCodes.DRAW_ARCF
+        elif s == "DRAW_RECT":
+            return DrawOpCodes.DRAW_RECT
+        elif s == "DRAW_RECTS":
+            return DrawOpCodes.DRAW_RECTS
+        elif s == "DRAW_RECTF":
+            return DrawOpCodes.DRAW_RECTF
+        elif s == "DRAW_RECTS":
+            return DrawOpCodes.DRAW_RECTS
+        elif s == "DRAW_ROUND_RECT":
+            return DrawOpCodes.DRAW_ROUND_RECT
+        elif s == "DRAW_ROUND_RECTS":
+            return DrawOpCodes.DRAW_ROUND_RECTS
+        elif s == "DRAW_ROUND_RECTF":
+            return DrawOpCodes.DRAW_ROUND_RECTF
+        elif s == "DRAW_ROUND_RECTSF":
+            return DrawOpCodes.DRAW_ROUND_RECTSF
+        elif s == "DRAW_ELLIPSE":
+            return DrawOpCodes.DRAW_ELLIPSE
+        elif s == "DRAW_ELLIPSES":
+            return DrawOpCodes.DRAW_ELLIPSES
+        elif s == "DRAW_ELLIPSEF":
+            return DrawOpCodes.DRAW_ELLIPSEF
+        elif s == "DRAW_ELLIPSESF":
+            return DrawOpCodes.DRAW_ELLIPSESF
+        elif s == "DRAW_POLYGON":
+            return DrawOpCodes.DRAW_POLYGON
+        elif s == "DRAW_POLYGONF":
+            return DrawOpCodes.DRAW_POLYGONF
+        elif s == "DRAW_IMAGE":
+            return DrawOpCodes.DRAW_IMAGE
+        elif s == "DRAW_TEXT":
+            return DrawOpCodes.DRAW_TEXT
+        else:
+            return DrawOpCodes.UNKNOWN
 
     UNKNOWN = -1
     SAVE_STATE = 0
     RESTORE_STATE = 1
     SET_CLIP_RECT = 2
-    TRANFORM_TRANSLATE = 3
-    TRANFORM_ROTATE = 4
-    TRANFORM_SCALE = 5
+    TRANSFORM_TRANSLATE = 3
+    TRANSFORM_ROTATE = 4
+    TRANSFORM_SCALE = 5
     SET_PEN = 6
     SET_BRUSH = 7
     SET_FONT = 8
@@ -56,10 +206,8 @@ class DrawOpCodes(object):
     COUNT = 38
 
 
-class AlignmentFlags(object):
-    '''
-    Флаги выравнивания (объединяются через ИЛИ).
-    '''
+class AlignmentFlags:
+    """Флаги выравнивания (объединяются через ИЛИ)."""
 
     ALIGN_UNKNOWN = 0x00
     ALIGN_LEFT = 0x01
@@ -70,15 +218,11 @@ class AlignmentFlags(object):
     ALIGN_VCENTER = 0x80
 
 
-class SaveStateOp(object):
-    '''
-    Операция "Сохранения состояния".
-    '''
+class SaveStateOp:
+    """Операция "Сохранения состояния"."""
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SAVE_STATE:
@@ -86,51 +230,37 @@ class SaveStateOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.SAVE_STATE)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из массива байтов."""
         assert self.check_byte_array(byte_array)
-        pass
+        reserve = byte_array[2:3]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return 3
 
     def __eq__(self, other: SaveStateOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SaveStateOp)
         return True
 
     def __ne__(self, other: SaveStateOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SaveStateOp)
-        return not (self == other)
+        return False
 
 
-class RestoreStateOp(object):
-    '''
-    Операция "Восстановление состояния".
-    '''
+class RestoreStateOp:
+    """Операция "Восстановление состояния"."""
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.RESTORE_STATE:
@@ -138,74 +268,54 @@ class RestoreStateOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.RESTORE_STATE)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из массива байтов."""
         assert self.check_byte_array(byte_array)
-        pass
+        reserve = byte_array[2:3]
 
     def get_byte_array_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return 3
 
     def __eq__(self, other: RestoreStateOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, RestoreStateOp)
         return True
 
     def __ne__(self, other: RestoreStateOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, RestoreStateOp)
-        return not self == other
+        return False
 
 
-class SetClipRectOp(object):
-    '''
-    Операция "Задание прямоугольника отсечения".
-    '''
+class SetClipRectOp:
+    """Операция "Задание прямоугольника отсечения"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.rect = bmg.Rect()
 
     def init(self, rect: bmg.Rect) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.Rect)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.Rect) -> SetClipRectOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.Rect)
         op = SetClipRectOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SET_CLIP_RECT:
@@ -213,66 +323,49 @@ class SetClipRectOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.int16_to_byte_list(DrawOpCodes.SET_CLIP_RECT)
         ba += self.rect.to_byte_array()
-        ba += bmg.uint8_to_byte_array(0)  # резерв
+        ba += bmg.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из массива байтов."""
         assert self.check_byte_array(byte_array)
         bar = byte_array[2:18]
         self.rect.from_byte_array(bar)
+        reverse = byte_array[18:19]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return 19
 
     def __eq__(self, other: SetClipRectOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SetClipRectOp)
         return self.rect == other.rect
 
     def __ne__(self, other: SetClipRectOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SetClipRectOp)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rect)
+        """Получение строкового представления."""
+        return f"{self.rect}"
 
 
-class TransformTranslateOp(object):
-    '''
-    Операция "Трансформация - перенос".
-    '''
+class TransformTranslateOp:
+    """Операция "Трансформация - перенос"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.x = 0.0
         self.y = 0.0
 
     def init(self, x: float, y: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         self.x = x
@@ -280,9 +373,7 @@ class TransformTranslateOp(object):
 
     @staticmethod
     def create(x: float, y: float) -> TransformTranslateOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         op = TransformTranslateOp()
@@ -290,164 +381,124 @@ class TransformTranslateOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
-        if get_draw_op_code(byte_array) != DrawOpCodes.TRANFORM_TRANSLATE:
+        if get_draw_op_code(byte_array) != DrawOpCodes.TRANSFORM_TRANSLATE:
             return False
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
-        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANFORM_TRANSLATE)
+        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANSFORM_TRANSLATE)
         ba += bmg.bmc.double_to_byte_array(self.x)
         ba += bmg.bmc.double_to_byte_array(self.y)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из массива байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:18]
         data = bmg.bmc.byte_array_to_double_list(ba)
         self.x = data[0]
         self.y = data[1]
+        reverse = byte_array[18:19]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return 19
 
     def __eq__(self, other: TransformTranslateOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, TransformTranslateOp)
-        isEqX = bmh.float_equal(self.x, other.x)
-        isEqY = bmh.float_equal(self.y, other.y)
-        return isEqX and isEqY
+        is_eq_x = bmh.float_equal(self.x, other.x)
+        is_eq_y = bmh.float_equal(self.y, other.y)
+        return is_eq_x and is_eq_y
 
     def __ne__(self, other: TransformTranslateOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, TransformTranslateOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}, {}'.format(self.x, self.y)
+        """Получение строкового представления."""
+        return f"{self.x}, {self.y}"
 
 
-class TransformRotateOp(object):
-    '''
-    Операция "Трансформация - поворот".
-    '''
+class TransformRotateOp:
+    """Операция "Трансформация - поворот"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.angle = 0.0
 
     def init(self, angle: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(angle, float)
         self.angle = angle
 
     @staticmethod
     def create(angle: float) -> TransformRotateOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(angle, float)
         op = TransformRotateOp()
         op.init(angle)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
-        if get_draw_op_code(byte_array) != DrawOpCodes.TRANFORM_ROTATE:
+        if get_draw_op_code(byte_array) != DrawOpCodes.TRANSFORM_ROTATE:
             return False
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
-        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANFORM_ROTATE)
+        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANSFORM_ROTATE)
         ba += bmg.bmc.double_to_byte_array(self.angle)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из массива байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:10]
         self.angle = bmg.bmc.byte_array_to_double(ba)
+        reserve = byte_array[10:11]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return 11
 
     def __eq__(self, other: TransformRotateOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, TransformRotateOp)
         return bmh.float_equal(self.angle, other.angle)
 
     def __ne__(self, other: TransformRotateOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, TransformRotateOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.angle)
+        """Получение строкового представления."""
+        return f"{self.angle}"
 
 
-class TransformScaleOp(object):
-    '''
-    Операция "Трансформация - масштабирование".
-    '''
+class TransformScaleOp:
+    """Операция "Трансформация - масштабирование"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.x = 1.0
         self.y = 1.0
 
     def init(self, x: float, y: float) -> None:
-        '''
-        Функция инициалиазации.
-        '''
+        """Функция инициализации."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         self.x = x
@@ -455,9 +506,7 @@ class TransformScaleOp(object):
 
     @staticmethod
     def create(x, y):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(x, float)
         assert isinstance(y, float)
         op = TransformScaleOp()
@@ -465,94 +514,74 @@ class TransformScaleOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности массива байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
-        if get_draw_op_code(byte_array) != DrawOpCodes.TRANFORM_SCALE:
+        if get_draw_op_code(byte_array) != DrawOpCodes.TRANSFORM_SCALE:
             return False
         return True
 
     def to_byte_array(self):
-        '''
-        Получение в виде массива байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
-        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANFORM_SCALE)
+        ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.TRANSFORM_SCALE)
         ba += bmg.bmc.double_to_byte_array(self.x)
         ba += bmg.bmc.double_to_byte_array(self.y)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
+        """Инициализации через список байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:18]
         bc = bmg.bmc.double_list_to_byte_array(ba)
         self.x = bc[0]
         self.y = bc[1]
+        reserve = byte_array[18:19]
 
     def get_byte_array_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 19
 
     def __eq__(self, other) -> bool:
-        '''
-        Функция проверки на равенство.
-        '''
+        """Функция проверки на равенство."""
         assert isinstance(other, TransformScaleOp)
-        isEqX = bmh.float_equal(self.x, other.x)
-        isEqY = bmh.float_equal(self.y, other.y)
-        return isEqX and isEqY
+        is_eq_x = bmh.float_equal(self.x, other.x)
+        is_eq_y = bmh.float_equal(self.y, other.y)
+        return is_eq_x and is_eq_y
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, TransformScaleOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}, {}'.format(self.x, self.y)
+        """Получение строкового представления."""
+        return f"{self.x}, {self.y}"
 
 
-class SetAntialiasingOp(object):
-    '''
-    Операция "Задание сглаживания".
-    '''
+class SetAntialiasingOp:
+    """Операция "Задание сглаживания"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.antialiasing = False
 
     def init(self, antialiasing: bool) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(antialiasing, bool)
         self.antialiasing = antialiasing
 
     @staticmethod
     def create(antialiasing: bool) -> SetAntialiasingOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(antialiasing, bool)
         op = SetAntialiasingOp()
         op.init(antialiasing)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SET_ANTIALIASING:
@@ -560,82 +589,61 @@ class SetAntialiasingOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.SET_ANTIALIASING)
         ba += bmg.bmc.bool_to_byte_array(self.antialiasing)
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_list(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:3]
         self.antialiasing = bmg.bmc.byte_array_to_bool(ba)
+        reverse = byte_array[3:4]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 4
 
     def __eq__(self, other: SetAntialiasingOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SetAntialiasingOp)
         return self.antialiasing == other.antialiasing
 
     def __ne__(self, other: SetAntialiasingOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SetAntialiasingOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.antialiasing)
+        """Получение строкового представления."""
+        return f"{self.antialiasing}"
 
 
-class SetPenOp(object):
-    '''
-    Операция "Задать перо".
-    '''
+class SetPenOp:
+    """Операция "Задать перо"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.pen = bmg.Pen()
 
     def init(self, pen: bmg.Pen) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(pen, bmg.Pen)
         self.pen = pen
 
     @staticmethod
     def create(pen: bmg.Pen) -> SetPenOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(pen, bmg.Pen)
         op = SetPenOp()
         op.pen = pen
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности массива байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SET_PEN:
@@ -643,82 +651,61 @@ class SetPenOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде массива байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.SET_PEN)
         ba += self.pen.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через массив байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         bap = byte_array[2:13]
         self.pen.from_byte_list(bap)
+        reverse = byte_array[13:14]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 14
 
     def __eq__(self, other: SetPenOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SetPenOp)
         return self.pen == other.pen
 
     def __ne__(self, other: SetPenOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SetPenOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
-        return '{}'.format(self.pen)
+        """Получение строкового представления объекта."""
+        return f"{self.pen}"
 
 
-class SetBrushOp(object):
-    '''
-    Операция "Задать кисть".
-    '''
+class SetBrushOp:
+    """Операция "Задать кисть"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.brush = bmg.Brush()
 
     def init(self, brush: bmg.Brush) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(brush, bmg.Brush)
         self.brush = brush
 
     @staticmethod
     def create(brush: bmg.Brush) -> SetBrushOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(brush, bmg.Brush)
         op = SetBrushOp()
         op.init(brush)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SET_BRUSH:
@@ -726,157 +713,121 @@ class SetBrushOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.SET_BRUSH)
         ba += self.brush.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_list):
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_list(byte_list)
         bb = byte_list[2:7]
         self.brush.from_byte_list(bb)
+        reverse = byte_array[7:8]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 8
 
     def __eq__(self, other: SetBrushOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SetBrushOp)
         return self.brush == other.brush
 
     def __ne__(self, other: SetBrushOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SetBrushOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта
-        .'''
-        return '{}'.format(self.brush)
+        """Получение строкового представления объекта."""
+        return f"{self.brush}"
 
 
-class SetFontOp(object):
-    '''
-    Операция "Задание шрифта".
-    '''
+class SetFontOp:
+    """Операция "Задание шрифта"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.font = bmg.Font()
 
     def init(self, font: bmg.Font) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(font, bmg.Font)
         self.font = font
 
     @staticmethod
     def create(font: bmg.Font) -> SetFontOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         op = SetFontOp()
         op.init(font)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
+        if len(byte_array) < 2:
+            return False
         if get_draw_op_code(byte_array) != DrawOpCodes.SET_FONT:
             return False
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.SET_FONT)
         ba += self.font.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
-    def from_byte_list(self, byte_array: bytearray) -> None:
-        pass
+    def from_byte_array(self, byte_array: bytearray) -> None:
+        """Инициализация из массива байтов."""
+        assert check_byte_array(byte_array)
+        baf = byte_array[2:]
+        self.font.from_byte_array(baf)
 
-    def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+    def get_byte_list_array(self) -> int:
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: SetFontOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, SetFontOp)
         return self.font == other.font
 
     def __ne__(self, other: SetFontOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, SetFontOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления объекта.
-        '''
-        return '{}'.format(self.brush)
+        """Получение строкового представления объекта."""
+        return f"{self.brush}"
 
 
-class DrawPointOp(object):
-    '''
-    Операция "Нарисовать точку с целочисленными координатами".
-    '''
+class DrawPointOp:
+    """Операция "Нарисовать точку с целочисленными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.point = bmg.Point()
 
     def init(self, point: bmg.Point) -> None:
-        '''
-        Функция ицнициализации.
-        '''
+        """Функция ицнициализации."""
         assert isinstance(point, bmg.Point)
         self.point = point
 
     @staticmethod
     def create(point: bmg.Point) -> DrawPointOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(point, bmg.Point)
         op = DrawPointOp()
         op.init(point)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_POINT:
@@ -884,100 +835,73 @@ class DrawPointOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
-        ba = []
+        """Получение в виде списка байтов."""
+        ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_POINT)
         ba += self.point.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bap = byte_array[2:10]
         self.point.from_byte_array(bap)
+        reserve = byte_array[10:11]
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 11
 
     def __eq__(self, other: DrawPointOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPointOp)
         return self.point == other.point
 
     def __ne__(self, other: DrawPointOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPointOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.point)
+        """Получение строкового представления."""
+        return f"{self.point}"
 
 
-class DrawPointsOp(object):
-    '''
-    Операция "Нарисовать набор точек с целочисленными координатами".
-    '''
+class DrawPointsOp:
+    """Операция "Нарисовать набор точек с целочисленными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.points = []
 
     def init(self, points) -> None:
-        '''
-        Функция ицнициализации.
-        '''
+        """Функция ицнициализации."""
         self.points = points
 
     @staticmethod
     def create(points: list) -> DrawPointsOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(points, list)
         op = DrawPointsOp()
         op.init(points)
         return op
 
     def add_point(self, point: bmg.Point) -> None:
-        '''
-        Функция добавления точки.
-        '''
+        """Функция добавления точки."""
         assert isinstance(point, bmg.Point)
         self.points.append(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия точек.
-        '''
+        """Получение признака отсутствия точек."""
         return self.get_point_count() == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_POINTS:
@@ -985,9 +909,7 @@ class DrawPointsOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_POINTS)
         ba += bmg.bmc.int32_to_byte_array(self.get_point_count())
@@ -997,9 +919,7 @@ class DrawPointsOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         cbl = byte_array[2:6]
         count = bmg.bmc.byte_array_to_int32(cbl)
@@ -1014,64 +934,46 @@ class DrawPointsOp(object):
             offset += point_len
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawPointsOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPointsOp)
         return self.points == other.points
 
     def __ne__(self, other: DrawPointsOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPointsOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.points)
+        """Получение строкового представления."""
+        return f"{self.points}"
 
 
-class DrawPointfOp(object):
-    '''
-    Операция "Нарисовать точку с дробными координатами".
-    '''
+class DrawPointfOp:
+    """Операция "Нарисовать точку с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.point = bmg.PointF()
 
     def init(self, point: bmg.Point) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(point, bmg.Point)
         self.point = point
 
     @staticmethod
     def create(point: bmg.Point) -> DrawPointfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(point, bmg.Point)
         op = DrawPointfOp()
         op.init(point)
         return op
 
     def check_byte_array(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_POINTF:
@@ -1079,101 +981,73 @@ class DrawPointfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
-        ba = []
+        """Получение в виде списка байтов."""
+        ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_POINTF)
         ba += self.point.to_byte_array()
         ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         bap = byte_array[2:18]
         self.point.from_byte_array(bap)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 19
 
     def __eq__(self, other: DrawPointfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPointfOp)
         return self.point == other.point
 
     def __ne__(self, other: DrawPointfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPointfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{0}'.format(self.point)
+        """Получение строкового представления."""
+        return f"{self.point}"
 
 
-class DrawPointsfOp(object):
-    '''
-    Операция "Нарисовать точки с дробными координатами".
-    '''
+class DrawPointsfOp:
+    """Операция "Нарисовать точки с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.points = []
 
     def init(self, points: list) -> None:
-        '''
-        Функция ицнициализации.
-        '''
+        """Функция ицнициализации."""
         assert isinstance(points, list)
         self.points = points
 
     @staticmethod
     def create(points: list) -> DrawPointsfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(points, list)
         op = DrawPointsfOp()
         op.init(points)
         return op
 
     def get_point_count(self):
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return len(self.points)
 
     def add_point(self, point: bmg.PointF) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, bmg.PointF)
         self.points.append(point)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия точек.
-        '''
+        """Получение признака отсутствия точек."""
         return len(self.points) == 0
 
     def check_byte_list(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_POINTSF:
@@ -1181,21 +1055,17 @@ class DrawPointsfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_POINTSF)
         ba += bmg.bmc.int32_to_byte_list(self.get_point_count())
         for p in self.points:
             ba += p.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         cbl = byte_array[2:6]
         count = bmg.bmc.byte_array_to_int32(cbl)
@@ -1210,62 +1080,44 @@ class DrawPointsfOp(object):
             offset += point_len
 
     def get_byte_list_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawPointsfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPointsfOp)
         return self.points == other.points
 
     def __ne__(self, other: DrawPointsfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPointsfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.points)
+        """Получение строкового представления."""
+        return f"{self.points}"
 
 
-class DrawLineOp(object):
-    '''
-    Операция "Нарисовать линию с целочисленными коордиинатами".
-    '''
+class DrawLineOp:
+    """Операция "Нарисовать линию с целочисленными коордиинатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.line = bmg.Line()
 
     def init(self, line: bmg.Line) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(line, bmg.Line)
         self.line = line
 
-    def init_2(self, pt1: bmg.Line, pt2: bmg.Line) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init2(self, pt1: bmg.Line, pt2: bmg.Line) -> None:
+        """Функция инициализации."""
         assert isinstance(pt1, bmg.Point)
         assert isinstance(pt2, bmg.Point)
         self.line = bmg.Line.create(pt1, pt2)
 
-    def init_3(self, x1: int, y1: int, x2: int, y2: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init3(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        """Функция инициализации."""
         assert isinstance(x1, int)
         assert isinstance(y1, int)
         assert isinstance(x2, int)
@@ -1274,42 +1126,34 @@ class DrawLineOp(object):
 
     @staticmethod
     def create(line: bmg.Line) -> DrawLineOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(line, bmg.Line)
         op = DrawLineOp()
         op.init(line)
         return op
 
     @staticmethod
-    def create_2(pt1: bmg.Point, pt2: bmg.Point) -> DrawLineOp:
-        '''
-        Функция создания.
-        '''
+    def create2(pt1: bmg.Point, pt2: bmg.Point) -> DrawLineOp:
+        """Функция создания."""
         assert isinstance(pt1, bmg.Point)
         assert isinstance(pt2, bmg.Point)
         op = DrawLineOp()
-        op.init_2(pt1, pt2)
+        op.init2(pt1, pt2)
         return op
 
     @staticmethod
-    def create_3(x1: int, y1: int, x2: int, y2: int) -> DrawLineOp:
-        '''
-        Функция создания.
-        '''
+    def create3(x1: int, y1: int, x2: int, y2: int) -> DrawLineOp:
+        """Функция создания."""
         assert isinstance(x1, int)
         assert isinstance(y1, int)
         assert isinstance(x2, int)
         assert isinstance(y2, int)
         op = DrawLineOp()
-        op.init_3(x1, y1, x2, y2)
+        op.init3(x1, y1, x2, y2)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_LINE:
@@ -1317,120 +1161,90 @@ class DrawLineOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_LINE)
         ba += self.line.to_byte_array()
-        ba += bmg.bmc.uint8_to_byte_array(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_array(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:18]
         self.line.from_byte_array(ba)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 19
 
     def __eq__(self, other: DrawLineOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawLineOp)
         return self.line == other.line
 
     def __ne__(self, other: DrawLineOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawLineOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.line)
+        """Получение строкового представления."""
+        return f"{self.line}"
 
 
-class DrawLinesOp(object):
-    '''
-    Операция "Нарисовать линии с целыми координатами".
-    '''
+class DrawLinesOp:
+    """Операция "Нарисовать линии с целыми координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.lines = []
 
     def init(self, lines: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert DrawLinesOp.check_lines(lines)
         self.lines = lines
 
     def create(lines: list) -> DrawLinesOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert DrawLinesOp.check_lines(lines)
         op = DrawLinesOp()
         op.init(lines)
         return op
 
-    def add_line(self, line):
-        '''
-        Функция добавления линий.
-        '''
+    def add_line(self, line: bmg.Line):
+        """Функция добавления линий."""
         assert isinstance(line, bmg.Line)
         self.lines.append(line)
 
     def get_line_count(self):
-        '''
-        Получение количества линий.
-        '''
+        """Получение количества линий."""
         return len(self.lines)
 
     def is_empty(self):
-        '''
-        Получение признака отсуствия линий.
-        '''
+        """Получение признака отсуствия линий."""
         return self.get_line_count() == 0
 
-    def check_byte_array(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
-        if len(byte_list) < 6:
+    def check_byte_array(self, byte_array: bytearray) -> bool:
+        """Проверка корректности списка байтов для инициализации."""
+        if len(byte_array) < 6:
             return False
-        if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_LINES:
+        if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_LINES:
             return False
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''Получение в виде списка байтов.'''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_LINES)
         ba += bmg.bmc.int32_to_byte_array(self.get_line_count())
         for line in self.lines:
             ba += line.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         basz = byte_array[2:6]
         sz = bmg.bmc.byte_array_to_int32(basz)
@@ -1445,36 +1259,26 @@ class DrawLinesOp(object):
             offset += line_len
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawLinesOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawLinesOp)
         return self.lines == other.lines
 
     def __ne__(self, other: DrawLinesOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawLinesOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.lines)
+        """Получение строкового представления."""
+        return f"{self.lines}"
 
     @staticmethod
     def check_lines(lines):
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(lines, list):
             return False
         if not all([isinstance(line, bmg.Line) for line in lines]):
@@ -1482,36 +1286,26 @@ class DrawLinesOp(object):
         return True
 
 
-class DrawLinefOp(object):
-    '''
-    Операция "Нарисовать линию с дробными координатами".
-    '''
+class DrawLinefOp:
+    """Операция "Нарисовать линию с дробными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.line = bmg.LineF()
 
     def init(self, line: bmg.LineF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(line, bmg.LineF)
         self.line = line
 
-    def init_2(self, pt1: bmg.PointF, pt2: bmg.PointF) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init2(self, pt1: bmg.PointF, pt2: bmg.PointF) -> None:
+        """Функция инициализации 2."""
         assert isinstance(pt1, bmg.PointF)
         assert isinstance(pt2, bmg.PointF)
         self.line = bmg.LineF.create(pt1, pt2)
 
-    def init_3(self, x1: float, y1: float, x2: float, y2: float) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init3(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """Функция инициализации 3."""
         assert isinstance(x1, float)
         assert isinstance(y1, float)
         assert isinstance(x2, float)
@@ -1520,42 +1314,34 @@ class DrawLinefOp(object):
 
     @staticmethod
     def create(line: bmg.LineF) -> DrawLinefOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(line, bmg.LineF)
         op = DrawLinefOp()
         op.init(line)
         return op
 
     @staticmethod
-    def create_2(pt1, pt2) -> DrawLinefOp:
-        '''
-        Функция создания.
-        '''
+    def create2(pt1, pt2) -> DrawLinefOp:
+        """Функция создания 2."""
         assert isinstance(pt1, bmg.PointF)
         assert isinstance(pt2, bmg.PointF)
         op = DrawLinefOp()
-        op.init_2(pt1, pt2)
+        op.init2(pt1, pt2)
         return op
 
     @staticmethod
-    def create_3(x1, y1, x2, y2):
-        '''
-        Функция создания.
-        '''
+    def create3(x1, y1, x2, y2):
+        """Функция создания 3."""
         assert isinstance(x1, float)
         assert isinstance(y1, float)
         assert isinstance(x2, float)
         assert isinstance(y2, float)
         op = DrawLinefOp()
-        op.init_3(x1, y1, x2, y2)
+        op.init3(x1, y1, x2, y2)
         return op
 
     def check_byte_array(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_LINEF:
@@ -1563,9 +1349,7 @@ class DrawLinefOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.DRAW_LINEF)
         ba += self.line.to_byte_array()
@@ -1573,91 +1357,65 @@ class DrawLinefOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:34]
         self.line.from_byte_list(ba)
 
     def get_byte_list_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 35
 
     def __eq__(self, other: DrawLinefOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawLinefOp)
         return self.line == other.line
 
     def __ne__(self, other: DrawLinefOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawLinefOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.line)
+        """Получение строкового представления."""
+        return f"{self.line}"
 
 
-class DrawLinesfOp(object):
-    '''
-    Операция "Нарисовать линии с дробными координатами".
-    '''
+class DrawLinesfOp:
+    """Операция "Нарисовать линии с дробными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.lines = []
 
     def init(self, lines: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert DrawLinesfOp.check_lines(lines)
         self.lines = lines
 
     @staticmethod
     def create(lines: list) -> DrawLinesfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert DrawLinesfOp.check_lines(lines)
         op = DrawLinesfOp()
         op.init(lines)
         return op
 
     def add_line(self, line: bmg.LineF) -> None:
-        '''
-        Добавление линии.
-        '''
+        """Добавление линии."""
         assert isinstance(line, bmg.LineF)
         self.lines.append(line)
 
     def get_line_count(self) -> int:
-        '''
-        Получение количества линий.
-        '''
+        """Получение количества линий."""
         return len(self.lines)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсуствия линий.
-        '''
+        """Получение признака отсуствия линий."""
         return self.get_line_count() == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < 6:
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_LINEF:
@@ -1665,9 +1423,7 @@ class DrawLinesfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_LINESF)
         ba += bmg.bmc.int32_to_byte_list(self.get_line_count())
@@ -1677,9 +1433,7 @@ class DrawLinesfOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert DrawLinesfOp.check_byte_array(byte_array)
         basz = byte_array[2:6]
         sz = bmg.bmc.byte_array_to_int32(basz)
@@ -1694,36 +1448,26 @@ class DrawLinesfOp(object):
             offset += line_len
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawLinesfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawLinesfOp)
         return self.lines == other.lines
 
     def __ne__(self, other: DrawLinesfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawLinesfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.lines)
+        """Получение строкового представления."""
+        return f"{self.lines}"
 
     @staticmethod
     def check_lines(lines: list) -> bool:
-        '''
-        Проверка списка точек.
-        '''
+        """Проверка списка точек."""
         if not isinstance(lines, list):
             return False
         if not all([isinstance(line, bmg.LineF) for line in lines]):
@@ -1731,57 +1475,41 @@ class DrawLinesfOp(object):
         return True
 
 
-class DrawPolylineOp(object):
-    '''
-    Операция "Нарисовать ломаную линию с целочисленными координатами".
-    '''
+class DrawPolylineOp:
+    """Операция "Нарисовать ломаную линию с целочисленными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.polyline = bmg.Polyline()
 
     def init(self, polyline: bmg.Polyline) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(polyline, bmg.Polyline)
         self.polyline = polyline
 
     @staticmethod
     def create(polyline: bmg.Polyline) -> DrawPolylineOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(polyline, bmg.Polyline)
         op = DrawPolylineOp()
         op.init(polyline)
         return op
 
     def add_point(self, point: bmg.Point) -> None:
-        '''
-        Функция добавления линий.
-        '''
+        """Функция добавления линий."""
         assert isinstance(point, bmg.Point)
         self.polyline.add_point(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества линий.
-        '''
+        """Получение количества линий."""
         return self.polyline.get_point_count()
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсуствия линий.
-        '''
+        """Получение признака отсуствия линий."""
         return self.polyline.is_empty()
 
     def check_byte_list(self, byte_array):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < 6:
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_POLYLINE:
@@ -1789,172 +1517,125 @@ class DrawPolylineOp(object):
         return True
 
     def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_POLYLINE)
         ba += self.polyline.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из списка байтов.
-        '''
+        """Инициализация из списка байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPolylineOp)
         return self.polyline == other.polyline
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPolylineOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.polyline)
+        """Получение строкового представления."""
+        return f"{self.polyline}"
 
 
-class DrawPolylinefOp(object):
-    '''
-    Операция "Нарисовать ломаную линию с дробными координатами".
-    '''
+class DrawPolylinefOp:
+    """Операция "Нарисовать ломаную линию с дробными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.polyline = bmg.PolylineF()
 
     def init(self, polyline: bmg.PolylineF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(polyline, bmg.PolylineF)
         self.polyline = polyline
 
     @staticmethod
     def create(polyline: bmg.Polyline) -> DrawPolylinefOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(polyline, bmg.PolylineF)
         op = DrawPolylinefOp()
         op.init(polyline)
         return op
 
     def add_point(self, point: bmg.PointF) -> None:
-        '''
-        Функция добавления линий.
-        '''
+        """Функция добавления линий."""
         assert isinstance(point, bmg.PointF)
         self.polyline.add_point(point)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия точек.
-        '''
+        """Получение признака отсутствия точек."""
         return self.polyline.is_empty()
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return self.polyline.get_point_count()
 
     def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_POLYLINEF)
         ba += self.polyline.to_byte_array()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
-    def from_byte_list(self, byte_list):
-        '''
-        Инициализация из списка байтов.
-        '''
-        assert self.check_byte_list(byte_list)
-        pass
+    def from_byte_list(self, byte_array: bytearray) -> None:
+        """Инициализация из списка байтов."""
+        assert self.check_byte_array(byte_array)
+        bapl = byte_array[:2]
+        self.polyline.from_byte_array(bapl)
 
     def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawPolylinefOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawPolylinefOp)
         return self.polyline == other.polyline
 
     def __ne__(self, other: DrawPolylinefOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawPolylinefOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.polyline)
+        """Получение строкового представления."""
+        return f"{self.polyline}"
 
 
-class DrawRectOp(object):
-    '''
-    Операция "Нарисовать прямоугольник".
-    '''
+class DrawRectOp:
+    """Операция "Нарисовать прямоугольник"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.rect = bmg.Rect()
 
     def init(self, rect: bmg.Rect) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.Rect)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.Rect) -> DrawRectOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.Rect)
         op = DrawRectOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_RECT:
@@ -1962,99 +1643,71 @@ class DrawRectOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_RECT)
         ba += self.rect.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
-    def from_byte_array(self, byte_array):
-        '''
-        Инициализация через список байтов.
-        '''
-        assert self.check_byte_list(byte_array)
-        pass
+    def from_byte_array(self, byte_array: bytearray) -> None:
+        """Инициализация через список байтов."""
+        assert self.check_byte_array(byte_array)
+        # bar = 
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 18
 
     def __eq__(self, other: DrawRectOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawRectOp)
         return self.rect == other.rect
 
     def __ne__(self, other: DrawRectOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawRectOp)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rect)
+        """Получение строкового представления."""
+        return f"{self.rect}"
 
 
-class DrawRectsOp(object):
-    '''
-    Операция "Нарисовать прямоугольники с целочисленными координатами".
-    '''
+class DrawRectsOp:
+    """Операция "Нарисовать прямоугольники с целочисленными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор по умолчанию."""
         self.rects = []
 
     def init(self, rects: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rects, list)
         self.rects = rects
 
     @staticmethod
     def create(rects: list) -> DrawRectsOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rects, list)
         op = DrawRectsOp()
         op.init(rects)
         return op
 
     def add_rect(self, rect) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         self.rects.append(rect)
 
     def get_rect_count(self):
-        '''
-        Получение количества прямоугольников.
-        '''
+        """Получение количества прямоугольников."""
         return len(self.rects)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия прямоугольников.
-        '''
+        """Получение признака отсутствия прямоугольников."""
         return len(self.rects) == 0
 
     def check_byte_array(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_RECTS:
@@ -2062,53 +1715,39 @@ class DrawRectsOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_RECTS)
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
         for rect in self.rects:
             ba += rect.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
-    def from_byte_array(self, byte_array) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+    def from_byte_array(self, byte_array: bytearray) -> None:
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
-    def __eq__(self, other) -> bool:
-        '''
-        Оператор ==.
-        '''
+    def __eq__(self, other: DrawRectsOp) -> bool:
+        """Оператор ==."""
         return self.rects == other.rects
 
-    def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+    def __ne__(self, other: DrawRectsOp) -> bool:
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rects)
+        """Получение строкового представления."""
+        return f"{self.rects}"
 
     @staticmethod
     def check_lines(rects):
-        '''
-        Проверка списка прямоугольников.
-        '''
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.Rect) for rect in rects]):
@@ -2116,38 +1755,28 @@ class DrawRectsOp(object):
         return True
 
 
-class DrawRectfOp(object):
-    '''
-    Операция "Нарисовать прямоугольник с координатами с плавающей точкой".
-    '''
+class DrawRectfOp:
+    """Операция "Нарисовать прямоугольник с координатами с плавающей точкой"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.rect = bmg.RectF()
 
     def init(self, rect: bmg.RectF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.RectF)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.RectF) -> DrawRectfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.RectF)
         op = DrawRectfOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bmg.RectF):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_RECTF:
@@ -2155,9 +1784,7 @@ class DrawRectfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_RECTF)
         ba += self.rect.to_byte_list()
@@ -2165,144 +1792,104 @@ class DrawRectfOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 34
 
     def __eq__(self, other: DrawRectfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.rect == other.rect
 
     def __ne__(self, other: DrawRectfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rect)
+        """Получение строкового представления."""
+        return f"{self.rect}"
 
 
-class DrawRectsfOp(object):
-    '''
-    Операция "Нарисовать прямоугольники с дробными координатами".
-    '''
+class DrawRectsfOp:
+    """Операция "Нарисовать прямоугольники с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.rects = []
 
     def init(self, rects):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rects, list)
         self.rects = rects
 
     @staticmethod
     def create(rects):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rects, list)
         op = DrawRectsfOp()
         op.init(rects)
         return op
 
     def add_rect(self, rect):
-        '''
-        Добавление прямоугольника.
-        '''
+        """Добавление прямоугольника."""
         assert isinstance(rect, bmg.RectF)
         self.rects.append(rect)
 
     def get_rect_count(self):
-        '''
-        Получение количества прямоугольников.
-        '''
+        """Получение количества прямоугольников."""
         return len(self.rects)
 
     def is_empty(self):
-        '''
-        Получение признака отсутствия прямоугольников.
-        '''
+        """Получение признака отсутствия прямоугольников."""
         return len(self.rects) == 0
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_RECTSF:
             return False
         return True
 
-    def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
-        ba = []
+    def to_byte_array(self) -> bytearray:
+        """Получение в виде массива байтов."""
+        ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_RECTSF)
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
         for rect in self.rects:
             ba += rect.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawRectsfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawRectsfOp)
         return self.rects == other.rects
 
     def __ne__(self, other: DrawRectsfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawRectsfOp)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}'.format(self.rects)
 
     @staticmethod
     def check_lines(rects):
-        '''
-        Проверка списка прямоугольников.
-        '''
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.RectF) for rect in rects]):
@@ -2310,38 +1897,28 @@ class DrawRectsfOp(object):
         return True
 
 
-class DrawEllipseOp(object):
-    '''
-    Операция "Нарисовать эллипс с целочисленными координатами".
-    '''
+class DrawEllipseOp:
+    """Операция "Нарисовать эллипс с целочисленными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.rect = bmg.Rect()
 
     def init(self, rect: bmg.Rect) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.Rect)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.Rect) -> DrawEllipseOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.Rect)
         op = DrawEllipseOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_list_array():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ELLIPSE:
@@ -2349,9 +1926,7 @@ class DrawEllipseOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ELLIPSE)
         ba += self.rect.to_byte_list()
@@ -2359,89 +1934,63 @@ class DrawEllipseOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         ba = byte_array[2:]
         self.rect.from_byte_array(ba)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 18
 
     def __eq__(self, other: DrawEllipseOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.rect == other.rect
 
     def __ne__(self, other: DrawEllipseOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rect)
+        """Получение строкового представления."""
+        return f"{self.rect}"
 
 
-class DrawEllipsesOp(object):
-    '''
-    Операция "Нарисовать эллипсы с целочисленными координатами".
-    '''
+class DrawEllipsesOp:
+    """Операция "Нарисовать эллипсы с целочисленными координатами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.rects = []
 
     def init(self, rects: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rects, list)
         self.rects = rects
 
     @staticmethod
     def create(rects) -> DrawEllipsesOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rects, list)
         op = DrawEllipsesOp()
         op.init(rects)
         return op
 
-    def add_rect(self, rect) -> None:
-        '''
-        Добавление точки.
-        '''
+    def add_rect(self, rect: bmg.Rect) -> None:
+        """Добавление эллипса."""
         assert isinstance(rect, bmg.Rect)
         self.rects.append(rect)
 
     def get_rect_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества эллипсов."""
         return len(self.rects)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия прямоугольников.
-        '''
+        """Получение признака отсутствия эллипсов."""
         return self.get_rect_count() == 0
 
     def check_byte_list(self, byte_list) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_ELLIPSES:
@@ -2449,14 +1998,12 @@ class DrawEllipsesOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение списка байтов.
-        '''
+        """Получение массива байтов."""
         ba = []
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
         for r in self.rects:
             ba += r.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
@@ -2467,36 +2014,26 @@ class DrawEllipsesOp(object):
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawEllipsesOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawEllipsesOp)
         return self.rects == other.rects
 
     def __ne__(self, other: DrawEllipsesOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawEllipsesOp)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}'.format(self.rects)
 
     @staticmethod
     def check_lines(rects):
-        '''
-        Проверка списка прямоугольников.
-        '''
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.Rect) for rect in rects]):
@@ -2504,38 +2041,28 @@ class DrawEllipsesOp(object):
         return True
 
 
-class DrawEllipsefOp(object):
-    '''
-    Операция "Нарисовать эллипс с дробными координатами".
-    '''
+class DrawEllipsefOp:
+    """Операция "Нарисовать эллипс с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.rect = bmg.RectF()
 
     def init(self, rect):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.RectF)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.RectF) -> DrawEllipsefOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.RectF)
         op = DrawEllipsefOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ELLIPSEF:
@@ -2573,70 +2100,50 @@ class DrawEllipsefOp(object):
         return self.rect == other.rect
 
     def __ne__(self, other: DrawEllipsefOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawEllipsefOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return '{}'.format(self.rect)
 
 
-class DrawEllipsesfOp(object):
-    '''
-    Операция "Нарисовать эллипсы с дробными координатами".
-    '''
+class DrawEllipsesfOp:
+    """Операция "Нарисовать эллипсы с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.rects = []
 
     def init(self, rects):
-        '''
-        Функция инициализации.
-        '''
-        assert isinstance(rects, list)
+        """Функция инициализации."""
+        assert check_rects(rects)
         self.rects = rects
 
     @staticmethod
     def create(rects):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rects, list)
         op = DrawEllipsesfOp()
         op.init(rects)
         return op
 
     def add_rect(self, rect: bmg.Rect) -> None:
-        '''
-        Добавление прямоугольника.
-        '''
+        """Добавление эллипса."""
         assert isinstance(rect, bmg.RectF)
         self.rects.append(rect)
 
     def get_rect_count(self) -> int:
-        '''
-        Получение количество прямоугольников.
-        '''
+        """Получение количество эллипсов."""
         return len(self.rects)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака изменений.
-        '''
+        """Получение признака отсутствия эллипсов."""
         return self.get_rect_count() == 0
 
     def check_byte_list(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_list) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_ELLIPSESF:
@@ -2644,10 +2151,8 @@ class DrawEllipsesfOp(object):
         return True
 
     def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
-        ba = []
+        """Получение в виде массива байтов."""
+        ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ELLIPSESF)
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
         for rect in self.rects:
@@ -2656,44 +2161,32 @@ class DrawEllipsesfOp(object):
         return ba
 
     def from_byte_array(self, byte_array):
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         basz = byte_array[2:6]
         sz = bmg.bmc.byte_list_to_int32(basz)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: DrawEllipsesfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawEllipsesfOp)
         return self.rects == other.rects
 
     def __ne__(self, other: DrawEllipsesfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawEllipsesfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self):
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rects)
+        """Получение строкового представления."""
+        return f"{self.rects}"
 
     @staticmethod
-    def check_lines(rects: list) -> bool:
-        '''
-        Проверка списка прямоугольников.
-        '''
+    def check_rects(rects: list) -> bool:
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.RectF) for rect in rects]):
@@ -2701,39 +2194,28 @@ class DrawEllipsesfOp(object):
         return True
 
 
-class DrawRoundRectOp(object):
-    '''
-    Операция "Вывод прямоугольника с целочисленными координатами
-    со сглаженными углами".
-    '''
+class DrawRoundRectOp:
+    """Операция "Вывод прямоугольника с целочисленными координатами со сглаженными углами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.rect = bmg.RoundRect()
 
     def init(self, rect: bmg.RoundRect) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.RoundRect)
         self.rect = rect
 
     @staticmethod
     def create(rect: bmg.RoundRect) -> DrawRoundRectOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.RoundRect)
         op = DrawRoundRectOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ROUND_RECT:
@@ -2741,27 +2223,21 @@ class DrawRoundRectOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
-        ba = []
+        """Получение в виде массива байтов."""
+        ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ROUND_RECT)
         ba += self.rect.to_byte_list()
         ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
         return ba
 
     def from_byte_list(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         bar = byte_array[2:26]
         self.rect.from_byte_array(bar)
 
     def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 27
 
     def __eq__(self, other: DrawRoundRectOp) -> bool:
@@ -2785,58 +2261,41 @@ class DrawRoundRectOp(object):
         return '{}'.format(self.rect)
 
 
-class DrawRoundRectsOp(object):
-    '''
-    Операция "Вывод прямоугольников с целочисленными координатами
-    со сглаженными углами".
-    '''
+class DrawRoundRectsOp:
+    """Операция "Вывод прямоугольников с целочисленными координатами со сглаженными углами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.rects = []
 
     def init(self, rects: list) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert DrawRoundRectsOp.check_lines(rects)
         self.rects = rects
 
     @staticmethod
     def create(rects: list) -> DrawRoundRectsOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert DrawRoundRectsOp.check_lines(rects)
         op = DrawRoundRectsOp()
         op.init(rects)
         return op
 
     def add_rect(self, rect):
-        '''
-        Добавление прямоугольника.
-        '''
+        """Добавление прямоугольника."""
         assert isinstance(rect, bmg.RoundRect)
         self.rects.append(rect)
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия прямоугольников.
-        '''
+        """Получение признака отсутствия прямоугольников."""
         return self.get_rect_count() == 0
 
     def get_rect_count(self) -> int:
-        '''
-        Получение количества прямоугольников.
-        '''
+        """Получение количества прямоугольников."""
         return len(self.rects)
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ROUND_RECTS:
@@ -2844,9 +2303,7 @@ class DrawRoundRectsOp(object):
         return True
 
     def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ROUND_RECTS)
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
@@ -2856,9 +2313,7 @@ class DrawRoundRectsOp(object):
         return ba
 
     def from_byte_list(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через массив байтов."""
         assert self.check_byte_array(byte_array)
         basz = byte_array[2:6]
         sz = bmg.bmc.byte_array_to_int32(basz)
@@ -2872,36 +2327,26 @@ class DrawRoundRectsOp(object):
             self.add_rect(rect)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины массива байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other: DrawRoundRectsOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawRoundRectsOp)
         return self.rects == other.rects
 
     def __ne__(self, other: DrawRoundRectsOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawRoundRectsOp)
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rects)
+        """Получение строкового представления."""
+        return f"{self.rects}"
 
     @staticmethod
     def check_lines(rects):
-        '''
-        Проверка списка прямоугольников.
-        '''
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.RoundRect) for rect in rects]):
@@ -2909,38 +2354,28 @@ class DrawRoundRectsOp(object):
         return True
 
 
-class DrawRoundRectfOp(object):
-    '''
-    Операция "Вывод прямоугольника с дробными координатами
-    со сглаженными углами".
-    '''
+class DrawRoundRectfOp:
+    """ Операция "Вывод прямоугольника с дробными координатами со сглаженными углами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.'''
+        """Конструктор без параметров."""
         self.rect = bmg.RoundRectF()
 
     def init(self, rect):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.RoundRectF)
         self.rect = rect
 
     @staticmethod
     def create(rect):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.RoundRectF)
         op = DrawRoundRectfOp()
         op.init(rect)
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ROUND_RECTF:
@@ -2948,9 +2383,7 @@ class DrawRoundRectfOp(object):
         return True
 
     def to_byte_list(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ROUND_RECTF)
         ba += self.rect.to_byte_list()
@@ -2958,92 +2391,65 @@ class DrawRoundRectfOp(object):
         return ba
 
     def from_byte_list(self, byte_list):
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_list(byte_list)
         rbl = byte_list[2:50]
         self.rect.from_byte_list(rbl)
 
     def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 51
 
     def __eq__(self, other: DrawRoundRectfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawRoundRectfOp)
         return self.rect == other.rect
 
     def __ne__(self, other: DrawRoundRectfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawRoundRectfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self):
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rect)
+        """Получение строкового представления."""
+        return f"{self.rect}"
 
 
-class DrawRoundRectsfOp(object):
-    '''
-    Операция "Вывод прямоугольников с дробными координатами
-    со сглаженными углами".
-    '''
+class DrawRoundRectsfOp:
+    """Операция "Вывод прямоугольников с дробными координатами со сглаженными углами"."""
 
-    def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+    def __init__(self) -> None:
+        """Конструктор без параметров."""
         self.rects = []
 
-    def init(self, rects):
-        '''
-        Функция инициализации.
-        '''
-        assert DrawRoundRectsfOp.check_lines(rects)
+    def init(self, rects: list) -> None:
+        """Функция инициализации."""
+        assert DrawRoundRectsfOp.check_rects(rects)
         self.rects = rects
 
     @staticmethod
     def create(rects: list) -> DrawRoundRectsfOp:
-        '''
-        Функция создания.
-        '''
-        assert DrawRoundRectsfOp.check_lines(rects)
+        """Функция создания."""
+        assert DrawRoundRectsfOp.check_rects(rects)
         op = DrawRoundRectsfOp()
         op.init(rects)
         return op
 
     def is_empty(self) -> bool:
-        '''
-        Получение признака отсутствия прямоугольников.
-        '''
+        """Получение признака отсутствия прямоугольников."""
         return self.get_rect_count() == 0
 
     def add_rect(self, rect: bmg.RoundRectF) -> None:
-        '''
-        Добавление прямоугольника.
-        '''
+        """Добавление прямоугольника."""
         assert isinstance(rect, bmg.RoundRectF)
         self.rects.append(rect)
 
     def get_rect_count(self):
-        '''
-        Получение количества прямоугольников.
-        '''
+        """Получение количества прямоугольников."""
         return len(self.rects)
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_list_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ROUND_RECTSF:
@@ -3051,55 +2457,41 @@ class DrawRoundRectsfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ROUND_RECTSF)
         ba += bmg.bmc.int32_to_byte_list(self.get_rect_count())
         for rect in self.rects:
             ba += rect.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
-    def from_byte_list(self, byte_list):
-        '''
-        Инициализация через список байтов.
-        '''
+    def from_byte_array(self, byte_list):
+        """Инициализация через список байтов."""
         assert self.check_byte_list(byte_list)
         pass
 
-    def get_byte_list_len(self):
-        '''
-        Получение длины списка байтов.
-        '''
+    def get_byte_list_len(self) -> int:
+        """Получение длины списка байтов."""
         return len(self.to_byte_list())
 
     def __eq__(self, other) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         assert isinstance(other, DrawRoundRectsfOp)
         return self.rects == other.rects
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         assert isinstance(other, DrawRoundRectsfOp)
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.rects)
+        """Получение строкового представления."""
+        return f"{self.rects}"
 
     @staticmethod
-    def check_lines(rects):
-        '''
-        Проверка списка прямоугольников.
-        '''
+    def check_rects(rects) -> bool:
+        """Проверка списка прямоугольников."""
         if not isinstance(rects, list):
             return False
         if not all([isinstance(rect, bmg.RoundRectF) for rect in rects]):
@@ -3107,22 +2499,16 @@ class DrawRoundRectsfOp(object):
         return True
 
 
-class DrawTextOp(object):
-    '''
-    Операция "Вывод текста".
-    '''
+class DrawTextOp:
+    """Операция "Вывод текста"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор без параметров."""
         self.text = bmg.String()
         self.point = bmg.PointF()
 
     def init(self, text: bmg.String, point: bmg.PointF):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(text, bmg.String)
         assert isinstance(point, bmg.PointF)
         self.text = text
@@ -3130,9 +2516,7 @@ class DrawTextOp(object):
 
     @staticmethod
     def create(text: bmg.String, point: bmg.PointF) -> DrawTextOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(text, bmg.String)
         assert isinstance(point, bmg.PointF)
         op = DrawTextOp()
@@ -3140,9 +2524,7 @@ class DrawTextOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности массива байтов для инициализации.
-        '''
+        """Проверка корректности массива байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_TEXT:
@@ -3150,67 +2532,49 @@ class DrawTextOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде массива байтов.
-        '''
+        """Получение в виде массива байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_TEXT)
         ba += self.text.to_byte_list()
         ba += self.point.to_byte_list()
-        ba += bmg.bmc.uint8_to_byte_list(0)  # резерв
+        ba += bmg.bmc.uint8_to_byte_list(0) # резерв
         return ba
 
     def from_byte_array(self, byte_array) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other) -> bool:
-        '''
-        Оператор ==.
-        '''
-        isEqText = (self.text == other.text)
-        isEqPoint = (self.point == other.point)
-        return isEqText and isEqPoint
+        """Оператор ==."""
+        is_eq_text = (self.text == other.text)
+        is_eq_point = (self.point == other.point)
+        return is_eq_text and is_eq_point
 
     def __ne__(self, other) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
+        """Получение строкового представления."""
         return self.text
 
 
-class DrawImageOp(object):
-    '''
-    Операция "Вывод изображения".
-    '''
+class DrawImageOp:
+    """Операция "Вывод изображения"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.path = bmg.String()
         self.point = bmg.PointF()
         self.align = AlignmentFlags.ALIGN_LEFT | AlignmentFlags.ALIGN_TOP
 
     def init(self, path, point: bmg.PointF, align: int):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(path, bmg.String)
         assert isinstance(point, bmg.PointF)
         assert isinstance(align, bmg.int)
@@ -3220,9 +2584,7 @@ class DrawImageOp(object):
 
     @staticmethod
     def create(path, point, align):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(path, bmg.String)
         assert isinstance(point, bmg.PointF)
         assert isinstance(align, int)
@@ -3231,9 +2593,7 @@ class DrawImageOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < self.get_byte_array_len():
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_IMAGE:
@@ -3241,9 +2601,7 @@ class DrawImageOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_IMAGE)
         ba += self.path.to_byte_list()
@@ -3253,9 +2611,7 @@ class DrawImageOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         # Получение пути
         size_path_ba = byte_array[2:6]
@@ -3276,62 +2632,46 @@ class DrawImageOp(object):
         self.align = bmg.bmc.byte_list_to_int32(align_ba)
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: DrawImageOp) -> bool:
-        '''
-        Оператор ==.
-        '''
-        isEqPath = (self.path == other.path)
-        isEqPoint = (self.point == other.point)
-        isEqAlign = (self.align == other.align)
-        return isEqPath and isEqPoint and isEqAlign
+        """Оператор ==."""
+        is_eq_path = (self.path == other.path)
+        is_eq_point = (self.point == other.point)
+        is_eq_align = (self.align == other.align)
+        return is_eq_path and is_eq_point and is_eq_align
 
     def __ne__(self, other: DrawImageOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}, {}'.format(self.path, self.point)
+        """Получение строкового представления."""
+        return f"{self.path}, {self.point}"
 
 
-class DrawArcOp(object):
-    '''
-    Операция "Вывод дуги с целочисленными координатами".
-    '''
+class DrawArcOp:
+    """Операция "Вывод дуги с целочисленными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.rect = bmg.Rect()
-        self.startAngle = 0
-        self.spanAngle = 0
+        self.start_angle = 0
+        self.span_angle = 0
 
-    def init(self, rect: bmg.Rect, startAngle: int, spanAngle: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+    def init(self, rect: bmg.Rect, start_angle: int, span_angle: int) -> None:
+        """Функция инициализации."""
         assert isinstance(rect, bmg.Rect)
-        assert isinstance(startAngle, int)
-        assert isinstance(spanAngle, int)
+        assert isinstance(start_angle, int)
+        assert isinstance(span_angle, int)
         self.rect = rect
-        self.startAngle = startAngle
-        self.spanAngle = spanAngle
+        self.start_angle = start_angle
+        self.span_angle = span_angle
 
     @staticmethod
     def create(rect: bmg.Rect, startAngle: int, spanAngle: int) -> DrawArcOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.Rect)
         assert isinstance(startAngle, int)
         assert isinstance(spanAngle, int)
@@ -3340,9 +2680,7 @@ class DrawArcOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < 24:
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ARC:
@@ -3369,50 +2707,36 @@ class DrawArcOp(object):
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 24
 
     def __eq__(self, other: DrawArcOp) -> bool:
-        '''
-        Оператор ==.
-        '''
-        isEqRect = (self.rect == other.rect)
-        isEqStartAngle = (self.startAngle == other.startAngle)
-        isEqSpanAngle = (self.spanAngle == other.spanAngle)
-        return isEqRect and isEqStartAngle and isEqSpanAngle
+        """Оператор ==."""
+        is_eq_rect = (self.rect == other.rect)
+        is_eq_start_angle = (self.startAngle == other.startAngle)
+        is_eq_span_angle = (self.spanAngle == other.spanAngle)
+        return is_eq_rect and is_eq_start_angle and is_eq_span_angle
 
     def __ne__(self, other: DrawArcOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}, {}, {}'.format(self.rect, self.startAngle, self.spanAngle)
+        """Получение строкового представления."""
+        return f"{self.rect}, {self.startAngle}, {self.spanAngle}"
 
 
-class DrawArcfOp(object):
-    '''
-    Операция "Вывод дуги с дробными координатами".
-    '''
+class DrawArcfOp:
+    """Операция "Вывод дуги с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.rect = bmg.RectF()
         self.startAngle = 0
         self.spanAngle = 0
 
     def init(self, rect: bmg.RectF, startAngle: int, spanAngle: int) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(rect, bmg.RectF)
         assert isinstance(startAngle, int)
         assert isinstance(spanAngle, int)
@@ -3422,9 +2746,7 @@ class DrawArcfOp(object):
 
     @staticmethod
     def create(rect: bmg.RectF, startAngle: int, spanAngle: int) -> DrawArcfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(rect, bmg.RectF)
         assert isinstance(startAngle, int)
         assert isinstance(spanAngle, int)
@@ -3433,9 +2755,7 @@ class DrawArcfOp(object):
         return op
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_array) < 40:
             return False
         if get_draw_op_code(byte_array) != DrawOpCodes.DRAW_ARCF:
@@ -3443,9 +2763,7 @@ class DrawArcfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = []
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_ARCF)
         ba += self.rect.to_byte_array()
@@ -3455,91 +2773,65 @@ class DrawArcfOp(object):
         return ba
 
     def from_byte_list(self, byte_list):
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_list(byte_list)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return 40
 
     def __eq__(self, other: DrawArcfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
-        isEqRect = (self.rect == other.rect)
-        isEqStartAngle = (self.startAngle == other.startAngle)
-        isEqSpanAngle = (self.spanAngle == other.spanAngle)
-        return isEqRect and isEqStartAngle and isEqSpanAngle
+        """Оператор ==."""
+        is_eq_rect = (self.rect == other.rect)
+        is_eq_start_angle = (self.startAngle == other.startAngle)
+        is_eq_span_angle = (self.spanAngle == other.spanAngle)
+        return is_eq_rect and is_eq_start_angle and is_eq_span_angle
 
     def __ne__(self, other: DrawArcfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}, {}, {}'.format(self.rect, self.startAngle, self.spanAngle)
+        """Получение строкового представления."""
+        return f"{self.rect}, {self.startAngle}, {self.spanAngle}"
 
 
-class DrawPolygonOp(object):
-    '''
-    Операция "Вывод полигона с целыми координатами".
-    '''
+class DrawPolygonOp:
+    """Операция "Вывод полигона с целыми координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.polygon = bmg.Polygon()
 
     def init(self, polygon):
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(polygon, bmg.Polygon)
         self.polygon = polygon
 
     @staticmethod
     def create(polygon: bmg.Polygon):
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(polygon, bmg.Polygon)
         op = DrawPolygonOp()
         op.init(polygon)
         return op
 
     def add_point(self, point: bmg.Point):
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, bmg.Point)
         self.polygon.add_point(point)
 
     def get_point_count(self) -> int:
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return self.polygon.get_point_count()
 
     def is_empty(self) -> bool:
-        '''
-        Проверка полигона на пустоту.
-        '''
+        """Проверка на то, что полигон не содержит точек."""
         return self.polygon.is_empty()
 
     def check_byte_array(self, byte_list: bytearray) -> bool:
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < 6:
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_POLYGON:
@@ -3547,9 +2839,7 @@ class DrawPolygonOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_POLYGON)
         ba += self.polygon.to_byte_list()
@@ -3557,88 +2847,62 @@ class DrawPolygonOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: DrawPolygonOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.polygon == other.polygon
 
     def __ne__(self, other: DrawPolygonOp) -> bool:
-        '''
-        Оператор !=.
-        '''
-        return not (self == other)
+        """Оператор !=."""
+        return not self == other
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.polygon)
+        """Получение строкового представления."""
+        return f"{self.polygon}"
 
 
-class DrawPolygonfOp(object):
-    '''
-    Операция "Вывод полигона с дробными координатами".
-    '''
+class DrawPolygonfOp:
+    """Операция "Вывод полигона с дробными координатами"."""
 
     def __init__(self):
-        '''
-        Конструктор без параметров.
-        '''
+        """Конструктор по умолчанию."""
         self.polygon = bmg.PolygonF()
 
     def init(self, polygon: bmg.PolygonF) -> None:
-        '''
-        Функция инициализации.
-        '''
+        """Функция инициализации."""
         assert isinstance(polygon, bmg.PolygonF)
         self.polygon = polygon
 
     @staticmethod
     def create(polygon: bmg.PolygonF) -> DrawPolygonfOp:
-        '''
-        Функция создания.
-        '''
+        """Функция создания."""
         assert isinstance(polygon, bmg.PolygonF)
         op = DrawPolygonfOp()
         op.init(polygon)
         return op
 
     def add_point(self, point: bmg.PointF) -> None:
-        '''
-        Добавление точки.
-        '''
+        """Добавление точки."""
         assert isinstance(point, bmg.PointF)
         self.polygon.add_point(point)
 
     def get_point_count(self):
-        '''
-        Получение количества точек.
-        '''
+        """Получение количества точек."""
         return self.polygon.get_point_count()
 
     def is_empty(self) -> bool:
-        '''
-        Проверка полигона на пустоту.
-        '''
+        """Проверка полигона на пустоту."""
         return self.polygon.is_empty()
 
     def check_byte_list(self, byte_list):
-        '''
-        Проверка корректности списка байтов для инициализации.
-        '''
+        """Проверка корректности списка байтов для инициализации."""
         if len(byte_list) < 6:
             return False
         if get_draw_op_code(byte_list) != DrawOpCodes.DRAW_POLYGONF:
@@ -3646,9 +2910,7 @@ class DrawPolygonfOp(object):
         return True
 
     def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде списка байтов.
-        '''
+        """Получение в виде списка байтов."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_list(DrawOpCodes.DRAW_POLYGONF)
         ba += self.polygon.to_byte_list()
@@ -3656,425 +2918,29 @@ class DrawPolygonfOp(object):
         return ba
 
     def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация через список байтов.
-        '''
+        """Инициализация через список байтов."""
         assert self.check_byte_array(byte_array)
         pass
 
     def get_byte_array_len(self) -> int:
-        '''
-        Получение длины списка байтов.
-        '''
+        """Получение длины списка байтов."""
         return len(self.to_byte_array())
 
     def __eq__(self, other: DrawPolygonfOp) -> bool:
-        '''
-        Оператор ==.
-        '''
+        """Оператор ==."""
         return self.polygon == other.polygon
 
     def __ne__(self, other: DrawPolygonfOp) -> bool:
-        '''
-        Оператор !=.
-        '''
+        """Оператор !=."""
         return not (self == other)
 
     def __str__(self) -> str:
-        '''
-        Получение строкового представления.
-        '''
-        return '{}'.format(self.polygon)
-
-
-class Painter(object):
-    '''
-    Класс для вывода графики.
-    '''
-
-    def __init__(self):
-        '''
-        Конструктор по умолчанию.
-        '''
-        self.ops = []
-
-    def save_state(self) -> None:
-        '''
-        Сохранение состояния.
-        '''
-        op = SaveStateOp()
-        self.ops.append(op)
-
-    def restore_state(self) -> None:
-        '''
-        Восстановление состояния.
-        '''
-        op = RestoreStateOp()
-        self.ops.append(op)
-
-    def set_clip_rect(self, rect) -> None:
-        '''
-        Задание региона отсечения.
-        '''
-        assert isinstance(rect, bmg.Rect)
-        op = SetClipRectOp.create(rect)
-        self.ops.append(op)
-
-    def transform_translate(self, x: float, y: float) -> None:
-        '''
-        Трансформация смещения.
-        '''
-        assert isinstance(x, float)
-        assert isinstance(y, float)
-        op = TransformTranslateOp.create(x, y)
-        self.ops.append(op)
-
-    def transform_rotate(self, angle: float) -> None:
-        '''
-        Трансформация поворота.
-        '''
-        assert isinstance(angle, float)
-        op = TransformRotateOp(angle)
-        self.ops.append(op)
-
-    def transform_scale(self, x: float, y: float) -> None:
-        '''
-        Трансформация масштабирования.
-        '''
-        assert isinstance(x, float)
-        assert isinstance(y, float)
-        op = TransformScaleOp(x, y)
-        self.ops.append(op)
-
-    def set_pen(self, pen: bmg.Pen) -> None:
-        '''
-        Задание пера.
-        '''
-        assert isinstance(pen, bmg.Pen)
-        op = SetPenOp.create(pen)
-        self.ops.append(op)
-
-    def set_brush(self, brush: bmg.Brush) -> None:
-        '''
-        Задание кисти.
-        '''
-        assert isinstance(brush, bmg.Brush)
-        op = SetBrushOp.create(brush)
-        self.ops.append(op)
-
-    def set_font(self, font: bmg.Font) -> None:
-        '''
-        Задание шрифта.
-        '''
-        assert isinstance(font, bmg.Font)
-        op = SetFontOp.create(font)
-        self.ops.append(op)
-
-    def set_antialising(self, is_antialiasing: bool = True) -> None:
-        '''
-        Задание сглаживания.
-        '''
-        assert isinstance(is_antialiasing, bool)
-        op = SetAntialiasingOp.create(is_antialiasing)
-        self.ops.append(op)
-
-    def draw_point(self, pt: bmg.Point) -> None:
-        '''
-        Вывод точки с целочисленными координатами.
-        '''
-        assert isinstance(pt, bmg.Point)
-        op = DrawPointOp.create(pt)
-        self.ops.append(op)
-
-    def draw_point_2(self, x: int, y: int) -> None:
-        '''
-        Вывод точки с целочисленными координатами 2.
-        '''
-        assert isinstance(x, int)
-        assert isinstance(y, int)
-        pt = bmg.Point.create(x, y)
-        op = DrawPointOp.create(pt)
-        self.ops.append(op)
-
-    def draw_pointf(self, pt: bmg.PointF) -> None:
-        '''
-        Вывод точки с дробными координатами.
-        '''
-        assert isinstance(pt, bmg.PointF)
-        op = DrawPointfOp.create(pt)
-        self.ops.append(op)
-
-    def draw_pointf_2(self, x: float, y: float) -> None:
-        '''
-        Вывод точки с дробными координатами 2.
-        '''
-        assert isinstance(x, float)
-        assert isinstance(y, float)
-        pt = bmg.PointF.create(x, y)
-        op = DrawPointfOp(pt)
-        self.ops.append(op)
-
-    def draw_line(self, line: bmg.Line) -> None:
-        '''
-        Вывод линии.
-        '''
-        assert isinstance(line, bmg.Line)
-        op = DrawLineOp.create(line)
-        self.ops.append(op)
-
-    def draw_line_2(self, pt1: bmg.Point, pt2: bmg.Point) -> None:
-        '''
-        Вывод линии 2.
-        '''
-        assert isinstance(pt1, bmg.Point)
-        assert isinstance(pt2, bmg.Point)
-        op = DrawLineOp.create_2(pt1, pt2)
-        self.ops.append(op)
-
-    def draw_line_3(self, x1: int, y1: int, x2: int, y2: int) -> None:
-        '''
-        Вывод линии 3.
-        '''
-        assert isinstance(x1, int)
-        assert isinstance(y1, int)
-        assert isinstance(x2, int)
-        assert isinstance(y2, int)
-        op = DrawLineOp.create(x1, y1, x2, y2)
-        self.ops.append(op)
-
-    def draw_linef(self, line: bmg.LineF) -> None:
-        '''
-        Рисование линии.
-        '''
-        assert isinstance(line, bmg.LineF)
-        pass
-
-    def draw_linef_2(self, pt1: bmg.PointF, pt2: bmg.PointF) -> None:
-        '''
-        Рисование линии 2.
-        '''
-        assert isinstance(pt1, bmg.PointF)
-        assert isinstance(pt2, bmg.PointF)
-        pass
-
-    def draw_linef_3(self, x1: float, y1: float, x2: float, y2: float) -> None:
-        '''
-        Рисование линии 3.
-        '''
-        assert isinstance(x1, float)
-        assert isinstance(y1, float)
-        assert isinstance(x2, float)
-        assert isinstance(y2, float)
-        pass
-
-    def draw_polyline(self):
-        '''
-        '''
-        pass
-
-    def draw_polylinef(self):
-        '''
-        '''
-        pass
-
-    def draw_arc(self):
-        '''
-        '''
-        pass
-
-    def draw_arcf(self):
-        '''
-        '''
-        pass
-
-    def draw_rect(self, rect: bmg.Rect) -> None:
-        '''
-        Вывод прямоугольника.
-        '''
-        assert isinstance(rect, bmg.Rect)
-        pass
-
-    def draw_rect_2(self, leftTop: bmg.Point, size: bmg.Size) -> None:
-        '''
-        Вывод прямоугольника 2.
-        '''
-        assert isinstance(leftTop, bmg.Point)
-        assert isinstance(size, bmg.Size)
-        pass
-
-    def draw_rect_3(self, left: int, top: int, width: int,
-                    height: int) -> None:
-        '''
-        Вывод прямоугольника 3.
-        '''
-        assert isinstance(left, int)
-        assert isinstance(top, int)
-        assert isinstance(width, int)
-        assert isinstance(height, int)
-        pass
-
-    def draw_rects(self, rects: list) -> None:
-        '''
-        Вывод прямоугольников с целочисленными координатами.
-        '''
-        assert isinstance(rects, list)
-        op = DrawRectsOp(rects)
-        self.ops.append(op)
-
-    def draw_rectf(self, rect: bmg.RectF) -> None:
-        '''
-        Вывод прямоугольника с дробными координатами.
-        '''
-        assert isinstance(rect, bmg.RectF)
-        op = DrawRectfOp.create(rect)
-        self.ops.append(op)
-
-    def draw_rectf_2(self, leftTop: bmg.PointF, size: bmg.SizeF) -> None:
-        '''
-        Вывод прямоугольника с дробными координатами 2.
-        '''
-        assert isinstance(leftTop, bmg.PointF)
-        assert isinstance(size, bmg.SizeF)
-        op = DrawRectfOp.create_2(leftTop, size)
-        self.ops.append(op)
-
-    def draw_rectf_3(self, left: float, top: float, width: float,
-                     height: float) -> None:
-        '''
-        Вывод прямоугольника с дробными координатами 3.
-        '''
-        assert isinstance(left, float)
-        assert isinstance(top, float)
-        assert isinstance(width, float)
-        assert isinstance(height, float)
-        op = DrawRectfOp.create_2(left, top, width, height)
-        self.ops.append(op)
-
-    def draw_rectsf(self, rects: list) -> None:
-        '''
-        Вывод прямоугольников с дробными координатами.
-        '''
-        assert isinstance(rects, list)
-        op = DrawRectsfOp.create(rects)
-        self.ops.append(op)
-
-    def draw_round_rect(self, rect: bmg.RoundRect) -> None:
-        '''
-        Вывод прямоугольника с целочисленными координатами
-        со сглаженными углами.
-        '''
-        assert isinstance(rect, bmg.RoundRect)
-        pass
-
-    def draw_round_rects(self, rects: list) -> None:
-        '''
-        Вывод прямоугольников с целочисленными координатами
-        со сглаженными углами.
-        '''
-        assert isinstance(rects, list)
-        pass
-
-    def draw_round_rectf(self, rect: bmg.RoundRectF) -> None:
-        '''
-        Вывод прямоугольника с дробными координатами со сглаженными углами.
-        '''
-        assert isinstance(rect, bmg.RoundRectF)
-        pass
-
-    def draw_round_rectsf(self, rects) -> None:
-        '''
-        Вывод прямоугольника с дробными координатами со сглаженными углами.
-        '''
-        assert isinstance(rects, list)
-        pass
-
-    def draw_ellipse(self, rect: bmg.Rect) -> None:
-        '''
-        Вывод эллипса с целочисленными координатами.
-        '''
-        assert isinstance(rect, bmg.Rect)
-        pass
-
-    def draw_ellipses(self, rects) -> None:
-        '''
-        Вывод эллипсов с целочисленными координатами.
-        '''
-        pass
-
-    def draw_ellipsef(self, rect) -> None:
-        '''
-        Вывод эллипса с дробными координатами.
-        '''
-        assert isinstance(rect, bmg.RectF)
-        pass
-
-    def draw_ellipsesf(self, rects) -> None:
-        '''
-        Вывод эллипсов с дробными координатами.
-        '''
-        pass
-
-    def draw_image(self, path: str) -> None:
-        '''
-        Вывод изображения.
-        '''
-        assert isinstance(path, str)
-        pass
-
-    def draw_text(self, text: str) -> None:
-        '''
-        Вывод текста.
-        '''
-        assert isinstance(text, str)
-        pass
-
-    def check_byte_array(self) -> bool:
-        '''
-        Проверка массива байтов для инициализации.
-        '''
-        pass
-
-    def to_byte_array(self) -> bytearray:
-        '''
-        Получение в виде массива байтов.
-        '''
-        return draw_ops_to_byte_array(self.ops)
-
-    def from_byte_array(self, byte_array: bytearray) -> None:
-        '''
-        Инициализация из массива байтов.
-        '''
-        pass
-
-    def is_op_empty(self) -> bool:
-        '''
-        Получение признака отстуствия операций.
-        '''
-        return len(self.ops) == 0
-
-    def add_op(self, op) -> None:
-        '''
-        Добавление графической операции.
-        '''
-        self.ops.append(op)
-
-    def get_op_count(self):
-        '''
-        Получение количества операций.
-        '''
-        return len(self.ops)
-
-    def clear_ops(self):
-        '''
-        Очистка операций.
-        '''
-        self.ops.clear()
+        """Получение строкового представления."""
+        return f"{self.polygon}"
 
 
 def draw_ops_to_byte_array(ops: list) -> bytearray:
-    '''
-    Преобразование последовательности операций в список байтов.
-    '''
+    """Преобразование последовательности операций в список байтов."""
     ba = bytearray()
     for op in ops:
         ba += op.to_byte_array()
@@ -4082,9 +2948,7 @@ def draw_ops_to_byte_array(ops: list) -> bytearray:
 
 
 def byte_array_to_draw_ops(byte_array: bytearray) -> list:
-    '''
-    Преобразование списка байтов в последовательность операций.
-    '''
+    """Преобразование списка байтов в последовательность операций."""
     ops = []
     while len(byte_array) > 0:
         code = get_draw_op_code(byte_array)
@@ -4098,20 +2962,18 @@ def byte_array_to_draw_ops(byte_array: bytearray) -> list:
 
 
 def create_draw_op(code):
-    '''
-    Создание операции по ее коду.
-    '''
+    """Создание операции по ее коду."""
     if code == DrawOpCodes.SAVE_STATE:
         return SaveStateOp()
     elif code == DrawOpCodes.RESTORE_STATE:
         return RestoreStateOp()
     elif code == DrawOpCodes.SET_CLIP_RECT:
         return SetClipRectOp()
-    elif code == DrawOpCodes.TRANFORM_TRANSLATE:
+    elif code == DrawOpCodes.TRANSFORM_TRANSLATE:
         return TransformTranslateOp()
-    elif code == DrawOpCodes.TRANFORM_ROTATE:
+    elif code == DrawOpCodes.TRANSFORM_ROTATE:
         return TransformRotateOp()
-    elif code == DrawOpCodes.TRANFORM_SCALE:
+    elif code == DrawOpCodes.TRANSFORM_SCALE:
         return TransformScaleOp()
     elif code == DrawOpCodes.SET_PEN:
         return SetPenOp()
@@ -4182,9 +3044,7 @@ def create_draw_op(code):
 
 
 def get_draw_op_code(byte_array: bytearray) -> int:
-    '''
-    Получение кода операции из списка байтов.
-    '''
+    """Получение кода операции из списка байтов."""
     assert len(byte_array) >= 2
     bac = byte_array[:2]
     code = bmg.bmc.byte_array_to_int16(bac)
@@ -4195,16 +3055,16 @@ def get_draw_op_code(byte_array: bytearray) -> int:
 
 
 class TestSaveStateOp(unittest.TestCase):
-    '''
-    Тест для класса SaveStateOp.
-    '''
+    """Тест для класса SaveStateOp."""
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array."""
         op = SaveStateOp()
         ba = op.to_byte_array()
         self.assertTrue(op.check_byte_array(ba))
 
     def test_from_byte_list(self):
+        """Тест функции to_byte_array."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.SAVE_STATE)
         ba += bmg.bmc.int8_to_byte_array(0)
@@ -4212,30 +3072,35 @@ class TestSaveStateOp(unittest.TestCase):
         op.from_byte_array(ba)
 
     def test_get_byte_list_len(self):
+        """Тест функции get_byte_list_len."""
         op = SaveStateOp()
         ba = op.to_byte_array()
         self.assertEqual(op.get_byte_array_len(), len(ba))
 
     def test_equal(self):
+        """Тест оператора ==."""
         op1 = SaveStateOp()
         self.assertTrue(op1 == op1)
+        op2 = SaveStateOp()
+        self.assertTrue(op1 == op2)
 
     def test_not_equal(self):
+        """Тест оператора !=."""
         op1 = SaveStateOp()
         self.assertFalse(op1 != op1)
 
 
 class TestRestoreStateOp(unittest.TestCase):
-    '''
-    Тестирование класса RestoreStateOp.
-    '''
+    """Тестирование класса RestoreStateOp."""
 
     def test_to_byte_array(self):
+        """Тест функции to_byte_array."""
         op = RestoreStateOp()
         bl = op.to_byte_array()
         self.assertTrue(op.check_byte_array(bl))
 
     def test_from_byte_array(self):
+        """Тест функции from_byte_array."""
         ba = bytearray()
         ba += bmg.bmc.int16_to_byte_array(DrawOpCodes.RESTORE_STATE)
         ba += bmg.bmc.int8_to_byte_array(0)
@@ -4243,17 +3108,20 @@ class TestRestoreStateOp(unittest.TestCase):
         op.from_byte_array(ba)
 
     def test_get_byte_array_len(self):
+        """Тест функции get_byte_array_len."""
         op = RestoreStateOp()
         ba = op.to_byte_array()
         self.assertEqual(op.get_byte_array_len(), len(ba))
 
     def test_equal(self):
+        """Тест оператора ==."""
         op1 = RestoreStateOp()
         self.assertTrue(op1 == op1)
         op2 = RestoreStateOp()
         self.assertTrue(op1 == op2)
 
     def test_not_equal(self):
+        """Тест оператора !=."""
         op1 = RestoreStateOp()
         self.assertFalse(op1 != op1)
 
@@ -4491,19 +3359,19 @@ class TestDrawLineOp(unittest.TestCase):
     def test_init(self):
         op = DrawLineOp()
 
-    def test_init_2(self):
+    def test_init2(self):
         op = DrawLineOp()
 
-    def test_init_3(self):
+    def test_init3(self):
         op = DrawLineOp()
 
     def test_create(self):
         pass
 
-    def test_create_2(self):
+    def test_create2(self):
         pass
 
-    def test_create_3(self):
+    def test_create3(self):
         pass
 
     def test_to_byte_array(self):
@@ -4520,39 +3388,41 @@ class TestDrawLineOp(unittest.TestCase):
     def test_equal(self):
         op1 = DrawLineOp()
         self.assertTrue(op1 == op1)
-        op2 = DrawLineOp.create_3(10, 10, 200, 200)
+        op2 = DrawLineOp.create3(10, 10, 200, 200)
         self.assertFalse(op1 == op2)
 
     def test_not_equal(self):
         op1 = DrawLineOp()
         self.assertFalse(op1 != op1)
-        op2 = DrawLineOp.create_3(10, 10, 200, 200)
+        op2 = DrawLineOp.create3(10, 10, 200, 200)
         self.assertTrue(op1 != op2)
 
 
-# Тестирование класса DrawLinefOp
 class TestDrawLinefOp(unittest.TestCase):
+    """Тест класса DrawLinefOp."""
 
     def test_constructor(self):
+        """Тест конструктора."""
         op = DrawLinefOp()
         line = op.line
 
     def test_init(self):
+        """Тест функции init."""
         op = DrawLinefOp()
 
-    def test_init_2(self):
+    def test_init2(self):
         op = DrawLinefOp()
 
-    def test_init_3(self):
+    def test_init3(self):
         op = DrawLinefOp()
 
     def test_create(self):
         pass
 
-    def test_create_2(self):
+    def test_create2(self):
         pass
 
-    def test_create_3(self):
+    def test_create3(self):
         pass
 
     def test_to_byte_array(self):
@@ -4567,15 +3437,17 @@ class TestDrawLinefOp(unittest.TestCase):
         pass
 
     def test_equal(self):
+        """Тест оператора ==."""
         op1 = DrawLinefOp()
         self.assertTrue(op1 == op1)
-        op2 = DrawLinefOp.create_3(10.0, 10.0, 200.0, 200.0)
+        op2 = DrawLinefOp.create3(10.0, 10.0, 200.0, 200.0)
         self.assertFalse(op1 == op2)
 
     def test_not_equal(self):
+        """Тест оператора !=."""
         op1 = DrawLinefOp()
         self.assertFalse(op1 != op1)
-        op2 = DrawLinefOp.create_3(10.0, 10.0, 200.0, 200.0)
+        op2 = DrawLinefOp.create3(10.0, 10.0, 200.0, 200.0)
         self.assertTrue(op1 != op2)
 
 
@@ -5172,6 +4044,6 @@ class TestDrawLinefOp(unittest.TestCase):
 #         text = '123'
 
 
-# Вызывается при загрузке модуля главным
-if __name__ == '__main__':
+# Вызывается при загрузке модуля главным.
+if __name__ == "__main__":
     unittest.main()

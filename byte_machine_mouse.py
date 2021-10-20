@@ -1,45 +1,44 @@
-# coding: utf8
 """
-ByteMachine
+ByteMachine.
+
 Состояние мыши.
 """
 from __future__ import annotations
 import unittest
-import byte_machine_graphics_3 as bmg
+import byte_machine_graphics as bmg
 
-
-class Mouse(object):
+class Mouse:
     """Состояние мыши."""
 
     def __init__(self):
         """Конструктор без параметров."""
         self.pos = bmg.Point()
-        self.isLeftBtnDown = False
-        self.isMiddleBtnDown = False
-        self.isRightBtnDown = False
+        self.is_left_btn_down = False
+        self.is_middle_btn_down = False
+        self.is_right_btn_down = False
 
-    def init(self, pos: bmg.Point, isLeftBtnDown: bool, isMiddleBtnDown: bool,
-             isRightBtnDown: bool) -> None:
+    def init(self, pos: bmg.Point, is_left_btn_down: bool, is_middle_btn_down: bool,
+             is_right_btn_down: bool) -> None:
         """Функция инициализации."""
         assert isinstance(pos, bmg.Point)
-        assert isinstance(isLeftBtnDown, bool)
-        assert isinstance(isMiddleBtnDown, bool)
-        assert isinstance(isRightBtnDown, bool)
+        assert isinstance(is_left_btn_down, bool)
+        assert isinstance(is_middle_btn_down, bool)
+        assert isinstance(is_right_btn_down, bool)
         self.pos = pos
-        self.isLeftBtnDown = isLeftBtnDown
-        self.isMiddleBtnDown = isMiddleBtnDown
-        self.isRightBtnDown = isRightBtnDown
+        self.is_left_btn_down = is_left_btn_down
+        self.is_middle_btn_down = is_middle_btn_down
+        self.is_right_btn_down = is_right_btn_down
 
     @staticmethod
-    def create(pos: bmg.Point, isLeftBtnDown: bool, isMiddleBtnDown: bool,
-               isRightBtnDown: bool) -> Mouse:
+    def create(pos: bmg.Point, is_left_btn_down: bool, is_middle_btn_down: bool,
+               is_right_btn_down: bool) -> Mouse:
         """Функция создания."""
         assert isinstance(pos, bmg.Point)
-        assert isinstance(isLeftBtnDown, bool)
-        assert isinstance(isMiddleBtnDown, bool)
-        assert isinstance(isRightBtnDown, bool)
+        assert isinstance(is_left_btn_down, bool)
+        assert isinstance(is_middle_btn_down, bool)
+        assert isinstance(is_right_btn_down, bool)
         m = Mouse()
-        m.init(pos, isLeftBtnDown, isMiddleBtnDown, isRightBtnDown)
+        m.init(pos, is_left_btn_down, is_middle_btn_down, is_right_btn_down)
         return m
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
@@ -52,17 +51,17 @@ class Mouse(object):
         assert self.check_byte_array(byte_array)
         bap = byte_array[:8]
         self.pos.from_byte_array(bap)
-        self.isLeftBtnDown = bmg.bmc.byte_array_to_bool([byte_array[8]])
-        self.isMiddleBtnDown = bmg.bmc.byte_array_to_bool([byte_array[9]])
-        self.isRightBtnDown = bmg.bmc.byte_array_to_bool([byte_array[10]])
+        self.is_left_btn_down = bmg.bmc.byte_array_to_bool([byte_array[8]])
+        self.is_middle_btn_down = bmg.bmc.byte_array_to_bool([byte_array[9]])
+        self.is_right_btn_down = bmg.bmc.byte_array_to_bool([byte_array[10]])
 
     def to_byte_array(self) -> bytearray:
         """Получение в виде массива байтов."""
         ba = bytearray()
         ba += self.pos.to_byte_array()
-        ba += bmg.bmc.bool_to_byte_array(self.isLeftBtnDown)
-        ba += bmg.bmc.bool_to_byte_array(self.isMiddleBtnDown)
-        ba += bmg.bmc.bool_to_byte_array(self.isRightBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(self.is_left_btn_down)
+        ba += bmg.bmc.bool_to_byte_array(self.is_middle_btn_down)
+        ba += bmg.bmc.bool_to_byte_array(self.is_right_btn_down)
         return ba
 
     def get_byte_array_len(self) -> int:
@@ -71,22 +70,21 @@ class Mouse(object):
 
     def __eq__(self, other: Mouse) -> bool:
         """Оператор ==."""
-        isPosEq = (self.pos == other.pos)
-        isLeftBtnDownEq = (self.isLeftBtnDown == other.isLeftBtnDown)
-        isMiddleBtnDownEq = (self.isMiddleBtnDown == other.isMiddleBtnDown)
-        isRightBtnDownEq = (self.isRightBtnDown == other.isRightBtnDown)
-        return isPosEq and isLeftBtnDownEq and isMiddleBtnDownEq \
-            and isRightBtnDownEq
+        is_pos_eq = (self.pos == other.pos)
+        is_left_btn_down_eq = (self.is_left_btn_down == other.is_left_btn_down)
+        is_middle_btn_down_eq = (self.is_middle_btn_down == other.is_middle_btn_down)
+        is_right_btn_down_eq = (self.is_right_btn_down == other.is_right_btn_down)
+        return is_pos_eq and is_left_btn_down_eq and is_middle_btn_down_eq \
+            and is_right_btn_down_eq
 
     def __ne__(self, other: Mouse) -> bool:
         """Оператор !=."""
-        return not (self == other)
+        return not self == other
 
     def __str__(self) -> str:
         """Получение строкового представления."""
-        return '{}, {}, {}, {}'.format(self.pos, self.isLeftBtnDown,
-                                       self.isMiddleBtnDown,
-                                       self.isRightBtnDown)
+        return f"{self.pos}, {self.is_left_btn_down}, \
+            {self.is_middle_btn_down}, {self.is_right_btn_down}"
 
 
 class TestMouse(unittest.TestCase):
@@ -96,30 +94,30 @@ class TestMouse(unittest.TestCase):
         """Тест конструктора."""
         m = Mouse()
         self.assertEqual(m.pos, bmg.Point())
-        self.assertEqual(m.isLeftBtnDown, False)
-        self.assertEqual(m.isMiddleBtnDown, False)
-        self.assertEqual(m.isRightBtnDown, False)
+        self.assertEqual(m.is_left_btn_down, False)
+        self.assertEqual(m.is_middle_btn_down, False)
+        self.assertEqual(m.is_right_btn_down, False)
 
     def test_init(self):
         """Тест функции init."""
         m = Mouse()
         m.init(bmg.Point(), True, False, False)
         self.assertEqual(m.pos, bmg.Point())
-        self.assertEqual(m.isLeftBtnDown, True)
-        self.assertEqual(m.isMiddleBtnDown, False)
-        self.assertEqual(m.isRightBtnDown, False)
+        self.assertEqual(m.is_left_btn_down, True)
+        self.assertEqual(m.is_middle_btn_down, False)
+        self.assertEqual(m.is_right_btn_down, False)
 
     def test_create(self):
         """Тест фукнции create."""
         pos = bmg.Point.create(110, 110)
-        isLeftBtnDown = False
-        isMiddleBtnDown = True
-        isRightBtnDown = False
-        m = Mouse.create(pos, isLeftBtnDown, isMiddleBtnDown, isRightBtnDown)
+        is_left_btn_down = False
+        is_middle_btn_down = True
+        is_right_btn_down = False
+        m = Mouse.create(pos, is_left_btn_down, is_middle_btn_down, is_right_btn_down)
         self.assertEqual(m.pos, pos)
-        self.assertEqual(m.isLeftBtnDown, isLeftBtnDown)
-        self.assertEqual(m.isMiddleBtnDown, isMiddleBtnDown)
-        self.assertEqual(m.isRightBtnDown, isRightBtnDown)
+        self.assertEqual(m.is_left_btn_down, is_left_btn_down)
+        self.assertEqual(m.is_middle_btn_down, is_middle_btn_down)
+        self.assertEqual(m.is_right_btn_down, is_right_btn_down)
 
     def test_to_byte_array(self):
         """Тест функции to_byte_array."""
@@ -130,20 +128,20 @@ class TestMouse(unittest.TestCase):
     def test_from_byte_array(self):
         """Тест функции from_byte_array."""
         pos = bmg.Point.create(110, 110)
-        isLeftBtnDown = False
-        isMiddleBtnDown = True
-        isRightBtnDown = False
+        is_left_btn_down = False
+        is_middle_btn_down = True
+        is_right_btn_down = False
         ba = bytearray()
         ba += pos.to_byte_array()
-        ba += bmg.bmc.bool_to_byte_array(isLeftBtnDown)
-        ba += bmg.bmc.bool_to_byte_array(isMiddleBtnDown)
-        ba += bmg.bmc.bool_to_byte_array(isRightBtnDown)
+        ba += bmg.bmc.bool_to_byte_array(is_left_btn_down)
+        ba += bmg.bmc.bool_to_byte_array(is_middle_btn_down)
+        ba += bmg.bmc.bool_to_byte_array(is_right_btn_down)
         m = Mouse()
         m.from_byte_array(ba)
         self.assertEqual(m.pos, pos)
-        self.assertEqual(m.isLeftBtnDown, isLeftBtnDown)
-        self.assertEqual(m.isMiddleBtnDown, isMiddleBtnDown)
-        self.assertEqual(m.isRightBtnDown, isRightBtnDown)
+        self.assertEqual(m.is_left_btn_down, is_left_btn_down)
+        self.assertEqual(m.is_middle_btn_down, is_middle_btn_down)
+        self.assertEqual(m.is_right_btn_down, is_right_btn_down)
 
     def test_get_byte_list_len(self):
         """Тест функции get_byte_list_len."""
@@ -167,5 +165,5 @@ class TestMouse(unittest.TestCase):
 
 
 # Вызывается при загрузке модуля главным.
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

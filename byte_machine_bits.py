@@ -1,14 +1,15 @@
-# coding: utf8
 """
-ByteMachine
-Функции для работы с битами.
+ByteMachine.
+
+Работа с битами.
 """
 import unittest
 
 
-# Функции для работы с битами
+# Функции для работы с битами.
 def value_to_bit(value: int) -> int:
     """Функция приводит значение к биту, 0 или 1."""
+    assert isinstance(value, int)
     return 1 if value != 0 else 0
 
 
@@ -19,7 +20,7 @@ def is_correct_bit(value: int) -> bool:
 
 
 def get_lo_nibble(value: int) -> int:
-    """Получение старшей тетрады байта."""
+    """Получение младщей тетрады байта."""
     assert isinstance(value, int)
     assert 0 <= value <= 255
     return value & 0x0F
@@ -52,7 +53,7 @@ def test_bit(value: int, bit_index: int) -> bool:
 
 
 def set_bit(value: int, bit_index: int) -> int:
-    """Бит с индексом устанавливается в 1."""
+    """Установка бита по индексу."""
     # assert isinstance(value, int)
     assert 0 <= value <= 255
     # assert isinstance(bit_index, int)
@@ -61,7 +62,7 @@ def set_bit(value: int, bit_index: int) -> int:
 
 
 def reset_bit(value: int, bit_index: int) -> int:
-    """Бит с индексом сбрасывается в 0."""
+    """Сброс бита по индексу."""
     # assert isinstance(value, int)
     assert 0 <= value <= 255
     # assert isinstance(bit_index, int)
@@ -71,7 +72,7 @@ def reset_bit(value: int, bit_index: int) -> int:
 
 
 def flip_bit(value: int, bit_index: int) -> int:
-    """Если бит выставлен, то он сбрасывается, иначе выставляется."""
+    """Инверсия бита."""
     # assert isinstance(value, int)
     assert 0 <= value <= 255
     # assert isinstance(bit_index, int)
@@ -82,21 +83,21 @@ def flip_bit(value: int, bit_index: int) -> int:
         return set_bit(value, bit_index)
 
 
-def all_bits(value: int) -> bool:
+def is_all_bits(value: int) -> bool:
     """Получение признака, что все биты в байте выставлены."""
     assert isinstance(value, int)
     assert 0 <= value <= 255
     return value == 255
 
 
-def any_bits(value: int) -> bool:
+def is_any_bits(value: int) -> bool:
     """Получение признака, что хоть один бит в байте выставлен."""
     assert isinstance(value, int)
     assert 0 <= value <= 255
     return value != 0
 
 
-def none_bits(value: int) -> bool:
+def is_none_bits(value: int) -> bool:
     """Получение признака, что все биты сброшены."""
     assert isinstance(value, int)
     assert 0 <= value <= 255
@@ -171,20 +172,20 @@ class TestBits(unittest.TestCase):
         self.assertEqual(flip_bit(1, 0), 0)
         self.assertEqual(flip_bit(0, 0), 1)
 
-    def test_all_bits(self):
-        """Тест функции all_bits."""
-        self.assertTrue(all_bits(255))
-        self.assertFalse(all_bits(254))
+    def test_is_all_bits(self):
+        """Тест функции is_all_bits."""
+        self.assertTrue(is_all_bits(255))
+        self.assertFalse(is_all_bits(254))
 
-    def test_any_bits(self):
-        """Тест функции any_bits."""
-        self.assertTrue(any_bits(1))
-        self.assertFalse(any_bits(0))
+    def test_is_any_bits(self):
+        """Тест функции is_any_bits."""
+        self.assertTrue(is_any_bits(1))
+        self.assertFalse(is_any_bits(0))
 
-    def test_none_bits(self):
-        """Тест функции none_bits."""
-        self.assertTrue(none_bits(0))
-        self.assertFalse(none_bits(1))
+    def test_is_none_bits(self):
+        """Тест функции is_none_bits."""
+        self.assertTrue(is_none_bits(0))
+        self.assertFalse(is_none_bits(1))
 
     def test_count_bits(self):
         """Тест функции count_bits."""
@@ -202,6 +203,6 @@ class TestBits(unittest.TestCase):
         self.assertEqual(r, bytearray([0]) * 16)
 
 
-# Вызывается при загрузке модуля главным
-if __name__ == '__main__':
+# Вызывается при загрузке модуля главным.
+if __name__ == "__main__":
     unittest.main()
