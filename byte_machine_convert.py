@@ -3,40 +3,45 @@ ByteMachine.
 
 Функции преобразования значений в массивы байтов и обратно.
 """
+__author__ = "EnergyLabs"
+__version__ = "0.9129"
+
+
 import struct
 import unittest
 
 
 # Функции конвертации одиночных значений.
+
 def str_to_byte_array(value: str) -> bytearray:
-    """Функция переводит строку в bytearray."""
+    """Функция конвертирует строку в массив байтов."""
     b = value.encode()
     return bytearray(b)
 
 
 def byte_array_to_str(byte_array: bytearray) -> str:
-    """Функция переводит bytearray в строку."""
+    """Функция конвертирует массив байтов в строку."""
     return byte_array.decode()
 
 
 def bool_to_byte_array(value: bool) -> bytearray:
-    """Функция переводит bool в bytearray."""
+    """Функция конвертирует значение типа bool в массив байтов."""
     return bytearray([1]) if value else bytearray([0])
 
 
 def byte_array_to_bool(byte_array: bytearray) -> bool:
-    """Функция переводит bytearray в bool."""
+    """Функция конвертирует массив байтов в значение типа bool."""
     return byte_array[0] != 0
 
 
 def int8_to_byte_array(value: int) -> bytearray:
-    """Функция переводит int8 в bytearray."""
+    """Функция переводит значение типа int8 в массив байтов."""
     # assert -128 <= value <= 127
     return bytearray(struct.pack('b', value))
 
 
 def byte_array_to_int8(byte_array: bytearray) -> int:
-    """Функция переводит bytearray в int8."""
+    """Функция переводит bytearray в значение типа int8."""
     # assert len(byte_array) == 1
     r = struct.unpack('b', byte_array)
     return r[0]
@@ -220,7 +225,8 @@ def byte_array_to_double(byte_array: bytearray,
     return r[0]
 
 
-# Функции конвертации последовательности значений
+# Функции конвертации последовательности значений.
+
 def bool_list_to_byte_array(bool_list: list) -> bytearray:
     """Функция преобразует список bool в bytearray."""
     ba = bytearray()
@@ -262,7 +268,7 @@ def uint8_list_to_byte_array(uint8_list: list) -> bytearray:
 
 def byte_array_to_uint8_list(byte_array: bytearray) -> list:
     """Функция преобразует bytearray в список uint8."""
-    return list(byte_array) # [v for v in byte_array]
+    return list(byte_array)
 
 
 def int16_list_to_byte_array(int16_list: list,
@@ -454,7 +460,7 @@ class TestConvert(unittest.TestCase):
         ba = bool_to_byte_array(True)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([1]))
-        
+
         ba = bool_to_byte_array(False)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([0]))
@@ -492,7 +498,7 @@ class TestConvert(unittest.TestCase):
         """Тест функции int16_to_byte_array."""
         ba = int16_to_byte_array(4)
         self.assertEqual(ba, bytearray([4, 0]))
-        
+
         ba = int16_to_byte_array(5, False)
         self.assertEqual(ba, bytearray([0, 5]))
 
@@ -510,7 +516,7 @@ class TestConvert(unittest.TestCase):
         """Тест функции uint16_to_byte_array."""
         ba = uint16_to_byte_array(1)
         self.assertEqual(ba, bytearray([1, 0]))
-        
+
         ba = uint16_to_byte_array(3, False)
         self.assertEqual(ba, bytearray([0, 3]))
 
@@ -519,7 +525,7 @@ class TestConvert(unittest.TestCase):
         ba = bytearray([1, 0])
         v = byte_array_to_uint16(ba)
         self.assertEqual(v, 1)
-        
+
         ba = bytearray([0, 1])
         v = byte_array_to_uint16(ba, False)
         self.assertEqual(v, 1)
@@ -528,7 +534,7 @@ class TestConvert(unittest.TestCase):
         """Тест функции int32_to_byte_array."""
         r = int32_to_byte_array(3)
         self.assertEqual(r, bytearray([3, 0, 0, 0]))
-        
+
         r = int32_to_byte_array(5, False)
         self.assertEqual(r, bytearray([0, 0, 0, 5]))
 
@@ -537,7 +543,7 @@ class TestConvert(unittest.TestCase):
         ba = bytearray([2, 0, 0, 0])
         v = byte_array_to_int32(ba)
         self.assertEqual(v, 2)
-        
+
         ba = bytearray([0, 0, 0, 2])
         v = byte_array_to_int32(ba, False)
         self.assertEqual(v, 2)
@@ -546,7 +552,7 @@ class TestConvert(unittest.TestCase):
         """Тест функции int64_to_byte_array."""
         ba = int64_to_byte_array(200)
         self.assertEqual(ba, bytearray([200, 0, 0, 0, 0, 0, 0, 0]))
-        
+
         ba = int64_to_byte_array(99, False)
         self.assertEqual(ba, bytearray([0, 0, 0, 0, 0, 0, 0, 99]))
 
@@ -561,7 +567,7 @@ class TestConvert(unittest.TestCase):
         ba = float_to_byte_array(0.0)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([0] * 4))
-        
+
         ba = float_to_byte_array(0.0, False)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([0] * 4))
@@ -571,7 +577,7 @@ class TestConvert(unittest.TestCase):
         ba = bytearray([0] * 4)
         v = byte_array_to_float(ba)
         self.assertAlmostEqual(v, 0.0)
-        
+
         values = bytearray([0] * 4)
         v = byte_array_to_float(values, False)
         self.assertAlmostEqual(v, 0.0)
@@ -581,7 +587,7 @@ class TestConvert(unittest.TestCase):
         ba = double_to_byte_array(0.0)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([0] * 8))
-        
+
         ba = double_to_byte_array(0.0, False)
         self.assertTrue(isinstance(ba, bytearray))
         self.assertEqual(ba, bytearray([0] * 8))
@@ -592,7 +598,7 @@ class TestConvert(unittest.TestCase):
 
         v = byte_array_to_double(ba)
         self.assertAlmostEqual(v, 0.0)
-        
+
         v = byte_array_to_double(ba, False)
         self.assertAlmostEqual(v, 0.0)
 
@@ -641,7 +647,7 @@ class TestListConvert(unittest.TestCase):
         vl = [2, 3]
         ba = int16_list_to_byte_array(vl)
         self.assertEqual(ba, bytearray([2, 0, 3, 0]))
-        
+
         vl = [2, 3]
         ba = int16_list_to_byte_array(vl, False)
         self.assertEqual(ba, bytearray([0, 2, 0, 3]))
@@ -651,7 +657,7 @@ class TestListConvert(unittest.TestCase):
         ba = bytearray([2, 0, 3, 0])
         vl = byte_array_to_int16_list(ba)
         self.assertEqual(vl, [2, 3])
-        
+
         ba = bytearray([0, 2, 0, 3])
         vl = byte_array_to_int16_list(ba, False)
         self.assertEqual(vl, [2, 3])
@@ -659,7 +665,7 @@ class TestListConvert(unittest.TestCase):
     def test_uint16_list_to_byte_array(self):
         """Тест функции uint16_list_to_byte_array."""
         vl = [2, 3]
-        
+
         ba = uint16_list_to_byte_array(vl)
         self.assertEqual(ba, bytearray([2, 0, 3, 0]))
 
@@ -671,7 +677,7 @@ class TestListConvert(unittest.TestCase):
         ba = bytearray([2, 0, 3, 0])
         vl = byte_array_to_uint16_list(ba)
         self.assertEqual(vl, [2, 3])
-        
+
         ba = bytearray([0, 2, 0, 3])
         vl = byte_array_to_uint16_list(ba, False)
         self.assertEqual(vl, [2, 3])
@@ -679,7 +685,7 @@ class TestListConvert(unittest.TestCase):
     def test_int32_list_to_byte_array(self):
         """Тест функции int32_list_to_byte_array."""
         vl = [2, 3]
-        
+
         ba = int32_list_to_byte_array(vl)
         self.assertEqual(ba, bytearray([2, 0, 0, 0] + [3, 0, 0, 0]))
 
@@ -691,7 +697,7 @@ class TestListConvert(unittest.TestCase):
         ba = bytearray([2, 0, 0, 0] + [3, 0, 0, 0])
         vl = byte_array_to_int32_list(ba)
         self.assertEqual(vl, [2, 3])
-        
+
         ba = bytearray([0, 0, 0, 2] + [0, 0, 0, 3])
         vl = byte_array_to_int32_list(ba, False)
         self.assertEqual(vl, [2, 3])
@@ -699,7 +705,7 @@ class TestListConvert(unittest.TestCase):
     def test_uint32_list_to_byte_array(self):
         """Тест функции uint32_list_to_byte_array."""
         vl = [2, 3]
-        
+
         ba = uint32_list_to_byte_array(vl)
         self.assertEqual(ba, bytearray([2, 0, 0, 0] + [3, 0, 0, 0]))
 

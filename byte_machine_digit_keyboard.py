@@ -4,6 +4,12 @@ ByteMachine.
 Состояние цифровой клавиатуры.
 """
 from __future__ import annotations
+
+
+__author__ = "EnergyLabs"
+__version__ = "0.9129"
+
+
 import unittest
 
 
@@ -16,20 +22,20 @@ class DigitKeyboard:
 
     def init(self, keys: bytearray()) -> None:
         """Функция инициализации."""
-        assert DigitKeyboard.check_keys(keys)
+        assert DigitKeyboard._check_byte_array(keys)
         self.keys = keys
 
     @staticmethod
     def create(keys: bytearray) -> DigitKeyboard:
         """Функция создания."""
-        assert DigitKeyboard.check_keys(keys)
+        assert DigitKeyboard._check_byte_array(keys)
         dk = DigitKeyboard()
         dk.init(keys)
         return dk
 
     def check_byte_array(self, byte_array: bytearray) -> bool:
-        """Проверка корректности списка байтов для инициализации."""
-        return DigitKeyboard.check_keys(byte_array)
+        """Проверка корректности массива байтов для инициализации."""
+        return DigitKeyboard._check_byte_array(byte_array)
 
     def to_byte_array(self) -> bytearray:
         """Получение в виде массива байтов."""
@@ -37,8 +43,8 @@ class DigitKeyboard:
 
     def from_byte_array(self, byte_array: bytearray) -> None:
         """Инициализация из массива байтов."""
-        assert self.check_byte_array(byte_array)
-        self.keys = byte_array
+        assert self._check_byte_array(byte_array)
+        self.keys = byte_array[:10]
 
     def get_byte_array_len(self) -> int:
         """Получение длины списка байтов."""
@@ -50,20 +56,20 @@ class DigitKeyboard:
 
     def __ne__(self, other: DigitKeyboard) -> bool:
         """Оператор !=."""
-        return not self.keys == other.keys
+        return not self == other
 
     def __str__(self) -> str:
         """Получение строкового представления."""
         return f"{self.keys}"
 
     @staticmethod
-    def check_keys(keys: bytearray) -> bool:
+    def _check_byte_array(byte_array: bytearray) -> bool:
         """Проверка кодов клавиш."""
-        if not isinstance(keys, bytearray):
+        if not isinstance(byte_array, bytearray):
             return False
-        if not all(b in (0, 1) for b in keys):
+        if len(byte_array) < 10:
             return False
-        if len(keys) != 10:
+        if not all(b in (0, 1) for b in byte_array[:10]):
             return False
         return True
 
@@ -79,14 +85,14 @@ class TestDigitKeyboard(unittest.TestCase):
 
     def test_init(self):
         """Тест функции init."""
-        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        ba = bytearray([0] * 9 + [1])
         dk = DigitKeyboard()
         dk.init(ba)
         self.assertEqual(dk.keys, ba)
 
     def test_create(self):
         """Тест функции create."""
-        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        ba = bytearray([0] * 9 + [1])
         dk = DigitKeyboard.create(ba)
         self.assertEqual(dk.keys, ba)
 
@@ -111,15 +117,15 @@ class TestDigitKeyboard(unittest.TestCase):
 
     def test_equal(self):
         """Тест оператора ==."""
-        dk1 = DigitKeyboard()
-        self.assertTrue(dk1 == dk1)
+        dk = DigitKeyboard()
+        self.assertTrue(dk == dk)
 
     def test_not_equal(self):
         """Тест оператора !=."""
-        dk1 = DigitKeyboard()
-        ba = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
-        dk2 = DigitKeyboard.create(ba)
-        self.assertTrue(dk1 != dk2)
+        dk_1 = DigitKeyboard()
+        ba = bytearray([0] * 9 + [1])
+        dk_2 = DigitKeyboard.create(ba)
+        self.assertTrue(dk_1 != dk_2)
 
 
 # Вызывается при загрузке модуля главным.

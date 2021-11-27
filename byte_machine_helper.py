@@ -3,20 +3,25 @@ ByteMachine.
 
 Вспомогательные функции.
 """
+__author__ = "EnergyLabs"
+__version__ = "0.9129"
+
+
 import sys
 import unittest
 
 
 # Функции сравнения для float.
-def float_equal(value1: float, value2: float) -> bool:
+
+def float_equal(value_1: float, value_2: float) -> bool:
     """Функция проверки на равенство для float."""
     eps = sys.float_info.epsilon
-    return abs(value1 - value2) < eps
+    return abs(value_1 - value_2) < eps
 
 
-def float_not_equal(value1: float, value2: float) -> bool:
+def float_not_equal(value_1: float, value_2: float) -> bool:
     """Функция проверки на неравенство для float."""
-    return not float_equal(value1, value2)
+    return not float_equal(value_1, value_2)
 
 
 def is_float_null(value: float) -> bool:
@@ -29,17 +34,17 @@ class Test(unittest.TestCase):
 
     def test_float_equal(self):
         """Тест функции float_equal."""
-        v1 = 0.0
-        v2 = 1.0
-        self.assertTrue(float_equal(v1, v1))
-        self.assertFalse(float_equal(v1, v2))
+        v_1 = 0.0
+        v_2 = 1.0
+        self.assertTrue(float_equal(v_1, v_1))
+        self.assertFalse(float_equal(v_1, v_2))
 
     def test_not_equal(self):
         """Тест функции float_not_equal."""
-        v1 = 0.0
-        v2 = 1.0
-        self.assertTrue(float_not_equal(v1, v2))
-        self.assertFalse(float_not_equal(v1, v1))
+        v_1 = 0.0
+        v_2 = 1.0
+        self.assertTrue(float_not_equal(v_1, v_2))
+        self.assertFalse(float_not_equal(v_1, v_1))
 
     def test_is_float_null(self):
         """Тест функции is_float_null."""

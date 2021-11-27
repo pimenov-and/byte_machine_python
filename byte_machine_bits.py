@@ -3,10 +3,15 @@ ByteMachine.
 
 Работа с битами.
 """
+__author__ = "EnergyLabs"
+__version__ = "0.9129"
+
+
 import unittest
 
 
 # Функции для работы с битами.
+
 def value_to_bit(value: int) -> int:
     """Функция приводит значение к биту, 0 или 1."""
     assert isinstance(value, int)
@@ -16,7 +21,7 @@ def value_to_bit(value: int) -> int:
 def is_correct_bit(value: int) -> bool:
     """Функция проверяет корректность значения бита."""
     assert isinstance(value, int)
-    return value == 0 or value == 1
+    return value in (0, 1)
 
 
 def get_lo_nibble(value: int) -> int:
@@ -104,7 +109,7 @@ def is_none_bits(value: int) -> bool:
     return value == 0
 
 
-def count_bits(value: int) -> int:
+def get_bit_count(value: int) -> int:
     """Получение количества установленных битов в байте."""
     assert isinstance(value, int)
     assert 0 <= value <= 255
@@ -125,7 +130,7 @@ def byte_array_to_bit_array(byte_array: bytearray) -> bytearray:
 
 
 class TestBits(unittest.TestCase):
-    """Класс для тестирования."""
+    """Тест для функций работы с битами."""
 
     def test_value_to_bit(self):
         """Тест функции value_to_bit."""
@@ -157,7 +162,7 @@ class TestBits(unittest.TestCase):
     def test_byte_to_bits(self):
         """Тест функции byte_to_bits."""
         r = byte_to_bits(1)
-        self.assertEqual(r, bytearray([1, 0, 0, 0, 0, 0, 0, 0]))
+        self.assertEqual(r, bytearray([1] + [0] * 7))
 
     def test_set_bit(self):
         """Тест функции set_bit."""
@@ -189,18 +194,20 @@ class TestBits(unittest.TestCase):
 
     def test_count_bits(self):
         """Тест функции count_bits."""
-        count = count_bits(1)
+        count = get_bit_count(1)
         self.assertEqual(count, 1)
-        count = count_bits(2)
+
+        count = get_bit_count(2)
         self.assertEqual(count, 1)
-        count = count_bits(3)
+
+        count = get_bit_count(3)
         self.assertEqual(count, 2)
 
     def test_byte_array_to_bit_array(self):
         """Тест функции byte_array_to_bit_array."""
-        ba = bytearray([0, 0])
+        ba = bytearray([0] * 2)
         r = byte_array_to_bit_array(ba)
-        self.assertEqual(r, bytearray([0]) * 16)
+        self.assertEqual(r, bytearray([0] * 16))
 
 
 # Вызывается при загрузке модуля главным.

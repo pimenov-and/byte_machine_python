@@ -3,6 +3,10 @@ ByteMachine.
 
 Класс для вывода графики.
 """
+__author__ = "EnergyLabs"
+__version__ = "0.9122"
+
+
 import unittest
 import byte_machine_paint as bmp
 
@@ -198,7 +202,7 @@ class Painter:
         op = bmp.DrawRectfOp.create2(left_top, size)
         self.ops.append(op)
 
-    def draw_rectf3(self, left: float, top: float, width: float,
+    def draw_rectf_3(self, left: float, top: float, width: float,
                      height: float) -> None:
         """Вывод прямоугольника с дробными координатами 3."""
         assert isinstance(left, float)
@@ -350,7 +354,7 @@ class TestPainter(unittest.TestCase):
         painter = Painter()
         pt = bmp.bmg.Point.create(100, 100)
 
-    def test_draw_point2(self):
+    def test_draw_point_2(self):
         painter = Painter()
         x = y = 100
 
@@ -360,7 +364,7 @@ class TestPainter(unittest.TestCase):
     def test_draw_pointf(self):
         painter = Painter()
 
-    def test_draw_pointf2(self):
+    def test_draw_pointf_2(self):
         painter = Painter()
         x = y = 100.0
 

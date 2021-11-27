@@ -1,9 +1,6 @@
 # coding: utf8
 import math
 import random
-from file_dump_paint import *
-from file_dump_mouse import *
-from file_dump_digit_keyboard import *
 
 
 #----------------------------------------------------------------
@@ -11,25 +8,19 @@ from file_dump_digit_keyboard import *
 #----------------------------------------------------------------
 
 def py_in():
-    global s
-    s += 1.0
-    ops = []
-    ops += [SetAntialiasingOp.create(True)]
-    ops += [TransformTranslateOp.create(s, s)]
-    ops += [TransformRotateOp.create(s)]
-    # ops += [DrawLinefOp.create(LineF.create2(0.0, 0.0, 100.0, 100.0))]
-   
-    return draw_ops_to_byte_list(ops)
+    ba = bytearray([0, 1, 2, 3])
+    py_change(ba)
+    return ba
 
 
-def py_change(bl):
+def py_change(ba):
     # global s
     # s += 1.0
 
     # ops = []
     # ops += [TransformRotateOp.create(s)]
     
-    return bl # + draw_ops_to_byte_list(ops)
+    return ba # + draw_ops_to_byte_list(ops)
 
     # c = Color()
     # c.from_byte_list(bl)
@@ -146,9 +137,9 @@ def py_change(bl):
     # return [] # ops_to_byte_list(ops)
 
 
-def py_merge(l1, l2):
+def py_merge(ba1, ba2):
     """"Функция для узла PyMerge."""
-    return l1 + l2
+    return ba1 + ba2
 
 
 def py_out(l):
