@@ -7,7 +7,8 @@ from __future__ import annotations
 
 
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import unittest
@@ -80,12 +81,19 @@ class Mouse:
         """Получение длины массива байтов."""
         return 11
 
+    @staticmethod
+    def s_get_byte_array_len() -> int:
+        """Получение размера байтового массива."""
+        return 11
+
     def __eq__(self, other: Mouse) -> bool:
         """Оператор ==."""
         is_eq_pos = self.pos == other.pos
         is_eq_left_btn_down = self.is_left_btn_down == other.is_left_btn_down
-        is_eq_middle_btn_down = self.is_middle_btn_down == other.is_middle_btn_down
-        is_eq_right_btn_down = self.is_right_btn_down == other.is_right_btn_down
+        is_eq_middle_btn_down = \
+            self.is_middle_btn_down == other.is_middle_btn_down
+        is_eq_right_btn_down = \
+            self.is_right_btn_down == other.is_right_btn_down
         return is_eq_pos and is_eq_left_btn_down and is_eq_middle_btn_down \
             and is_eq_right_btn_down
 
@@ -95,8 +103,14 @@ class Mouse:
 
     def __str__(self) -> str:
         """Получение строкового представления."""
-        return f"{self.pos}, {self.is_left_btn_down}, "\
-            f"{self.is_middle_btn_down}, {self.is_right_btn_down}"
+        pos = self.pos
+        is_left_btn_down = self.is_left_btn_down
+        is_middle_btn_down = self.is_middle_btn_down
+        is_right_btn_down = self.is_right_btn_down
+        return f"pos: ({pos}), "\
+            f"is_left_btn_down: {is_left_btn_down}, "\
+            f"is_middle_btn_down: {is_middle_btn_down}, "\
+            f"is_right_btn_down: {is_right_btn_down}"
 
 
 class TestMouse(unittest.TestCase):

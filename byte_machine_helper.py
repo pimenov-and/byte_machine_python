@@ -4,7 +4,8 @@ ByteMachine.
 Вспомогательные функции.
 """
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import sys

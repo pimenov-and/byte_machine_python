@@ -4,7 +4,8 @@ ByteMachine.
 Работа с битами.
 """
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import unittest
@@ -122,7 +123,6 @@ def get_bit_count(value: int) -> int:
 
 def byte_array_to_bit_array(byte_array: bytearray) -> bytearray:
     """Конвертация списка байтов в список битов."""
-    assert isinstance(byte_array, bytearray)
     ba = bytearray()
     for b in byte_array:
         ba += byte_to_bits(b)

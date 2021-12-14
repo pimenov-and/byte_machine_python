@@ -7,7 +7,8 @@ from __future__ import annotations
 
 
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import unittest
@@ -50,6 +51,11 @@ class DigitKeyboard:
         """Получение длины списка байтов."""
         return 10
 
+    @staticmethod
+    def s_get_byte_array_len() -> int:
+        """Получение размера байтового массива."""
+        return 10
+
     def __eq__(self, other: DigitKeyboard) -> bool:
         """Оператор ==."""
         return self.keys == other.keys
@@ -60,7 +66,7 @@ class DigitKeyboard:
 
     def __str__(self) -> str:
         """Получение строкового представления."""
-        return f"{self.keys}"
+        return f"{list(self.keys)}"
 
     @staticmethod
     def _check_byte_array(byte_array: bytearray) -> bool:

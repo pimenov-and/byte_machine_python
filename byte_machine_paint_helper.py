@@ -4,7 +4,8 @@ ByteMachine.
 Хелперы для графических операций.
 """
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import byte_machine_paint as bmp
@@ -13,12 +14,20 @@ import unittest
 
 def save_state_op_to_byte_array() -> bytearray:
     """Конвертация SaveStateOp в байтовый массив."""
-    return bmp.SaveStateOp().to_byte_array()
+    op = bmp.SaveStateOp()
+    return op.to_byte_array()
 
 
 def restore_state_op_to_byte_array() -> bytearray:
     """Конвертация RestoreStateOp в байтовый массив."""
-    return bmp.RestoreStateOp().to_byte_array()
+    op = bmp.RestoreStateOp()
+    return op.to_byte_array()
+
+
+def set_clip_rect_op_to_byte_array(rect: bmp.bmg.Rect) -> bytearray:
+    """Конвертация SetClipRectOp в байтовый массив."""
+    op = bmp.SetClipRectOp.create(rect)
+    return op.to_byte_array()
 
 
 def transform_translate_op_to_byte_array(x: float, y: float) -> bytearray:
@@ -39,12 +48,6 @@ def transform_scale_op_to_byte_array(x: float, y: float) -> bytearray:
     return op.to_byte_array()
 
 
-def set_antialiasing_op_to_byte_array(antialiasing: bool = True) -> bytearray:
-    """Конвертация SetAntialiasingOp в байтовый массив."""
-    op = bmp.SetAntialiasingOp.create(antialiasing)
-    return op.to_byte_array()
-
-
 def set_pen_op_to_byte_array(pen: bmp.bmg.Pen) -> bytearray:
     """Конвертация SetPenOp в байтовый массив."""
     op = bmp.SetPenOp.create(pen)
@@ -57,9 +60,16 @@ def set_brush_op_to_byte_array(brush: bmp.bmg.Brush) -> bytearray:
     return op.to_byte_array()
 
 
-def set_font_op_to_byte_array():
+def set_font_op_to_byte_array(font: bmp.bmg.Font) -> bytearray:
     """Конвертация SetFontOp в байтовый массив."""
-    pass
+    op = bmp.SetFontOp.create(font)
+    return op.to_byte_array()
+
+
+def set_antialiasing_op_to_byte_array(antialiasing: bool = True) -> bytearray:
+    """Конвертация SetAntialiasingOp в байтовый массив."""
+    op = bmp.SetAntialiasingOp.create(antialiasing)
+    return op.to_byte_array()
 
 
 def draw_point_op_to_byte_array(point: bmp.bmg.Point) -> bytearray:
@@ -76,7 +86,8 @@ def draw_point_op_to_byte_array_2(x: int, y: int) -> bytearray:
 
 def draw_points_op_to_byte_array(points: list) -> bytearray:
     """Конвертация DrawPointsOp в байтовый массив."""
-    pass
+    op = bmp.DrawPointsOp.create(points)
+    return op.to_byte_array()
 
 
 def draw_pointf_op_to_byte_array(point: bmp.bmg.PointF) -> bytearray:
@@ -94,7 +105,8 @@ def draw_pointf_op_to_byte_array_2(x: float, y: float) -> bytearray:
 
 def draw_pointsf_op_to_byte_array(points: list) -> bytearray:
     """Конвертация DrawPointsfOp в байтовый массив."""
-    pass
+    op = bmp.DrawPointsfOp.create(points)
+    return op.to_byte_array()
 
 
 def draw_rect_op_to_byte_array(rect: bmp.bmg.Rect) -> bytearray:
@@ -119,7 +131,8 @@ def draw_rect_op_to_byte_array_3(left: int, top: int, width: int,
 
 def draw_rects_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawRectsOp в байтовый массив."""
-    pass
+    op = bmp.DrawRectsOp.create(rects)
+    return op.to_byte_array()
 
 
 def draw_rectf_op_to_byte_array(rect: bmp.bmg.RectF) -> bytearray:
@@ -144,7 +157,8 @@ def draw_rectf_op_byte_array_3(left: float, top: float, width: float,
 
 def draw_rectsf_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawRectsfOp в байтовый массив."""
-    pass
+    op = bmp.DrawRectsfOp.create(rects)
+    return op.to_byte_array()
 
 
 def draw_line_op_to_byte_array(line: bmp.bmg.Line) -> bytearray:
@@ -169,7 +183,8 @@ def draw_line_op_to_byte_array_3(x_1: int, y_1: int,
 
 def draw_lines_op_to_byte_array(lines: list) -> bytearray:
     """Конвертация DrawLinesOp в байтовый массив."""
-    pass
+    op = bmp.DrawLinesOp.create(lines)
+    return op.to_byte_array()
 
 
 def draw_linef_op_to_byte_array(line: bmp.bmg.LineF) -> bytearray:
@@ -194,7 +209,8 @@ def draw_linef_op_to_byte_array_3(x_1: float, y_1: float,
 
 def draw_linesf_op_to_byte_array(lines: list) -> bytearray:
     """Конвертация DrawLinesfOp в байтовый массив."""
-    pass
+    op = bmp.DrawLinesOp.create(lines)
+    return op.to_byte_array()
 
 
 def draw_ellipse_op_to_byte_array(rect: bmp.bmg.Rect) -> bytearray:
@@ -219,7 +235,8 @@ def draw_ellipse_op_to_byte_array_3(left: int, top: int, width: int,
 
 def draw_ellipses_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawEllipsesOp в байтовый массив."""
-    pass
+    op = bmp.DrawEllipsesOp.create(rects)
+    return op.to_byte_array()
 
 
 def draw_ellipsef_op_to_byte_array(rect: bmp.bmg.RectF) -> bytearray:
@@ -242,9 +259,10 @@ def draw_ellipsef_op_to_byte_array_3(left: float, top: float, width: float,
     return draw_ellipsef_op_to_byte_array(rect)
 
 
-def draw_ellipsesf_op_to_byte_array(rects: []) -> bytearray:
+def draw_ellipsesf_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawEllipsesfOp в байтовый массив."""
-    pass
+    op = bmp.DrawEllipsesfOp.create(rects)
+    return op.to_byte_array()
 
 
 def draw_round_rect_op_to_byte_array(rect: bmp.bmg.RoundRect) -> bytearray:
@@ -253,9 +271,10 @@ def draw_round_rect_op_to_byte_array(rect: bmp.bmg.RoundRect) -> bytearray:
     return op.to_byte_array()
 
 
-def draw_round_rects_op_to_byte_array(rects: []) -> bytearray:
+def draw_round_rects_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawRoundRectsOp в байтовый массив."""
-    pass
+    op = bmp.DrawRoundRectsOp.create(rects)
+    return op.to_byte_array()
 
 
 def draw_round_rectf_op_to_byte_array(rect: bmp.bmg.RoundRectF) -> bytearray:
@@ -264,19 +283,37 @@ def draw_round_rectf_op_to_byte_array(rect: bmp.bmg.RoundRectF) -> bytearray:
     return op.to_byte_array()
 
 
-def draw_round_rectsf_op_to_byte_array() -> bytearray:
+def draw_round_rectsf_op_to_byte_array(rects: list) -> bytearray:
     """Конвертация DrawRoundRectsfOp в байтовый массив."""
-    pass
+    op = bmp.DrawRoundRectsfOp.create(rects)
+    return op.to_byte_array()
 
 
-def draw_polygon_op_to_byte_array() -> bytearray:
+def draw_polygon_op_to_byte_array(points: list) -> bytearray:
     """Конвертация DrawPolygonOp в байтовый массив."""
-    pass
+    op = bmp.DrawPolygonOp.create(points)
+    return op.to_byte_array()
 
 
-def draw_polygonf_op_to_byte_array() -> bytearray:
+def draw_polygonf_op_to_byte_array(points: list) -> bytearray:
     """Конвертация DrawPolygofOp в байтовый массив."""
-    pass
+    op = bmp.DrawPolygonfOp.create(points)
+    return op.to_byte_array()
+
+
+def draw_image_op_to_byte_array(path: bmp.bmg.String, point: bmp.bmg.PointF,
+                                align: bmp.AlignFlags) -> bytearray:
+    """Конвертация DrawImageOp в байтовый массив."""
+    op = bmp.DrawImageOp.create(path, point, align)
+    return op.to_byte_array()
+
+
+def draw_image_op_to_byte_array_2(path: str,
+                                  point: bmp.bmg.PointF,
+                                  align: bmp.AlignFlags) -> bytearray:
+    """Конвертация DrawImageOp в байтовый массив 2."""
+    p = bmp.bmg.String.create(path)
+    return draw_image_op_to_byte_array(p, point, align)
 
 
 def draw_text_op_to_byte_array(text: bmp.bmg.String, point: bmp.bmg.PointF,
@@ -311,15 +348,13 @@ class TestOpFuncs(unittest.TestCase):
         code = bmp.get_op_code(ba)
         self.assertEqual(code, bmp.DrawOpCodes.RESTORE_STATE)
 
-    def test_set_antialiasing_op_to_byte_array(self):
-        """Тест функции set_antialiasing_op_to_byte_array."""
-        ba = set_antialiasing_op_to_byte_array()
-        self.assertTrue(len(ba) == 4)
-        code = bmp.get_op_code(ba)
-        self.assertEqual(code, bmp.DrawOpCodes.SET_ANTIALIASING)
-        op = bmp.SetAntialiasingOp()
+    def test_set_clip_rect_op_to_byte_array(self):
+        """Тест функции set_clip_rect_op_to_byte_array."""
+        rect = bmp.bmg.Rect.create_2(100, 100, 200, 200)
+        ba = set_clip_rect_op_to_byte_array(rect)
+        op = bmp.SetClipRectOp()
         op.from_byte_array(ba)
-        self.assertTrue(op.antialiasing)
+        self.assertEqual(op.rect, rect)
 
     def test_transform_translate_op_to_byte_array(self):
         """Тест функции transform_translate_op_to_byte_array."""
@@ -344,45 +379,87 @@ class TestOpFuncs(unittest.TestCase):
         self.assertAlmostEqual(op.x, 2.0)
         self.assertAlmostEqual(op.y, 2.0)
 
+    def test_set_pen_op_to_byte_array(self):
+        """Тест функции set_pen_op_to_byte_array."""
+        pen = bmp.bmg.Pen.create(bmp.bmg.Color.get_red())
+        ba = set_pen_op_to_byte_array(pen)
+        op = bmp.SetPenOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.pen, pen)
+
+    def test_set_brush_op_to_byte_array(self):
+        """Тест функции set_brush_op_to_byte_array."""
+        brush = bmp.bmg.Brush.create(bmp.bmg.Color.get_green())
+        ba = set_brush_op_to_byte_array(brush)
+        op = bmp.SetBrushOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.brush, brush)
+
+    def test_set_font_op_to_byte_array(self):
+        """Тест функции set_font_op_to_byte_array."""
+        font = bmp.bmg.Font.create_2("Arial", 10, True)
+        ba = set_font_op_to_byte_array(font)
+        op = bmp.SetFontOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.font, font)
+
+    def test_set_antialiasing_op_to_byte_array(self):
+        """Тест функции set_antialiasing_op_to_byte_array."""
+        ba = set_antialiasing_op_to_byte_array()
+        self.assertTrue(len(ba) == 4)
+        code = bmp.get_op_code(ba)
+        self.assertEqual(code, bmp.DrawOpCodes.SET_ANTIALIASING)
+        op = bmp.SetAntialiasingOp()
+        op.from_byte_array(ba)
+        self.assertTrue(op.antialiasing)
+
     def test_draw_point_op_to_byte_array(self):
         """Тест функции draw_points_op_to_byte_array."""
-        # pt = bmp.bmg.Point.create(100, 200)
-        # ba = draw_point_op_to_byte_array(pt)
-        # op = bmp.DrawPointOp()
-        # op.from_byte_array(ba)
-        # self.assertEqual(op.point, pt)
+        pt = bmp.bmg.Point.create(100, 200)
+        ba = draw_point_op_to_byte_array(pt)
+        op = bmp.DrawPointOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.point, pt)
 
-        # x = 10
-        # y = 20
-        # ba = draw_point_op_to_byte_array_2(x, y)
-        # op.from_byte_array(ba)
-        # self.assertEqual(op.point.x(), x)
-        # self.assertEqual(op.point.y(), y)
-        pass
+        x = 10
+        y = 20
+        ba = draw_point_op_to_byte_array_2(x, y)
+        op.from_byte_array(ba)
+        self.assertEqual(op.point.x, x)
+        self.assertEqual(op.point.y, y)
 
     def test_draw_points_op_to_byte_array(self):
         """Тест функции draw_points_op_to_byte_array."""
-        # ba = draw_points_op_to_byte_array()
+        point = bmp.bmg.Point.create(100, 100)
+        points = [point] * 10
+        ba = draw_points_op_to_byte_array(points)
+        op = bmp.DrawPointsOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.points, points)
 
     def test_draw_pointf_op_to_byte_array(self):
         """Тест функции draw_pointf_op_to_byte_array."""
-        # pt = bmp.bmg.PointF.create(100.0, 200.0)
-        # ba = draw_pointf_op_to_byte_array(pt)
-        # op = bmp.DrawPointfOp()
-        # op.from_byte_array(ba)
-        # self.assertEqual(op.point, pt)
+        pt = bmp.bmg.PointF.create(100.0, 200.0)
+        ba = draw_pointf_op_to_byte_array(pt)
+        op = bmp.DrawPointfOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.point, pt)
 
-        # x = 10.0
-        # y = 20.0
-        # ba = draw_pointf_op_to_byte_array_2(x, y)
-        # op.from_byte_array(ba)
-        # self.assertAlmostEqual(op.point.x(), x)
-        # self.assertAlmostEqual(op.point.y(), y)
-        pass
+        x = 10.0
+        y = 20.0
+        ba = draw_pointf_op_to_byte_array_2(x, y)
+        op.from_byte_array(ba)
+        self.assertAlmostEqual(op.point.x, x)
+        self.assertAlmostEqual(op.point.y, y)
 
     def test_draw_pointsf_op_to_byte_array(self):
         """Тест функции draw_pointsf_op_to_byte_array."""
-        pass
+        point = bmp.bmg.PointF.create(100.0, 100.0)
+        points = [point] * 10
+        ba = draw_pointsf_op_to_byte_array(points)
+        op = bmp.DrawPointsfOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.points, points)
 
     def test_draw_ellipse_op_to_byte_array(self):
         """Тест функции draw_ellipse_op_to_byte_array."""
@@ -394,8 +471,12 @@ class TestOpFuncs(unittest.TestCase):
 
     def test_draw_ellipses_op_to_byte_array(self):
         """Тест функции draw_ellipses_op_to_byte_array."""
-        # ba = draw_ellipses_op_to_byte_array()
-        pass
+        rect = bmp.bmg.Rect.create_2(100, 100, 200, 200)
+        rects = [rect] * 10
+        ba = draw_ellipses_op_to_byte_array(rects)
+        op = bmp.DrawEllipsesOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.rects, rects)
 
     def test_draw_ellipsef_op_to_byte_array(self):
         """Тест функции draw_ellipsef_op_to_byte_array."""
@@ -403,13 +484,16 @@ class TestOpFuncs(unittest.TestCase):
         ba = draw_ellipsef_op_to_byte_array(rect)
         op = bmp.DrawEllipsefOp()
         op.from_byte_array(ba)
-        # print(op.rect)
-        # self.assertEqual(op.rect, rect)
+        self.assertEqual(op.rect, rect)
 
     def test_draw_ellipsesf_op_to_byte_array(self):
         """Тест функции draw_ellipsesf_op_to_byte_array."""
-        # ba = draw_ellipsesf_op_to_byte_array()
-        pass
+        rect = bmp.bmg.RectF.create_2(100.0, 100.0, 200.0, 200.0)
+        rects = [rect] * 10
+        ba = draw_ellipsesf_op_to_byte_array(rects)
+        op = bmp.DrawEllipsesfOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.rects, rects)
 
     def test_draw_round_rect_op_to_byte_array(self):
         """Тест функции draw_round_rect_op_to_byte_array."""
@@ -422,7 +506,12 @@ class TestOpFuncs(unittest.TestCase):
 
     def test_draw_round_rects_op_to_byte_array(self):
         """Тест функции draw_round_rects_op_to_byte_array."""
-        pass
+        rect = bmp.bmg.Rect.create_2(100, 100, 200, 200)
+        rrect = bmp.bmg.RoundRect.create(rect, 10, 10)
+        rrects = [rrect] * 10
+        ba = draw_round_rects_op_to_byte_array(rrects)
+        op = bmp.DrawRoundRectsOp()
+        op.from_byte_array(ba)
 
     def test_draw_round_rectf_op_to_byte_array(self):
         """Тест функции draw_round_rectf_op_to_byte_array."""
@@ -434,7 +523,13 @@ class TestOpFuncs(unittest.TestCase):
 
     def test_draw_round_rectsf_op_to_byte_array(self):
         """Тест функции draw_round_rectsf_op_to_byte_array."""
-        pass
+        rect = bmp.bmg.RectF.create_2(100.0, 100.0, 200.0, 200.0)
+        rrect = bmp.bmg.RoundRectF.create(rect, 10.0, 10.0)
+        rrects = [rrect] * 10
+        ba = draw_round_rectsf_op_to_byte_array(rrects)
+        op = bmp.DrawRoundRectsfOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.rects, rrects)
 
     def test_draw_polyline_op_to_byte_array(self):
         """Тест функции draw_polyline_op_to_byte_array."""
@@ -460,20 +555,33 @@ class TestOpFuncs(unittest.TestCase):
         """Тест функции draw_text_op_to_byte_array."""
         text = bmp.bmg.String.create("ByteMachine")
         point = bmp.bmg.PointF.create(100.0, 100.0)
-        align = bmp.AlignmentFlags.ALIGN_LEFT | bmp.AlignmentFlags.ALIGN_TOP
+        align = bmp.AlignFlags.create(bmp.HorzAlignFlags.LEFT,
+                                      bmp.VertAlignFlags.TOP)
         ba = draw_text_op_to_byte_array(text, point, align)
         op = bmp.DrawTextOp()
         op.from_byte_array(ba)
 
     def test_draw_text_op_to_byte_array_2(self):
         """Тест функции draw_text_op_to_byte_array."""
-        # ba = draw_text_op_to_byte_array()
-        pass
+        text = "ByteMachine"
+        point = bmp.bmg.PointF.create(100.0, 100.0)
+        align = bmp.AlignFlags.create(bmp.HorzAlignFlags.LEFT,
+                                      bmp.VertAlignFlags.TOP)
+        ba = draw_text_op_to_byte_array_2(text, point, align)
+        op = bmp.DrawTextOp()
+        op.from_byte_array(ba)
 
     def test_draw_image_op_to_byte_array(self):
         """Тест функции draw_image_op_to_byte_array."""
-        # ba = draw_image_op_to_byte_array()
-        pass
+        path = bmp.bmg.String.create("1.png")
+        point = bmp.bmg.PointF.create(100.0, 100.0)
+        align = bmp.AlignFlags()
+        ba = draw_image_op_to_byte_array(path, point, align)
+        op = bmp.DrawImageOp()
+        op.from_byte_array(ba)
+        self.assertEqual(op.path, path)
+        self.assertEqual(op.point, point)
+        self.assertEqual(op.align, align)
 
 
 # Вызывается при загрузке модуля главным.

@@ -7,7 +7,8 @@ from __future__ import annotations
 
 
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import unittest
@@ -78,6 +79,11 @@ class Designer:
         """Получение длины массива байтов."""
         return 25
 
+    @staticmethod
+    def s_get_byte_array_len() -> int:
+        """Получение размера байтового массива."""
+        return 25
+
     def __eq__(self, other: Designer) -> bool:
         """Оператор ==."""
         is_eq_size = (self.size == other.size)
@@ -93,8 +99,14 @@ class Designer:
 
     def __str__(self) -> str:
         """Получение строкового представления."""
-        return f"({self.size}), ({self.viewport_size}),"\
-            f" {self.horz_scroll_pos}, {self.vert_scroll_pos}"
+        size = self.size
+        viewport_size = self.viewport_size
+        horz_scroll_pos = self.horz_scroll_pos
+        vert_scroll_pos = self.vert_scroll_pos
+        return f"size: ({size}), "\
+            f"viewport_size: ({viewport_size}), "\
+            f"horz_scroll_pos: {horz_scroll_pos}, "\
+            f"vert_scroll_pos: {vert_scroll_pos}"
 
 
 class TestDesigner(unittest.TestCase):
@@ -161,6 +173,12 @@ class TestDesigner(unittest.TestCase):
         d = Designer()
         ba = d.to_byte_array()
         self.assertEqual(len(ba), d.get_byte_array_len())
+
+    def test_s_get_byte_array_len(self):
+        """Тест функции s_get_byte_array_len."""
+        lenght = Designer.s_get_byte_array_len()
+        d = Designer()
+        self.assertEqual(lenght, d.get_byte_array_len())
 
     def test_equal(self):
         """Тест оператора ==."""

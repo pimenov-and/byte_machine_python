@@ -4,56 +4,35 @@ ByteMachine.
 Генерация файла с графическими операциями.
 """
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9133"
 
 
-import byte_machine_paint as bmp
-
-
-def get_pen() -> bytearray:
-    op = bmp.SetPenOp()
-    op.pen.width = 8
-    op.pen.color = bmp.bmg.Color.get_green()
-    return op.to_byte_array()
-
-
-def get_brush() -> bytearray:
-    op = bmp.SetBrushOp()
-    op.brush.color = bmp.bmg.Color.get_dark_red()
-    return op.to_byte_array()
-
-
-def get_line(x_1: int, y_1: int, x_2: int, y_2: int) -> bytearray:
-    op = bmp.DrawLineOp.create_3(x_1, y_1, x_2, y_2)
-    return op.to_byte_array()
-
-
-def get_lines() -> bytearray:
-    ba = bytearray()
-    for i in range(-100, 100):
-        ba += get_line(i * 40, -2000, i * 40 + 50, 2000)
-    return ba
-
-
-def get_rect(left: int, top: int, width: int, height: int) -> bytearray:
-    ba = bytearray()
-    op = bmp.DrawRectOp.create(bmp.bmg.Rect.create_2(left, top, width, height))
-    ba += op.to_byte_array()
-    return ba
-
-
-def get_rects() -> bytearray:
-    ba = bytearray()
-    for i in range(100):
-        for j in range(100):
-            ba += get_rect(i * 30 + 10, j * 30 + 10, 20, 20)
-    return ba
+import byte_machine_paint_helper as bmph
 
 
 with open("F:/paint_ops.bin", "wb") as f:
     ba = bytearray()
-    # print(get_pen())
-    ba += get_pen()
-    ba += get_brush()
-    ba += get_rects()
+
+    path = "C:/Users/pimen/Pictures/pribor.png"
+    align = bmph.bmp.AlignFlags.create(bmph.bmp.HorzAlignFlags.CENTER,
+                                       bmph.bmp.VertAlignFlags.CENTER)
+    for i in range(20):
+        for j in range(20):
+            # Координаты
+            x = 70 + 150.0 * i
+            y = 70 + 150.0 * j
+
+            # Вывод изображения
+            point_image = bmph.bmp.bmg.PointF.create(x, y)
+            ba += bmph.draw_image_op_to_byte_array_2(path, point_image, align)
+
+            # Задание шрифта
+            font = bmph.bmp.bmg.Font.create_2("Courier New", 18, True)
+            ba += bmph.set_font_op_to_byte_array(font)
+
+            # Вывод текста
+            text = str(i) + ":" + str(j)
+            point_text = bmph.bmp.bmg.PointF.create(x, y + 75)
+            ba += bmph.draw_text_op_to_byte_array_2(text, point_text, align)
+
     f.write(ba)

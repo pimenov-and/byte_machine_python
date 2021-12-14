@@ -4,7 +4,8 @@ ByteMachine.
 Функции преобразования значений в массивы байтов и обратно.
 """
 __author__ = "EnergyLabs"
-__version__ = "0.9129"
+__version__ = "0.9137"
+__email__ = "energy.labs@yandex.ru"
 
 
 import struct
@@ -748,7 +749,7 @@ class TestListConvert(unittest.TestCase):
 
     def test_float_list_to_byte_array(self):
         """Тест функции float_list_to_byte_array."""
-        vl = [0.0, 0.0]
+        vl = [0.0] * 2
         ba = float_list_to_byte_array(vl)
         self.assertEqual(ba, bytearray([0] * 8))
 
