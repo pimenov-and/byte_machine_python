@@ -1,1 +1,1 @@
-# byte_machine_python
+# Библиотека byte_machine_python
